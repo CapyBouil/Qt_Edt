@@ -1,10 +1,12 @@
-#ifndef EMPLOIDUTEMPS_H
-#define EMPLOIDUTEMPS_H
+#include Creneau.h
+#include ECUE.h
 
-class EmploiDuTemps
+class Creneau
 {
+private:
+    Creneau[] creneaux;
+    
 public:
-    EmploiDuTemps();
-};
-
-#endif // EMPLOIDUTEMPS_H
+    void ajouteCreneau();
+    void afficheEdt(); 
+}

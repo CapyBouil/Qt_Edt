@@ -1,10 +1,20 @@
-#ifndef CRENEAU_H
-#define CRENEAU_H
+#ifndef Creneau.h
+#define Creneau.h
 
-class Creneau
-{
+#include Salle.h
+#include Classe.h
+#include ECUE.h
+
+class Creneau{
+    
 public:
-    Creneau();
-};
+    ajouter_salle(Salle salle);
+    supprimer_salle(Salle salle);
+    ajouter_classe(Classe classe);
+    supprimer_classe(Classe classe);
+    ajouter_ECUE(ECUE ecue);
+    supprimer_ECUE(ECUE ecue);
+    
+}
 
-#endif // CRENEAU_H
+#endif
