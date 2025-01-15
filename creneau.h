@@ -1,5 +1,5 @@
-#ifndef Creneau.h
-#define Creneau.h
+#ifndef CRENEAU.H
+#define CRENEAU.H
 
 #include Salle.h
 #include Classe.h
