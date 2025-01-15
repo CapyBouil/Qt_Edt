@@ -22,5 +22,5 @@ public :
     void supprimerEtudiant(std::string& nom, std::string& prenom);
     void afficherClasse();
 
-}
+};
 #endif
