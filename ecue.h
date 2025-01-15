@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "enseignant.h"
 
 using namespace std;
 

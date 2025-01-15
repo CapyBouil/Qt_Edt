@@ -19,7 +19,7 @@ public:
     // Getters
     std::string getNom() const;
     std::string getPrenom() const;
-    int getId() const
+    int getId();const
 
         //Méthode AFFICHE
         void affiche() ;
