@@ -1,0 +1,11 @@
+release/classe.o
+release/creneau.o
+release/ecue.o
+release/emploidutemps.o
+release/enseignant.o
+release/etudiant.o
+release/main.o
+release/mainwindow.o
+release/personne.o
+release/salle.o
+release/moc_mainwindow.o
