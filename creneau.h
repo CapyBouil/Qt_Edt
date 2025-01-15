@@ -1,11 +1,12 @@
-#ifndef CRENEAU_H
-#define CRENEAU_H
+#ifndef creneau.h
+#define creneau.h
 
 #include "salle.h"
 #include "classe.h"
 #include "ecue.h"
 #include "enseignant.h"
 #include <string>
+
 
 /**
  * @class Creneau
