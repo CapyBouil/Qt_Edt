@@ -26,9 +26,9 @@ std::string ECUE::getTypeECUE()
 {
     return this->typeECUE;
 }
-void ECUE::setTypeECUE(std::string type)
+void ECUE::setTypeECUE(std::string typeECUE)
 {
-    this->typeUCUE = type;
+    this->typeECUE = typeECUE;
 }
 
 float ECUE::getNbHeures()
@@ -45,10 +45,25 @@ void ECUE::setNomECUE(float nb)
 //Methodes pour affecter un enseigant a un ECUE
 void ECUE::ajouterEnseignant(Enseignant e)
 {
-
+    enseignants.push_back(e);
 }
 
-void ECUE::spprimerEnseignant(Enseignant enseignant)
+void ECUE::supprimerEnseignant(Enseignant e)
 {
-
+    for (size_t i = 0; i < enseignants.size(); ++i) {
+        if (enseignants[i].getNom() == e.getNom() && enseignants[i].getPrenom() == e.getPrenom()) {
+            enseignants.erase(enseignants.begin() + i);
+            std::cout << "Enseignant supprimé : " << e.getNom() << " " << e.getPrenom() << "\n";
+            return;
+        }
+    }
 }
+
+void ECUE::afficherEnseignants()
+{
+    std::cout << "Enseignants pour l'ECUE " << nomECUE << " :\n";
+    for (const auto& e : enseignants) {
+        std::cout << "- " << e.getNom() << " " << e.getPrenom() << "\n";
+    }
+}
+
