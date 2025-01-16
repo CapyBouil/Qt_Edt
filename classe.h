@@ -20,7 +20,7 @@ public :
     int getId();
     void ajouterEtudiant(Etudiant& etudiant);
     void supprimerEtudiant(std::string& nom, std::string& prenom);
-    void afficherClasse();
+    void affiche();
 
 };
 #endif

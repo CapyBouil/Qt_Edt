@@ -33,8 +33,7 @@ public:
     float getNbHeures();
     void setNomECUE(float nb);
 
-    void afficherEnseignants();
-
+    void affiche();
 
 };
 

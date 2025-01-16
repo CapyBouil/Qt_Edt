@@ -59,10 +59,7 @@ void ECUE::supprimerEnseignant(Enseignant e)
     }
 }
 
-void ECUE::afficherEnseignants()
+void ECUE::affiche()
 {
-    std::cout << "Enseignants pour l'ECUE " << nomECUE << " :\n";
-    for (const auto& e : enseignants) {
-        std::cout << "- " << e.getNom() << " " << e.getPrenom() << "\n";
-    }
+
 }

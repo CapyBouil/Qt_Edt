@@ -46,7 +46,7 @@ void Classe::supprimerEtudiant(std::string& nom, std::string& prenom)
     std::cout << "Etudiant non trouvé: " << nom << " " << prenom << std::endl;
 }
 
-void Classe::afficherClasse()
+void Classe::affiche()
 {
     std::cout << "Classe: " << nomClasse << " (ID: " << id << ")/n";
     if (etudiants.empty())

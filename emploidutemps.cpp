@@ -3,4 +3,4 @@
 EmploiDuTemps::EmploiDuTemps() {}
 
 void ajouteCreneau(){}
-void afficheEdt(){}
+void affiche(){}
