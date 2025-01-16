@@ -6,23 +6,21 @@
 
 class Etudiant : public Personne {
 private:
-    
+
 public:
     // Constructeurs
     Etudiant();
     Etudiant(std::string prenom, std::string nom);
     Etudiant(std::string prenom, std::string nom,int id);
-    
-    
+
+
     // Getters
-    std::string Etudiant::getNom() const {
-        return Personne::getNom();}
-    
-    std::string Etudiant::getPrenom() const {
-        return Personne::getPrenom();}
-    
+    std::string getNom() const;
+
+    std::string getPrenom() const;
+
     // Méthode affiche
-    void affiche() override;
+    void affiche();
 };
 
 #endif
