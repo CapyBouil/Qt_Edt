@@ -66,4 +66,3 @@ void ECUE::afficherEnseignants()
         std::cout << "- " << e.getNom() << " " << e.getPrenom() << "\n";
     }
 }
-
