@@ -1,8 +1,8 @@
 #include "Enseignant.h"
 
-//Constructeurs vide
+//Constructeurs
 Enseignant::Enseignant() {
-    Ecue = "";}
+    }
 
 Enseignant::Enseignant(std::string prenom, std::string nom, std::string Ecue)
     : Personne(prenom, nom)
@@ -16,10 +16,10 @@ Enseignant::Enseignant(std::string prenom, std::string nom,int id, std::string E
 
 //Getters
 std::string Enseignant::getNom() const {
-    return Personne::getNom();}
+    return Personne::nom();}
 
 std::string Enseignant::getPrenom() const {
-    return Personne::getPrenom();}
+    return Personne::prenom();}
 
 std::string Enseignant::getEcue() const{
     return this->matiere;}
