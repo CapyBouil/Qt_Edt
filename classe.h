@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "Etudiant.h"
+#include "etudiant.h"
 
 class Classe{
 private :

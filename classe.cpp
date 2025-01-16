@@ -34,7 +34,7 @@ void Classe::ajouterEtudiant(Etudiant& etudiant)
 
 void Classe::supprimerEtudiant(std::string& nom, std::string& prenom)
 {
-    for(liste = etudiants.begin; liste != etudiants.end(); ++liste)
+    for(auto liste = etudiants.begin(); liste != etudiants.end(); ++liste)
     {
         if (liste->getNom() == nom && liste->getPrenom() == prenom)
         {
@@ -46,7 +46,7 @@ void Classe::supprimerEtudiant(std::string& nom, std::string& prenom)
     std::cout << "Etudiant non trouvé: " << nom << " " << prenom << std::endl;
 }
 
-void Classe::afficherClasse() const
+void Classe::afficherClasse()
 {
     std::cout << "Classe: " << nomClasse << " (ID: " << id << ")/n";
     if (etudiants.empty())
@@ -54,9 +54,9 @@ void Classe::afficherClasse() const
         std::cout << "Aucun étudiant dans la classe" << std::endl;
     } else
     {
-        for (liste = etudiants.begin; liste != etudiants.end(); liste++)
+        for (auto liste = etudiants.begin(); liste != etudiants.end(); liste++)
         {
-        Etudiant:affiche();
+            liste->affiche();
         }
     }
 }
