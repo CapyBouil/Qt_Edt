@@ -164,7 +164,7 @@ void testSalle(){
 void testCreneau(){
     // Création des objets nécessaires pour tester la classe Creneau
     Salle salle(2, 202, 3);
-    Classe classe("E4", 101);
+    Classe classe("E4e A", 101);
     ECUE ecue("Algebre", "Cours Magistral", 45.0);
     Enseignant enseignant("John", "Doe", "Mathematics");
 
@@ -180,7 +180,7 @@ void testCreneau(){
     creneau.affiche();
 
     // Modification d'un des attributs du créneau
-    Classe nouvelle_classe("Classe B");
+    Classe nouvelle_classe("E4e B");
     creneau.setClasse(nouvelle_classe);
 
     // Affichage après modification

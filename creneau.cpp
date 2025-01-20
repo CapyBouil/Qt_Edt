@@ -173,16 +173,23 @@ void Creneau::supprimeEnseignant()
 
 int Creneau::getMaxId()
 {
-    QFile file("creneau.csv"); // Vérifiez si le fichier peut être ouvert en lecture
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Impossible d'ouvrir le fichier :" << file.errorString(); return -1;
+    int maxIdClasse = 0;
+
+    QFile fileClasse("../../data/creneau.csv");
+    fileClasse.open(QIODevice::ReadOnly | QIODevice::Text );
+
+    QTextStream tsClasse(&fileClasse);
+
+    QString lineClasse = tsClasse.readLine(); // en-tête
+    while(!tsClasse.atEnd()){
+        lineClasse = tsClasse.readLine();
+        QStringList liste = lineClasse.split(";");
+        if(liste[0].toInt()>maxIdClasse){
+            maxIdClasse = liste[0].toInt();
+        }
     }
-    QTextStream in(&file);
-    QString lastLine; // Lire les lignes du fichier jusqu'à la fin
-    while (!in.atEnd()) {
-        lastLine = in.readLine();
-    }
-    file.close(); // Séparer la dernière ligne par les virgules
-    QStringList fields = lastLine.split(','); // Retourner la valeur de la première colonne (id) convertie en entier
-    return fields.at(0).toInt();
+
+    fileClasse.close();
+
+    return maxIdClasse;
 }
