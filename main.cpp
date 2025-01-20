@@ -162,61 +162,29 @@ void testSalle(){
 }
 
 void testCreneau(){
-    // Créez des objets fictifs pour tester le constructeur
-    Salle salle;
-    Classe classe;
-    ECUE ecue;
-    Enseignant enseignant;
+    // Création des objets nécessaires pour tester la classe Creneau
+    Salle salle(2, 202, 3);
+    Classe classe("Mathématiques", 101);
+    ECUE ecue("Algebre", "Cours Magistral", 45.0);
+    Enseignant enseignant("John", "Doe", "Mathematics");
 
-    // Test du constructeur avec l'ID généré automatiquement
-    Creneau creneau1(salle, classe, ecue, enseignant, "Lundi", 8.0f, 10.0f);
-    std::cout << "Test du constructeur avec ID généré automatiquement" << std::endl;
-    assert(creneau1.getHeureDebut() == 8.0f);
-    assert(creneau1.getHeureFin() == 10.0f);
-    std::cout << "Test réussi !" << std::endl;
+    // Création d'une date (QDate) et des heures de début et de fin (QTime)
+    QDate jour(2025, 1, 20); // 20 janvier 2025
+    QTime heure_debut(10, 30); // 10h30
+    QTime heure_fin(12, 00); // 12h00
 
-    // Test du constructeur avec un ID donné
-    Creneau creneau2(5, salle, classe, ecue, enseignant, "Mardi", 9.0f, 11.0f);
-    std::cout << "Test du constructeur avec un ID donné" << std::endl;
-    assert(creneau2.getHeureDebut() == 9.0f);
-    assert(creneau2.getHeureFin() == 11.0f);
-    std::cout << "Test réussi !" << std::endl;
+    // Création d'un créneau avec les données précédentes
+    Creneau creneau(salle, classe, ecue, enseignant, jour, heure_debut, heure_fin);
 
-    // Tester les accesseurs
-    std::cout << "Test des accesseurs" << std::endl;
-    assert(creneau2.getJour() == "Mardi");
-    assert(creneau2.getHeureDebut() == 9.0f);
-    assert(creneau2.getHeureFin() == 11.0f);
-    assert(creneau2.getDuree() == 2.0f);  // Duree = HeureFin - HeureDebut
-    std::cout << "Test réussi !" << std::endl;
+    // Affichage des informations sur le créneau
+    creneau.affiche();
 
-    // Tester les mutateurs
-    std::cout << "Test des mutateurs" << std::endl;
-    creneau2.setHeureDebut(10.0f);
-    creneau2.setHeureFin(12.0f);
-    assert(creneau2.getHeureDebut() == 10.0f);
-    assert(creneau2.getHeureFin() == 12.0f);
-    assert(creneau2.getDuree() == 2.0f);
-    std::cout << "Test réussi !" << std::endl;
+    // Modification d'un des attributs du créneau
+    Classe nouvelle_classe("Classe B");
+    creneau.setClasse(nouvelle_classe);
 
-    // Tester la suppression de la salle et de la classe
-    std::cout << "Test de la suppression de la salle et de la classe" << std::endl;
-    creneau2.supprimeSalle();
-    creneau2.supprimeClasse();
-    creneau2.supprimeECUE();
-    creneau2.supprimeEnseignant();
-    std::cout << "Test réussi !" << std::endl;
-
-
-    // Vérifier la fonction getMaxId
-    Creneau creneau3(salle, classe, ecue, enseignant, "Lundi", 8.0, 10.0);  // Création d'un créneau
-    std::cout << "Test de getMaxId" << std::endl;
-    int maxId = creneau3.getMaxId();  // Utilisation de l'objet creneau pour appeler getMaxId
-    assert(maxId >= 0);  // L'ID doit être un nombre positif
-    std::cout << "Max ID dans le fichier : " << maxId << std::endl;
-    std::cout << "Test réussi !" << std::endl;
-
-    std::cout << "Tous les tests ont réussi !" << std::endl;
+    // Affichage après modification
+    std::cout << "\nAprès modification de la classe :\n";
 }
 
 

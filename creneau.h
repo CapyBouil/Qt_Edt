@@ -7,8 +7,9 @@
 #include "enseignant.h"
 #include <string>
 
-#include <fstream>
-#include <string>
+#include <QDate>
+#include <QTime>
+#include <QDateTime>
 
 
 /**
@@ -27,18 +28,18 @@ private:
     Classe classe;
     ECUE ecue;
     Enseignant enseignant;
-    std::string jour; // Format: "YYYY-MM-DD" (Année-Mois-Jour)
-    float heure_debut; // Format: HH.MM (Heure en format 24 heures)
-    float heure_fin; // Format: HH.MM (Heure en format 24 heures)
-    float duree;
+    QDate jour;
+    QTime heure_debut;
+    QTime heure_fin;
+    int duree;
 
     // Methodes
     void setDuree();
 
 public:
     Creneau();
-    Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, std::string jour, float heure_debut, float heure_fin);
-    Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, std::string jour, float heure_debut, float heure_fin);
+    Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
+    Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
 
 
     Salle getSalle() const;
@@ -49,32 +50,24 @@ public:
 
     Enseignant getEnseignant() const;
 
-
-    std::string getJour() const;
-
-    float getHeureDebut() const;
-
-    float getHeureFin() const;
-
-    float getDuree() const;
+    QDate getJour() const;
+    QTime getHeureDebut() const;
+    QTime getHeureFin() const;
+    int getDuree() const;
 
     void setSalle(Salle salle);
 
     void setClasse(Classe classe);
 
-
     void setECUE(ECUE ecue);
-
 
     void setEnseignant(Enseignant enseignant);
 
+    void setJour(const QString& jourStr);
 
-    void setJour(std::string jour);
+    void setHeureDebut(QTime heureDebut);
 
-    void setHeureDebut(float heure_debut);
-
-
-    void setHeureFin(float heure_fin);
+    void setHeureFin(QTime heureFin);
 
 
     void affiche();

@@ -1,8 +1,13 @@
 #include "creneau.h"
 
+#include <sstream>   // Pour std::istringstream
+#include <iomanip>   // Pour std::get_time
+#include <stdexcept> // Pour std::invalid_argument
+#include <iostream>  // Pour std::cout
+#include <fstream>   // Pour std::ifstream
 
 // Constructeurs
-Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, std::string jour, float heure_debut, float heure_fin)
+Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin)
 {
     this->id = getMaxId() + 1;
     this->salle = salle;
@@ -15,7 +20,7 @@ Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, s
     setDuree();
 }
 
-Creneau::Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, std::string jour, float heure_debut, float heure_fin)
+Creneau::Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin)
 {
     this->id = id;
     this->salle = salle;
@@ -31,95 +36,87 @@ Creneau::Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant ensei
 // Accesseurs
 Salle Creneau::getSalle() const
 {
-    return salle; // Retourner la salle du créneau
+    return salle;
 }
 
 Classe Creneau::getClasse() const
 {
-    return classe; // Retourner la classe du créneau
+    return classe;
 }
+
 ECUE Creneau::getECUE() const
 {
-    return ecue; // Retourner l'ECUE du créneau
+    return ecue;
 }
 
 Enseignant Creneau::getEnseignant() const
 {
-    return enseignant; // Retourner l'enseignant du créneau
+    return enseignant;
 }
 
-std::string Creneau::getJour() const
+QDate Creneau::getJour() const
 {
-    return jour; // Retourner le jour du créneau
+    return jour;
 }
 
-float Creneau::getHeureDebut() const
+QTime Creneau::getHeureDebut() const
 {
-    return heure_debut; // Retourner l'heure de début du créneau
+    return heure_debut;
 }
 
-float Creneau::getHeureFin() const
+QTime Creneau::getHeureFin() const
 {
-    return heure_fin; // Retourner l'heure de fin du créneau
+    return heure_fin;
 }
 
-float Creneau::getDuree() const
+int Creneau::getDuree() const
 {
-    return duree; // Retourner la durée du créneau
+    return duree;
 }
 
 // Mutateurs
 void Creneau::setSalle(Salle salle)
 {
-    this->salle = salle; // Assigner la nouvelle salle
+    this->salle = salle;
 }
 
 void Creneau::setClasse(Classe classe)
 {
-    this->classe = classe; // Assigner la nouvelle classe
+    this->classe = classe;
 }
 
 void Creneau::setECUE(ECUE ecue)
 {
-    this->ecue = ecue; // Assigner le nouvel ecue
+    this->ecue = ecue;
 }
-
 
 void Creneau::setEnseignant(Enseignant enseignant)
 {
-    this->enseignant = enseignant; // Assigner le nouvel enseignant
+    this->enseignant = enseignant;
 }
 
-void Creneau::setJour(std::string jour)
+void Creneau::setJour(const QString& jourStr)
 {
-    this->jour = jour; // Assigner le nouveau jour
-}
-
-
-void Creneau::setHeureDebut(float heure_debut)
-{
-    if (heure_debut >= 8.0 && heure_debut < this->heure_fin) { // Conditions de modification
-        this->heure_debut = heure_debut; // Assigner la nouvelle heure de début
-        setDuree(); // Met à jour la durée du créneau
-    } else {
-        std::cerr << "Erreur: L'heure de début doit être supérieure ou égale à 8h et inférieure à l'heure de fin." << std::endl;
+    QDate date = QDate::fromString(jourStr, "yyyy-MM-dd");
+    if (!date.isValid()) {
+        throw std::invalid_argument("Format de date invalide. Attendu: YYYY-MM-DD");
     }
+    jour = date;
 }
 
-
-void Creneau::setHeureFin(float heure_fin)
+void Creneau::setHeureDebut(QTime heureDebut)
 {
-    if (heure_fin > this->heure_debut && heure_fin <= 18.0) { // Conditions de modification
-        this->heure_fin = heure_fin; // Assigner la nouvelle heure de fin
-        setDuree(); // Met à jour la durée du créneau
-    } else {
-        std::cerr << "Erreur: L'heure de fin doit être après l'heure de début et inférieure ou égale à 18h." << std::endl;
-    }
+    this->heure_debut = heureDebut;
+}
+
+void Creneau::setHeureFin(QTime heureFin)
+{
+    this->heure_fin = heureFin;
 }
 
 void Creneau::setDuree()
 {
-    this->duree = heure_fin - heure_debut; // Calculer la durée du créneau
+    duree = heure_debut.secsTo(heure_fin) / 60; // Durée en minutes
 }
 
 // Methodes
@@ -129,10 +126,10 @@ void Creneau::affiche()
     classe.affiche();
     ecue.affiche();
     enseignant.affiche();
-    std::cout << "Jour : " << getJour() << std::endl;
-    std::cout << "Heure de debut : " << getHeureDebut() << std::endl;
-    std::cout << "Heure de fin : " << getHeureFin() << std::endl;
-    std::cout << "Duree : " << getDuree() << std::endl;
+    std::cout << "Jour : " << jour.toString("yyyy-MM-dd").toStdString() << std::endl;
+    std::cout << "Heure de début : " << heure_debut.toString("HH:mm").toStdString() << std::endl;
+    std::cout << "Heure de fin : " << heure_fin.toString("HH:mm").toStdString() << std::endl;
+    std::cout << "Durée : " << duree << " minutes" << std::endl;
 }
 
 void Creneau::ajouteSalle(Salle salle)
@@ -175,8 +172,8 @@ void Creneau::supprimeEnseignant()
     this->enseignant = Enseignant();
 }
 
-
-int Creneau::getMaxId(){
+int Creneau::getMaxId()
+{
     std::ifstream file("data.csv");
     if (!file.is_open()) {
         std::cerr << "Erreur: Impossible d'ouvrir le fichier." << std::endl;

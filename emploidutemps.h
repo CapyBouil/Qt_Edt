@@ -1,10 +1,22 @@
 #ifndef EMPLOIDUTEMPS_H
 #define EMPLOIDUTEMPS_H
 
-class EmploiDuTemps
-{
+#include "Creneau.h"
+#include "ECUE.h"
+
+
+#include <list>
+#include <iostream>
+
+
+class EmploiDuTemps{
+private:
+    std::list<Creneau> creneaux;
+
 public:
     EmploiDuTemps();
-};
 
-#endif // EMPLOIDUTEMPS_H
+    void ajouteCreneau();
+    void afficheEdt();
+};
+#endif
