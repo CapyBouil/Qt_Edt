@@ -4,30 +4,29 @@
 Enseignant::Enseignant() {
     }
 
-Enseignant::Enseignant(std::string prenom, std::string nom, std::string Ecue)
-    : Personne(prenom, nom)
+Enseignant::Enseignant(std::string prenom, std::string nom, std::string ecue)
+        : Personne(prenom, nom)
 {
-    this->ECUE = Ecue;}
+    this->ecue = ecue;
+}
 
-Enseignant::Enseignant(std::string prenom, std::string nom,int id, std::string Ecue)
+
+Enseignant::Enseignant(std::string prenom, std::string nom,int id, std::string ecue)
     : Personne(prenom, nom,id)
 {
-    this->ECUE = Ecue;}
+    this->ecue = ecue;}
 
 //Getters
-std::string Enseignant::getNom() const {
-    return Personne::nom();}
-
-std::string Enseignant::getPrenom() const {
-    return Personne::prenom();}
-
 std::string Enseignant::getEcue() const{
-    return this->matiere;}
+    return this->ecue;
+}
 
-void Enseignant::setECUE(std::string ECUE) {
-    this->ECUE = ecue;}
+void Enseignant::setEcue(std::string ecue) {
+    this->ecue = ecue;
+}
 
 //Méthode AFFICHE
-void Enseignant::affiche() const {
+void Enseignant::affiche() {
     Personne::affiche();
-    std::cout << "ECUE: " << ecue << std::endl;}
+    std::cout << "ECUE: " << ecue << std::endl;
+}

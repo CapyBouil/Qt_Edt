@@ -6,6 +6,7 @@
 
 class Etudiant : public Personne {
 private:
+    int annee;
     
 public:
     // Constructeurs
@@ -13,16 +14,14 @@ public:
     Etudiant(std::string prenom, std::string nom);
     Etudiant(std::string prenom, std::string nom,int id);
     
-    
     // Getters
-    std::string Etudiant::getNom() const {
-        return Personne::getNom();}
-    
-    std::string Etudiant::getPrenom() const {
-        return Personne::getPrenom();}
-    
+    int getAnnee();
+
+    void changeAnnee();
+
     // Méthode affiche
-    void affiche() override;
+    void affiche();
+
 };
 
 #endif

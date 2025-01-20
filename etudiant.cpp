@@ -2,24 +2,34 @@
 #include <iostream>
 
 // Constructeurs
-Etudiant::Etudiant() : Personne() {}
+Etudiant::Etudiant() : Personne(), annee(1) {
+}
 
 Etudiant::Etudiant(std::string prenom, std::string nom)
-    : Personne(prenom, nom)
-{}
+    : Personne(prenom, nom), annee(1) {
+
+}
 
 Etudiant::Etudiant(std::string prenom, std::string nom, int id)
-    : Personne(prenom, nom,id)
+    : Personne(prenom, nom,id), annee(1)
 {}
 
-//Getters
-std::string Etudiant::getNom() const {
-    return Personne::getNom();}
+int Etudiant::getAnnee()
+{
+    return this->annee;
+}
 
-std::string Etudiant::getPrenom() const {
-    return Personne::getPrenom();}
+void Etudiant::changeAnnee() {
+    ++annee;
+}
 
 // Méthode affiche
 void Etudiant::affiche() {
     Personne::affiche();
+    if (annee == 1) {
+        std::cout << "- 1ere annee" << std::endl;
+    } else {
+        std::cout << "- " << annee << "eme annee" << std::endl;
+    }
 }
+

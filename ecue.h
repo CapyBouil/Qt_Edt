@@ -1,4 +1,4 @@
-#ifndef ECUE_H
+/*#ifndef ECUE_H
 #define ECUE_H
 
 #include <iostream>
@@ -20,4 +20,4 @@ public:
     void ECUE::supprimerEnseignant(Enseignant enseignant);
 };
 
-#endif // ECUE_H
+#endif // ECUE_H*/

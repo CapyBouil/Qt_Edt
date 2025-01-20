@@ -14,6 +14,7 @@ class Salle
         Salle(int etage, int numero);
         Salle(int etage, int numero, int id);
 
+        int getId();
         int getEtage();
         int getNumero();
 
@@ -23,3 +24,4 @@ class Salle
 };
 
 #endif // SALLE_H
+

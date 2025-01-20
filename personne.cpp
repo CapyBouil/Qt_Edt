@@ -4,7 +4,7 @@
 Personne::Personne() {
     prenom = "";
     nom = "";
-    id= "";
+    id= 0;
 }
 
 Personne::Personne(std::string prenom, std::string nom) {
@@ -28,10 +28,13 @@ std::string Personne::getPrenom() const {
     return prenom;
 }
 
-int Personne:getId()
-{}
+int Personne::getId() const
+{
+    return id;
+}
 
 //Méthode AFFICHE
 void Personne::affiche() {
-    std::cout << "Nom: " << nom << "Prenom: " << prenom << std::endl;
+    std::cout << "Nom: " << nom << " Prenom: " << prenom << std::endl;
 }
+

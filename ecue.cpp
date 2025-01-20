@@ -1,4 +1,4 @@
-#include "ecue.h"
+/*#include "ecue.h"
 
 #include <iostream>
 #include <string>
@@ -52,3 +52,4 @@ void ECUE::spprimerEnseignant(Enseignant enseignant)
 {
 
 }
+*/

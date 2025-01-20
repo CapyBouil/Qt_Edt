@@ -1,26 +1,25 @@
 #ifndef ENSEIGNANT_H
 #define ENSEIGNANT_H
 
-#include "Personne.h"
+#include "personne.h"
 #include <string>
 
 class Enseignant : public Personne {
 private:
-    std::string ECUE;
+    std::string ecue;
     
 public:
-    //Constructeur
     Enseignant();
+    //Constructeur
+    Enseignant(std::string prenom, std::string nom, std::string ecue);
     // Constructeur avec trois paramètres
-    Enseignant(std::string prenom, std::string nom,int id, std::string ECUE);
+    Enseignant(std::string prenom, std::string nom,int id, std::string ecue);
     
     // Accesseurs
     std::string getEcue() const;
-    void setEcue(std::string ECUE);
-    std::string getNom() const;
-    std::string getPrenom() const ;
+    void setEcue(std::string ecue);
+
+    void affiche();
 };
 
-// Méthode AFFICHE
-void affiche() const override;
 #endif

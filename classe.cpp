@@ -39,19 +39,19 @@ void Classe::supprimerEtudiant(std::string& nom, std::string& prenom)
         if (liste->getNom() == nom && liste->getPrenom() == prenom)
         {
             etudiants.erase(liste);
-            std::cout << "Etudiant " << nom << " " << prenom << " supprimé." << std::endl;
+            std::cout << "Etudiant " << nom << " " << prenom << " supprime." << std::endl;
             return;
         }
     }
-    std::cout << "Etudiant non trouvé: " << nom << " " << prenom << std::endl;
+    std::cout << "Etudiant non trouve: " << nom << " " << prenom << std::endl;
 }
 
 void Classe::afficherClasse()
 {
-    std::cout << "Classe: " << nomClasse << " (ID: " << id << ")/n";
+    std::cout << "Classe: " << nomClasse << " (ID: " << id << ")";
     if (etudiants.empty())
     {
-        std::cout << "Aucun étudiant dans la classe" << std::endl;
+        std::cout << "Aucun etudiant dans la classe" << std::endl;
     } else
     {
         for (auto liste = etudiants.begin(); liste != etudiants.end(); liste++)

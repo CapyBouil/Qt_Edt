@@ -18,12 +18,16 @@ Salle::Salle(int etage, int numero, int id) {
     this->id = id;
 }
 
+int Salle::getId() {
+    return this->id;
+}
+
 int Salle::getEtage() {
-    return etage;
+    return this->etage;
 }
 
 int Salle::getNumero() {
-    return numero;
+    return this->numero;
 }
 
 int Salle::getNumeroComplet() {
