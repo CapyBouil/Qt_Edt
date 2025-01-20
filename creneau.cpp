@@ -1,11 +1,5 @@
 #include "creneau.h"
 
-#include <sstream>   // Pour std::istringstream
-#include <iomanip>   // Pour std::get_time
-#include <stdexcept> // Pour std::invalid_argument
-#include <iostream>  // Pour std::cout
-#include <fstream>   // Pour std::ifstream
-
 // Constructeurs
 Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin)
 {
@@ -174,22 +168,16 @@ void Creneau::supprimeEnseignant()
 
 int Creneau::getMaxId()
 {
-    std::ifstream file("creneau.csv");
-    if (!file.is_open()) {
-        std::cerr << "Erreur: Impossible d'ouvrir le fichier." << std::endl;
-        return -1;
+    QFile file("creneau.csv"); // Vérifiez si le fichier peut être ouvert en lecture
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Impossible d'ouvrir le fichier :" << file.errorString(); return -1;
     }
-
-    std::string line;
-    int maxId = 0;
-    while (std::getline(file, line)) {
-        // Do nothing, just read till the last line
+    QTextStream in(&file);
+    QString lastLine; // Lire les lignes du fichier jusqu'à la fin
+    while (!in.atEnd()) {
+        lastLine = in.readLine();
     }
-    if (!line.empty()) {
-        // Assuming the ID is the first value in the CSV line
-        maxId = std::stoi(line.substr(0, line.find(',')));
-    }
-
-    file.close();
-    return maxId;
+    file.close(); // Séparer la dernière ligne par les virgules
+    QStringList fields = lastLine.split(','); // Retourner la valeur de la première colonne (id) convertie en entier
+    return fields.at(0).toInt();
 }

@@ -187,7 +187,6 @@ void testCreneau(){
     std::cout << "\nAprès modification de la classe :\n";
 }
 
-
 int main() {
     //testEnseignant();
     //testEtudiant();

@@ -11,6 +11,17 @@
 #include <QTime>
 #include <QDateTime>
 
+#include <QFile>
+#include <QTextStream>
+#include <QStringList>
+#include <QDebug>
+
+#include <sstream>   // Pour std::istringstream
+#include <iomanip>   // Pour std::get_time
+#include <stdexcept> // Pour std::invalid_argument
+#include <iostream>  // Pour std::cout
+#include <fstream>   // Pour std::ifstream
+
 
 /**
  * @class Creneau
