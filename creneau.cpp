@@ -1,6 +1,11 @@
 #include "creneau.h"
 
 // Constructeurs
+Creneau::Creneau()
+{
+    this->id = getMaxId() + 1;
+}
+
 Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin)
 {
     this->id = getMaxId() + 1;
