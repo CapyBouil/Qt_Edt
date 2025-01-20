@@ -3,6 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
 
 class Personne {
 private:
@@ -19,13 +22,13 @@ public:
     // Getters
     std::string getNom() const;
     std::string getPrenom() const;
-    //int getId();const
+    int getId() const;
 
     //Méthode AFFICHE
     void affiche();
 
     //Méthode MaxiD
-    int getMaxId();
+    static int getMaxId();
 };
 
 #endif

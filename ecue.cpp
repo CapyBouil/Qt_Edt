@@ -1,8 +1,5 @@
 #include "ecue.h"
 
-#include <iostream>
-#include <string>
-
 using namespace std;
 
 ECUE::ECUE(){
@@ -44,8 +41,6 @@ void ECUE::setNomECUE(float nb)
     this->nbHeures = nb;
 }
 
-
-
 //Methodes pour affecter un enseigant a un ECUE
 void ECUE::ajouterEnseignant(Enseignant e)
 {
@@ -66,4 +61,13 @@ void ECUE::supprimerEnseignant(Enseignant e)
 void ECUE::affiche()
 {
 
+}
+
+void ECUE::saveECUE(){
+    QFile file("../../data/Ecue.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
+
+    file.close();
 }

@@ -23,6 +23,10 @@ public:
 
     // Méthode AFFICHE
     void affiche() const;
+
+
+    static Enseignant enseignant[];
+    void saveEnseignant();
 };
 
 

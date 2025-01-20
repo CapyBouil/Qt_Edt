@@ -21,11 +21,13 @@ void testEnseignant(){
     Enseignant enseignant2("John", "Doe", "Mathematics");
     std::cout << "\nEnseignant 2 (constructeur avec prénom, nom, ECUE):" << std::endl;
     enseignant2.affiche();
+    enseignant2.saveEnseignant();
 
     // Test du constructeur avec prénom, nom, id, et ECUE
     Enseignant enseignant3("Jane", "Smith", 101, "Physics");
     std::cout << "\nEnseignant 3 (constructeur avec prénom, nom, id, ECUE):" << std::endl;
     enseignant3.affiche();
+    //enseignant3.saveEnseignant();
 
     // Test des getters
     std::cout << "\nTest des getters pour enseignant3:" << std::endl;
@@ -46,14 +48,17 @@ void testEtudiant(){
     etudiant1.affiche();
 
     // Test du constructeur avec prénom et nom
-    Etudiant etudiant2("Alice", "Dupont");
+    Etudiant etudiant2("Mauricette", "Maurice");
     std::cout << "\nEtudiant 2 (constructeur avec prénom et nom):" << std::endl;
     etudiant2.affiche();
+    etudiant2.saveEtudiant();
 
     // Test du constructeur avec prénom, nom et id
     Etudiant etudiant3("Bob", "Martin", 102);
     std::cout << "\nEtudiant 3 (constructeur avec prénom, nom et id):" << std::endl;
     etudiant3.affiche();
+    //etudiant3.saveEtudiant();  //Il marche
+
 
     // Test des getters
     std::cout << "\nTest des getters pour etudiant3:" << std::endl;
@@ -94,6 +99,7 @@ void testECUE(){
 
     // Affichage de l'ECUE
     ecue1.affiche();
+    ecue1.saveECUE();
 }
 
 void testClasse(){
@@ -106,11 +112,13 @@ void testClasse(){
     Classe classe2("Informatique");
     std::cout << "\nClasse 2 Details (Constructeur avec nom de classe):" << std::endl;
     classe2.affiche();
+    classe2.saveClasse();
 
     // Test du constructeur avec nom de la classe et ID
     Classe classe3("Mathématiques", 101);
     std::cout << "\nClasse 3 Details (Constructeur avec nom de classe et ID):" << std::endl;
     classe3.affiche();
+    //classe3.saveClasse();
 
     // Création d'étudiants pour les tests
     Etudiant etudiant1("Doe", "John", 12345); // Supposons que le constructeur Etudiant prend nom, prénom, et ID
@@ -223,10 +231,10 @@ void testCreneau(){
 int main() {
     //testEnseignant();
     //testEtudiant();
-    //testECUE();
+    testECUE();
     //testClasse();
     //testSalle();
-    testCreneau();
+    //testCreneau();
     return 0;
 }
 
