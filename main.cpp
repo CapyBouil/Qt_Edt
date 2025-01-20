@@ -164,7 +164,7 @@ void testSalle(){
 void testCreneau(){
     // Création des objets nécessaires pour tester la classe Creneau
     Salle salle(2, 202, 3);
-    Classe classe("Mathématiques", 101);
+    Classe classe("E4", 101);
     ECUE ecue("Algebre", "Cours Magistral", 45.0);
     Enseignant enseignant("John", "Doe", "Mathematics");
 

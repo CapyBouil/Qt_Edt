@@ -174,7 +174,7 @@ void Creneau::supprimeEnseignant()
 
 int Creneau::getMaxId()
 {
-    std::ifstream file("data.csv");
+    std::ifstream file("creneau.csv");
     if (!file.is_open()) {
         std::cerr << "Erreur: Impossible d'ouvrir le fichier." << std::endl;
         return -1;

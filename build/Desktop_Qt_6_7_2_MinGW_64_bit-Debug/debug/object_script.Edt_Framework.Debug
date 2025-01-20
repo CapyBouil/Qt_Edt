@@ -1,0 +1,11 @@
+debug/classe.o
+debug/creneau.o
+debug/ecue.o
+debug/emploidutemps.o
+debug/enseignant.o
+debug/etudiant.o
+debug/main.o
+debug/mainwindow.o
+debug/personne.o
+debug/salle.o
+debug/moc_mainwindow.o
