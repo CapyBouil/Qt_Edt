@@ -33,6 +33,11 @@ Creneau::Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant ensei
 }
 
 // Accesseurs
+int Creneau::getId()
+{
+    return id;
+}
+
 Salle Creneau::getSalle() const
 {
     return salle;
@@ -121,6 +126,7 @@ void Creneau::setDuree()
 // Methodes
 void Creneau::affiche()
 {
+    std::cout << "Id :" << getId() << std::endl;
     salle.affiche();
     classe.affiche();
     ecue.affiche();

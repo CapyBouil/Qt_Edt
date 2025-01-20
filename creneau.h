@@ -53,14 +53,11 @@ public:
     Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
 
 
+    int getId();
     Salle getSalle() const;
     Classe getClasse() const;
-
     ECUE getECUE() const;
-
-
     Enseignant getEnseignant() const;
-
     QDate getJour() const;
     QTime getHeureDebut() const;
     QTime getHeureFin() const;
