@@ -24,7 +24,7 @@ void EmploiDuTemps::supprimerCreneau(int id) {
     if (it != creneaux.end()) {
         creneaux.erase(it);  // Supprime le créneau de la liste
     } else {
-        std::cerr << "Creneau avec l'ID " << id << " non trouvé." << std::endl;
+        std::cerr << "Creneau avec l'ID " << id << " non trouve." << std::endl;
     }
 }
 

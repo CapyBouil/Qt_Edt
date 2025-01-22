@@ -6,6 +6,10 @@
 #include <vector>
 #include "enseignant.h"
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 using namespace std;
 
 class ECUE
@@ -35,6 +39,8 @@ public:
     void setNomECUE(float nb);
 
     void affiche();
+    void saveECUE();
+    int getMaxId();
 
 };
 

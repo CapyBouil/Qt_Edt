@@ -2,7 +2,9 @@
 
 //Constructeurs vide
 Enseignant::Enseignant() {
-    this->Ecue = " ";}
+    this->Ecue = " ";
+    Personne();
+}
 
 Enseignant::Enseignant(std::string prenom, std::string nom, std::string Ecue)
     : Personne(prenom, nom)
@@ -30,3 +32,12 @@ void Enseignant::setEcue(std::string ECUE) {
 //Méthode AFFICHE
 void Enseignant::affiche() const {
     std::cout << "ECUE: " << this->Ecue << std::endl;}
+
+void Enseignant::saveEnseignant(){
+    QFile file("../../data/Enseignant.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<this->getId() <<";" <<QString::fromStdString(this->getNom()) <<";" <<QString::fromStdString(this->getPrenom());
+
+    file.close();
+}

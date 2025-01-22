@@ -57,7 +57,7 @@ void ECUE::supprimerEnseignant(Enseignant e)
     for (size_t i = 0; i < enseignants.size(); ++i) {
         if (enseignants[i].getNom() == e.getNom() && enseignants[i].getPrenom() == e.getPrenom()) {
             enseignants.erase(enseignants.begin() + i);
-            std::cout << "Enseignant supprimé : " << e.getNom() << " " << e.getPrenom() << "\n";
+            std::cout << "Enseignant supprime(e) : " << e.getNom() << " " << e.getPrenom() << "\n";
             return;
         }
     }
@@ -65,5 +65,37 @@ void ECUE::supprimerEnseignant(Enseignant e)
 
 void ECUE::affiche()
 {
+    std::cout << nomECUE << std::endl;
+}
 
+void ECUE::saveECUE(){
+    QFile file("../../data/ECUE.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
+
+    file.close();
+}
+
+int ECUE::getMaxId()
+{
+    int maxIdECUE = 0;
+
+    QFile fileECUE("../../data/ECUE.csv");
+    fileECUE.open(QIODevice::ReadOnly | QIODevice::Text );
+
+    QTextStream tsECUE(&fileECUE);
+
+    QString lineECUE = tsECUE.readLine(); // en-tête
+    while(!tsECUE.atEnd()){
+        lineECUE = tsECUE.readLine();
+        QStringList liste = lineECUE.split(";");
+        if(liste[0].toInt()>maxIdECUE){
+            maxIdECUE = liste[0].toInt();
+        }
+    }
+
+    fileECUE.close();
+
+    return maxIdECUE;
 }

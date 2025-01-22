@@ -4,6 +4,10 @@
 #include "Personne.h"
 #include <string>
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 class Etudiant : public Personne {
 private:
 
@@ -21,6 +25,8 @@ public:
 
     // Méthode affiche
     void affiche();
+    static Etudiant etudiant[];
+    void saveEtudiant();
 };
 
 #endif
