@@ -28,8 +28,10 @@ std::string Personne::getPrenom() const {
     return prenom;
 }
 
-//int Personne:getId()
-//{}
+int Personne::getId() const
+{
+    return id;
+}
 
 //Méthode AFFICHE
 void Personne::affiche() {
