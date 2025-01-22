@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 class Personne {
 private:
     std::string prenom;
@@ -25,7 +29,7 @@ public:
     void affiche();
 
     //Méthode MaxiD
-    int getMaxId();
+    static int getMaxId();
 };
 
 #endif

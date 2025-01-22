@@ -6,6 +6,10 @@
 #include <list>
 #include "etudiant.h"
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 
 class Classe{
 private :
@@ -22,6 +26,8 @@ public :
     void ajouterEtudiant(Etudiant& etudiant);
     void supprimerEtudiant(std::string& nom, std::string& prenom);
     void affiche();
+    static int getMaxId();
+    void saveClasse();
 
 };
 #endif

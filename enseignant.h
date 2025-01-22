@@ -4,6 +4,10 @@
 #include "Personne.h"
 #include <string>
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 class Enseignant : public Personne {
 private:
     std::string Ecue;
@@ -23,6 +27,9 @@ public:
 
     // Méthode AFFICHE
     void affiche() const;
+
+    static Enseignant enseignant[];
+    void saveEnseignant();
 };
 
 

@@ -67,3 +67,12 @@ void ECUE::affiche()
 {
 
 }
+
+void ECUE::saveECUE(){
+    QFile file("../../data/Ecue.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
+
+    file.close();
+}

@@ -3,6 +3,10 @@
 
 #include <iostream>
 
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
+
 class Salle
 {
 private:
@@ -20,6 +24,9 @@ public:
     int getNumeroComplet();
 
     void affiche();
+
+    void saveSalle();
+    static int getMaxId();
 };
 
 #endif // SALLE_H

@@ -35,3 +35,43 @@ std::string Personne::getPrenom() const {
 void Personne::affiche() {
     std::cout << "Nom: " << nom << "Prenom: " << prenom << std::endl;
 }
+
+int Personne::getMaxId(){
+    int maxIdEtudiant = 0;
+    int maxIdEnseignant = 0;
+
+    QFile fileEtudiant("../../data/Etudiant.csv");
+    QFile fileEnseignant("../../data/Enseignant.csv");
+    fileEtudiant.open(QIODevice::ReadOnly | QIODevice::Text );
+    fileEnseignant.open(QIODevice::ReadOnly | QIODevice::Text );
+
+    QTextStream tsEtudiant(&fileEtudiant);
+    QTextStream tsEnseignant(&fileEnseignant);
+
+    QString lineEtudiant = tsEtudiant.readLine(); // en-tête
+    while(!tsEtudiant.atEnd()){
+        lineEtudiant = tsEtudiant.readLine();
+        QStringList liste = lineEtudiant.split(";");
+        if(liste[0].toInt()>maxIdEtudiant){
+            maxIdEtudiant = liste[0].toInt();
+        }
+    }
+
+    QString lineEnseignant = tsEnseignant.readLine();
+    while(!tsEnseignant.atEnd()){
+        lineEnseignant = tsEnseignant.readLine();
+        QStringList liste = lineEnseignant.split(";");
+        if(liste[0].toInt()>maxIdEnseignant){
+            maxIdEnseignant = liste[0].toInt();
+        }
+    }
+
+    fileEtudiant.close();
+    fileEnseignant.close();
+
+    if(maxIdEtudiant>maxIdEnseignant){
+        return maxIdEtudiant;
+    }else{
+        return maxIdEnseignant;
+    }
+}

@@ -1,14 +1,14 @@
 #include "Classe.h"
 
 Classe::Classe() {
-    //this->id;
+    this->id=getMaxId()+1;
     this->nomClasse = "";
 }
 
 Classe::Classe(std::string nomClasse)
 {
     this->nomClasse = nomClasse;
-    //this->id;
+    this->id=getMaxId()+1;
 }
 
 Classe::Classe(std::string nomClasse, int id)
@@ -59,4 +59,35 @@ void Classe::affiche()
             liste->affiche();
         }
     }
+}
+
+int Classe::getMaxId(){
+    int maxIdClasse = 0;
+
+    QFile fileClasse("../../data/Classe.csv");
+    fileClasse.open(QIODevice::ReadOnly | QIODevice::Text );
+
+    QTextStream tsClasse(&fileClasse);
+
+    QString lineClasse = tsClasse.readLine(); // en-tête
+    while(!tsClasse.atEnd()){
+        lineClasse = tsClasse.readLine();
+        QStringList liste = lineClasse.split(";");
+        if(liste[0].toInt()>maxIdClasse){
+            maxIdClasse = liste[0].toInt();
+        }
+    }
+
+    fileClasse.close();
+
+    return maxIdClasse;
+}
+
+void Classe::saveClasse(){
+    QFile file("../../data/Classe.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<this->getId() <<";" <<QString::fromStdString(this->getNomClasse());
+
+    file.close();
 }
