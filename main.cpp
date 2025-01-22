@@ -6,6 +6,7 @@
 #include "classe.h"
 #include "salle.h"
 #include "creneau.h"
+#include "emploidutemps.h"
 
 #include <cassert>
 
@@ -187,13 +188,68 @@ void testCreneau(){
     std::cout << "\nAprès modification de la classe :\n";
 }
 
+QDate stringToQDate(const std::string& dateStr) {
+    QString dateQString = QString::fromStdString(dateStr); // Convertir std::string en QString
+    QDate date = QDate::fromString(dateQString, "yyyy-MM-dd");
+    if (!date.isValid()) {
+        std::cerr << "Format de date invalide : " << dateStr << std::endl;
+        return QDate(); // Retourne une date invalide
+    }
+    return date;
+}
+
+QTime floatToQTime(float heure) {
+    int heures = static_cast<int>(heure);  // Partie entière pour les heures
+    int minutes = static_cast<int>((heure - heures) * 60);  // Partie décimale pour les minutes
+    return QTime(heures, minutes);
+}
+
+void testEdt() {
+    // Création des objets nécessaires pour tester la classe Creneau
+    Salle salle(2, 202, 3);
+    Classe classe("Mathématiques", 101);
+    ECUE ecue("Mathématiques", "Cours Magistral", 45.0);
+    Enseignant enseignant("John", "Doe", "Mathématiques");
+
+    // Création de quelques créneaux
+    Creneau creneau1(salle, classe, ecue, enseignant, stringToQDate("2025-01-21"), floatToQTime(9.0f), floatToQTime(12.0f));
+    Creneau creneau2(salle, classe, ecue, enseignant, stringToQDate("2025-01-20"), floatToQTime(14.0f), floatToQTime(16.0f));
+    Creneau creneau3(salle, classe, ecue, enseignant, stringToQDate("2025-01-20"), floatToQTime(10.0f), floatToQTime(12.0f));
+
+    // Création d'un emploi du temps
+    EmploiDuTemps edt;
+
+    // Ajout des créneaux
+    std::cout << "Ajout des créneaux à l'emploi du temps : " << std::endl;
+    edt.ajouterCreneau(creneau1);
+    edt.ajouterCreneau(creneau2);
+    edt.ajouterCreneau(creneau3);
+
+    // Affichage de l'emploi du temps
+    std::cout << "Affichage de l'emploi du temps après ajout : " << std::endl;
+    edt.affiche();
+
+    // Suppression d'un créneau
+    std::cout << "\nSuppression du créneau avec ID 2 (2025-01-20, 14:00 - 16:00) : " << std::endl;
+    edt.supprimerCreneau(creneau2.getId());
+
+    // Affichage de l'emploi du temps après suppression
+    std::cout << "\nAffichage de l'emploi du temps après suppression : " << std::endl;
+    edt.affiche();
+
+    // Tentative de suppression d'un créneau avec un ID non existant
+    std::cout << "\nTentative de suppression d'un créneau avec un ID non existant (ID: 999) : " << std::endl;
+    edt.supprimerCreneau(999);
+}
+
 int main() {
     //testEnseignant();
     //testEtudiant();
     //testECUE();
     //testClasse();
     //testSalle();
-    testCreneau();
+    //testCreneau();
+    testEdt();
     return 0;
 }
 

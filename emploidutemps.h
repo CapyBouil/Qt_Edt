@@ -16,7 +16,10 @@ private:
 public:
     EmploiDuTemps();
 
-    void ajouteCreneau();
-    void afficheEdt();
+    void ajouterCreneau(Creneau& creneau);
+    void supprimerCreneau(int id);
+    void affiche() ;
+
 };
+
 #endif
