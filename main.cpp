@@ -160,6 +160,7 @@ void testSalle(){
     Salle salle3(2, 202, 3);
     std::cout << "\nSalle 3 Details (Constructeur avec étage, numéro et id):" << std::endl;
     salle3.affiche();
+    salle3.saveSalle();
 
     // Test des accesseurs
     std::cout << "\nTest des accesseurs pour Salle 3:" << std::endl;
@@ -231,9 +232,9 @@ void testCreneau(){
 int main() {
     //testEnseignant();
     //testEtudiant();
-    testECUE();
+    //testECUE();
     //testClasse();
-    //testSalle();
+    testSalle();
     //testCreneau();
     return 0;
 }

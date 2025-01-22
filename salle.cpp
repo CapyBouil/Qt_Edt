@@ -33,3 +33,12 @@ int Salle::getNumeroComplet() {
 void Salle::affiche() {
     std::cout << "Salle " << getNumeroComplet() << std::endl;
 }
+
+void Salle::saveSalle(){
+    QFile file("../../data/Salle.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<this->getEtage() <<";" <<this->getNumero();
+
+    file.close();
+}

@@ -2,6 +2,9 @@
 #define SALLE_H
 
 #include <iostream>
+#include <Qfile>
+#include <QTextStream>
+#include <QDir>
 
 class Salle
 {
@@ -20,6 +23,10 @@ public:
     int getNumeroComplet();
 
     void affiche();
+
+
+    void saveSalle();
+
 };
 
 #endif // SALLE_H
