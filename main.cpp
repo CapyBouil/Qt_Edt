@@ -25,13 +25,13 @@ void testEnseignant(){
 
     // Test du constructeur avec prénom, nom, id, et ECUE
     Enseignant enseignant3("Jane", "Smith", 101, "Physics");
-    std::cout << "\nEnseignant 3 (constructeur avec prénom, nom, id, ECUE):" << std::endl;
+    std::cout << "\nEnseignant 3 (constructeur avec prenom, nom, id, ECUE):" << std::endl;
     enseignant3.affiche();
 
     // Test des getters
     std::cout << "\nTest des getters pour enseignant3:" << std::endl;
     std::cout << "Nom: " << enseignant3.getNom() << std::endl;
-    std::cout << "Prénom: " << enseignant3.getPrenom() << std::endl;
+    std::cout << "Prenom: " << enseignant3.getPrenom() << std::endl;
     std::cout << "ECUE: " << enseignant3.getEcue() << std::endl;
 
     // Test du setter pour ECUE
@@ -48,12 +48,12 @@ void testEtudiant(){
 
     // Test du constructeur avec prénom et nom
     Etudiant etudiant2("Alice", "Dupont");
-    std::cout << "\nEtudiant 2 (constructeur avec prénom et nom):" << std::endl;
+    std::cout << "\nEtudiant 2 (constructeur avec prenom et nom):" << std::endl;
     etudiant2.affiche();
 
     // Test du constructeur avec prénom, nom et id
     Etudiant etudiant3("Bob", "Martin", 102);
-    std::cout << "\nEtudiant 3 (constructeur avec prénom, nom et id):" << std::endl;
+    std::cout << "\nEtudiant 3 (constructeur avec prenom, nom et id):" << std::endl;
     etudiant3.affiche();
 
     // Test des getters
@@ -100,7 +100,7 @@ void testECUE(){
 void testClasse(){
     // Test du constructeur par défaut
     Classe classe1;
-    std::cout << "Classe 1 Details (Constructeur par défaut):" << std::endl;
+    std::cout << "Classe 1 Details (Constructeur par defaut):" << std::endl;
     classe1.affiche();
 
     // Test du constructeur avec nom de la classe
@@ -109,12 +109,12 @@ void testClasse(){
     classe2.affiche();
 
     // Test du constructeur avec nom de la classe et ID
-    Classe classe3("Mathématiques", 101);
+    Classe classe3("Mathematiques", 101);
     std::cout << "\nClasse 3 Details (Constructeur avec nom de classe et ID):" << std::endl;
     classe3.affiche();
 
     // Création d'étudiants pour les tests
-    Etudiant etudiant1("Doe", "John", 12345); // Supposons que le constructeur Etudiant prend nom, prénom, et ID
+    Etudiant etudiant1("Doe", "John", 12345); // Supposons que le constructeur Etudiant prend nom, prenom, et ID
     Etudiant etudiant2("Smith", "Jane", 67890);
 
     // Ajouter des étudiants à la classe
@@ -207,9 +207,9 @@ QTime floatToQTime(float heure) {
 void testEdt() {
     // Création des objets nécessaires pour tester la classe Creneau
     Salle salle(2, 202, 3);
-    Classe classe("Mathématiques", 101);
-    ECUE ecue("Mathématiques", "Cours Magistral", 45.0);
-    Enseignant enseignant("John", "Doe", "Mathématiques");
+    Classe classe("Mathematiques", 101);
+    ECUE ecue("Mathematiques", "Cours Magistral", 45.0);
+    Enseignant enseignant("John", "Doe", "Mathematiques");
 
     // Création de quelques créneaux
     Creneau creneau1(salle, classe, ecue, enseignant, stringToQDate("2025-01-21"), floatToQTime(9.0f), floatToQTime(12.0f));

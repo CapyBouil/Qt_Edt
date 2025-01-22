@@ -57,7 +57,7 @@ void ECUE::supprimerEnseignant(Enseignant e)
     for (size_t i = 0; i < enseignants.size(); ++i) {
         if (enseignants[i].getNom() == e.getNom() && enseignants[i].getPrenom() == e.getPrenom()) {
             enseignants.erase(enseignants.begin() + i);
-            std::cout << "Enseignant supprimé : " << e.getNom() << " " << e.getPrenom() << "\n";
+            std::cout << "Enseignant supprime(e) : " << e.getNom() << " " << e.getPrenom() << "\n";
             return;
         }
     }
@@ -65,5 +65,5 @@ void ECUE::supprimerEnseignant(Enseignant e)
 
 void ECUE::affiche()
 {
-
+    std::cout << nomECUE << std::endl;
 }

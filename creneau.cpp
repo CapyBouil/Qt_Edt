@@ -120,7 +120,7 @@ void Creneau::setHeureFin(QTime heureFin)
 
 void Creneau::setDuree()
 {
-    duree = heure_debut.secsTo(heure_fin) / 60; // Durée en minutes
+    duree = heure_debut.secsTo(heure_fin) / 60; // Duree en minutes
 }
 
 // Methodes
@@ -132,9 +132,9 @@ void Creneau::affiche()
     ecue.affiche();
     enseignant.affiche();
     std::cout << "Jour : " << jour.toString("yyyy-MM-dd").toStdString() << std::endl;
-    std::cout << "Heure de début : " << heure_debut.toString("HH:mm").toStdString() << std::endl;
+    std::cout << "Heure de debut : " << heure_debut.toString("HH:mm").toStdString() << std::endl;
     std::cout << "Heure de fin : " << heure_fin.toString("HH:mm").toStdString() << std::endl;
-    std::cout << "Durée : " << duree << " minutes" << std::endl;
+    std::cout << "Duree : " << duree << " minutes" << std::endl;
 }
 
 void Creneau::ajouteSalle(Salle salle)
