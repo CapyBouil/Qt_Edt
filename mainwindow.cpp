@@ -1,14 +1,31 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+// Constructeur
+MainWindow::MainWindow(QWidget parent) : QMainWindow(parent)
 {
-    ui->setupUi(this);
+    this->setWindowTitle("Emploi du temps");
+    this->setgeometry(0,0,800,600);
+    this->init_composants();
+    this->init_layout();
+    this->init_slots();
 }
 
-MainWindow::~MainWindow()
+// Initialisations
+void MainWindow::init_composants(void)
 {
-    delete ui;
+
 }
+
+void MainWindow::init_layout(void)
+{
+
+}
+
+void MainWindow::init_slots(void)
+{
+
+}
+
+
+
+
