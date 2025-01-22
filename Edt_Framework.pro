@@ -18,7 +18,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     personne.cpp \
-    salle.cpp
+    salle.cpp \
+    tests.cpp
 
 HEADERS += \
     classe.h \
@@ -29,7 +30,8 @@ HEADERS += \
     etudiant.h \
     mainwindow.h \
     personne.h \
-    salle.h
+    salle.h \
+    tests.h
 
 FORMS += \
     mainwindow.ui

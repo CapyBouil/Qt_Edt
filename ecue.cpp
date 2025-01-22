@@ -69,10 +69,33 @@ void ECUE::affiche()
 }
 
 void ECUE::saveECUE(){
-    QFile file("../../data/Ecue.csv");
+    QFile file("../../data/ECUE.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
     out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
 
     file.close();
+}
+
+int ECUE::getMaxId()
+{
+    int maxIdECUE = 0;
+
+    QFile fileECUE("../../data/ECUE.csv");
+    fileECUE.open(QIODevice::ReadOnly | QIODevice::Text );
+
+    QTextStream tsECUE(&fileECUE);
+
+    QString lineECUE = tsECUE.readLine(); // en-tête
+    while(!tsECUE.atEnd()){
+        lineECUE = tsECUE.readLine();
+        QStringList liste = lineECUE.split(";");
+        if(liste[0].toInt()>maxIdECUE){
+            maxIdECUE = liste[0].toInt();
+        }
+    }
+
+    fileECUE.close();
+
+    return maxIdECUE;
 }

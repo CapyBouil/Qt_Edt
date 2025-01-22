@@ -26,7 +26,7 @@ public :
     void ajouterEtudiant(Etudiant& etudiant);
     void supprimerEtudiant(std::string& nom, std::string& prenom);
     void affiche();
-    static int getMaxId();
+    int getMaxId();
     void saveClasse();
 
 };

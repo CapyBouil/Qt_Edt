@@ -40,6 +40,7 @@ public:
 
     void affiche();
     void saveECUE();
+    int getMaxId();
 
 };
 

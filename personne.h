@@ -29,7 +29,7 @@ public:
     void affiche();
 
     //Méthode MaxiD
-    static int getMaxId();
+    int getMaxId();
 };
 
 #endif

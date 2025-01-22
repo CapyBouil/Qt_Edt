@@ -4,14 +4,13 @@
 Personne::Personne() {
     prenom = "";
     nom = "";
-    id= 0;
+    id= getMaxId() + 1;
 }
 
 Personne::Personne(std::string prenom, std::string nom) {
     this->prenom = prenom;
     this->nom = nom;
-    //max=maxId+1
-    //this->id=max;
+    this->id=getMaxId() + 1;
 }
 Personne::Personne(std::string prenom, std::string nom,int id){
     this->prenom = prenom;

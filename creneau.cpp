@@ -179,23 +179,23 @@ void Creneau::supprimeEnseignant()
 
 int Creneau::getMaxId()
 {
-    int maxIdClasse = 0;
+    int maxIdCreneau = 0;
 
-    QFile fileClasse("../../data/creneau.csv");
-    fileClasse.open(QIODevice::ReadOnly | QIODevice::Text );
+    QFile fileCreneau("../../data/Creneau.csv");
+    fileCreneau.open(QIODevice::ReadOnly | QIODevice::Text );
 
-    QTextStream tsClasse(&fileClasse);
+    QTextStream tsCreneau(&fileCreneau);
 
-    QString lineClasse = tsClasse.readLine(); // en-tête
-    while(!tsClasse.atEnd()){
-        lineClasse = tsClasse.readLine();
-        QStringList liste = lineClasse.split(";");
-        if(liste[0].toInt()>maxIdClasse){
-            maxIdClasse = liste[0].toInt();
+    QString lineCreneau = tsCreneau.readLine(); // en-tête
+    while(!tsCreneau.atEnd()){
+        lineCreneau = tsCreneau.readLine();
+        QStringList liste = lineCreneau.split(";");
+        if(liste[0].toInt()>maxIdCreneau){
+            maxIdCreneau = liste[0].toInt();
         }
     }
 
-    fileClasse.close();
+    fileCreneau.close();
 
-    return maxIdClasse;
+    return maxIdCreneau;
 }
