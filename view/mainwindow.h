@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
-#include <QBoxLayout>
+#include <QSplitter>
+#include <QVBoxLayout>
+#include <QTabWidget>
 
 class MainWindow
 {
