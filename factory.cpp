@@ -2,6 +2,9 @@
 
 Factory::Factory() {}
 
+void Factory::zob(){
+    std::cout << QDir::currentPath().toStdString() << std::endl;
+}
 
 void Factory::saveEtudiant(Etudiant etudiant){
     QFile file("../../data/Etudiant.csv");
@@ -45,6 +48,15 @@ void Factory::saveSalle(Salle salle){
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
     out <<"\n" <<salle.getEtage() <<";" <<salle.getNumero();
+
+    file.close();
+}
+
+void Creneau::saveCreneau(){
+    QFile file("../../data/Creneau.csv");
+    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
+    QTextStream out(&file);
+    out <<"\n" <<this->getId() <<";" <<this->getSalle().getId() <<";" <<this->getClasse().getId() <<";" <<this->getECUE().getId() <<";" <<this->getEnseignant().getId() <<";" <<this->getJour().toString() <<";" <<this->getHeureDebut().toString() <<";" <<this->getHeureFin().toString();
 
     file.close();
 }

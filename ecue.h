@@ -16,16 +16,20 @@ class ECUE
 {
 
 private:
+    int id;
     std::string nomECUE;
     std::string typeECUE;
     int nbHeures;
     std::vector<Enseignant> enseignants;
 
 
-
 public:
     ECUE();
     ECUE(std::string nom, std::string typeECUE, float nbHeures);
+    ECUE(std::string nom, std::string typeECUE, float nbHeures, int id);
+
+    int getId();
+
     void ajouterEnseignant(Enseignant e);
     void supprimerEnseignant(Enseignant e);
 
@@ -39,7 +43,9 @@ public:
     void setNomECUE(float nb);
 
     void affiche();
+
     int getMaxId();
+    void saveECUE();
 
 };
 

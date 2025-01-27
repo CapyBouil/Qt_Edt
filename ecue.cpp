@@ -6,16 +6,27 @@
 using namespace std;
 
 ECUE::ECUE(){
-
+    this->id=getMaxId()+1;
 }
 
 ECUE::ECUE(std::string nomECUE, std::string typeECUE, float nbHeures) {
+    this->id=getMaxId()+1;
     this->nomECUE = nomECUE;
     this->nbHeures = nbHeures;
     this->typeECUE = typeECUE;
 }
 
+ECUE::ECUE(std::string nomECUE, std::string typeECUE, float nbHeures, int id) {
+    this->nomECUE = nomECUE;
+    this->nbHeures = nbHeures;
+    this->typeECUE = typeECUE;
+    this->id=id;
+}
 //Acesseurs
+
+int ECUE::getId() {
+    return this->id;
+}
 
 std::string ECUE::getNomECUE()
 {
@@ -45,7 +56,6 @@ void ECUE::setNomECUE(float nb)
 }
 
 
-
 //Methodes pour affecter un enseigant a un ECUE
 void ECUE::ajouterEnseignant(Enseignant e)
 {
@@ -68,9 +78,7 @@ void ECUE::affiche()
     std::cout << nomECUE << std::endl;
 }
 
-
-int ECUE::getMaxId()
-{
+int ECUE::getMaxId(){
     int maxIdECUE = 0;
 
     QFile fileECUE("../../data/ECUE.csv");

@@ -236,7 +236,7 @@ void Tests::testEdt() {
 
 void Tests::testFactory() {
     // Instanciation de Factory
-    Factory factory;
+    //Factory factory;
 
     // Création de quelques objets
     Salle salle(2, 202, 3);
@@ -245,22 +245,23 @@ void Tests::testFactory() {
     Enseignant enseignant("Factory", "Doe", "Mathematiques");
     Etudiant etudiant("Factory", "Martin", 102);
 
+    //factory.zob();
 
     // Sauvegarde des objets dans les fichiers correspondants
     try {
-        factory.saveEtudiant(etudiant);
+        Factory::saveEtudiant(etudiant);
         std::cout << "Etudiant enregistré avec succès." << std::endl;
 
-        factory.saveEnseignant(enseignant);
+        Factory::saveEnseignant(enseignant);
         std::cout << "Enseignant enregistré avec succès." << std::endl;
 
-        factory.saveClasse(classe);
+        Factory::saveClasse(classe);
         std::cout << "Classe enregistrée avec succès." << std::endl;
 
-        factory.saveECUE(ecue);
+        Factory::saveECUE(ecue);
         std::cout << "ECUE enregistré avec succès." << std::endl;
 
-        factory.saveSalle(salle);
+        Factory::saveSalle(salle);
         std::cout << "Salle enregistrée avec succès." << std::endl;
 
     } catch (std::exception& e) {
