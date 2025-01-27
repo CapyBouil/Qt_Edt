@@ -6,6 +6,7 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QTabWidget>
+#include <QTableWidget>
 #include <QListWidget>
 #include <QPushButton>
 #include <QLabel>
@@ -50,7 +51,7 @@ private:
     QPushButton* bouton_supprimer_salle;
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
-    QCalendarWidget* calendrier;
+    QTableWidget* calendrier;
     QPushButton* bouton_ajouter_creneau;
     QPushButton* bouton_modifier_creneau;
     QPushButton* bouton_supprimer_creneau;

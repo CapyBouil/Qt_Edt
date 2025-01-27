@@ -74,7 +74,9 @@ void MainWindow::init_composants(void)
     this->layout_infos = new QVBoxLayout();
 
     // Calendrier pour les emplois du temps
-    this->calendrier = new QCalendarWidget();
+    this->calendrier = new QTableWidget(11,5);
+    this->calendrier->setHorizontalHeaderLabels({"Lundi","Mardi","Mercredi","Jeudi","Vendredi"});
+    this->calendrier->setVerticalHeaderLabels({"8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h"});
 
     // Boutons pour les creneaux
     this->bouton_ajouter_creneau = new QPushButton("Ajouter un créneau");
