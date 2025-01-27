@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QDebug>
 
 // Constructeur
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -17,8 +18,6 @@ void MainWindow::init_composants(void)
     this->splitter = new QSplitter(this);
     this->splitter->setStretchFactor(0, 1);
     this->splitter->setStretchFactor(1, 2);
-    this->splitter->setCollapsible(0, false);
-    this->splitter->setCollapsible(1, false);
 
     // Créer les widgets gauche et droit
     this->leftWidget = new QWidget(this);
@@ -36,6 +35,12 @@ void MainWindow::init_composants(void)
     this->layout_classes = new QVBoxLayout();
     this->layout_ecue = new QVBoxLayout();
     this->layout_salles = new QVBoxLayout();
+
+    // Layout pour les boutons des onglets
+    this->bouton_layout_enseignants = new QHBoxLayout();
+    this->bouton_layout_classes = new QHBoxLayout();
+    this->bouton_layout_ecue = new QHBoxLayout();
+    this->bouton_layout_salles = new QHBoxLayout();
 
     // Liste et boutons pour les enseignants
     this->liste_enseignants = new QListWidget();
@@ -75,29 +80,41 @@ void MainWindow::init_composants(void)
     this->bouton_ajouter_creneau = new QPushButton("Ajouter un créneau");
     this->bouton_modifier_creneau = new QPushButton("Modifier le créneau");
     this->bouton_supprimer_creneau = new QPushButton("Supprimer le créneau");
-
 }
 
 void MainWindow::init_layout(void)
 {
+    qDebug() << "MainWindow::init_layout() - Début de la fonction";
+
     // Ajouter la séparation entre les 2 parties
     this->setCentralWidget(this->splitter);
 
+    qDebug() << "MainWindow::init_layout() - setCentralWidget(this->splitter)";
+
     // Ajouter les widgets gauche et droit
     this->splitter->addWidget(this->leftWidget);
+    qDebug() << "MainWindow::init_layout() - splitter->addWidget(this->leftWidget)";
     this->splitter->addWidget(this->rightWidget);
+    qDebug() << "MainWindow::init_layout() - splitter->addWidget(this->rightWidget)";
 
     // Ajouter les layouts gauche et droit
     this->leftWidget->setLayout(this->leftLayout);
+    qDebug() << "MainWindow::init_layout() - leftWidget->setLayout(this->leftLayout)";
     this->rightWidget->setLayout(this->rightLayout);
+    qDebug() << "MainWindow::init_layout() - rightWidget->setLayout(this->rightLayout)";
 
     // Créer des widgets pour les onglets
     QWidget* enseignantTab = new QWidget();
+    qDebug() << "MainWindow::init_layout() - QWidget* enseignantTab = new QWidget()";
     QWidget* classeTab = new QWidget();
+    qDebug() << "MainWindow::init_layout() - QWidget* classeTab = new QWidget()";
     QWidget* ecueTab = new QWidget();
+    qDebug() << "MainWindow::init_layout() - QWidget* ecueTab = new QWidget()";
     QWidget* salleTab = new QWidget();
+    qDebug() << "MainWindow::init_layout() - QWidget* salleTab = new QWidget()";
 
     // Ajouter les onglets à gauche
+    qDebug() << "MainWindow::init_layout() - Ajout des onglets à gauche";
     this->leftLayout->addWidget(this->tabWidget);
     this->tabWidget->addTab(enseignantTab, "Enseignants");
     this->tabWidget->addTab(classeTab, "Classes");
@@ -106,33 +123,46 @@ void MainWindow::init_layout(void)
 
     // Ajouter les composants aux onglets
     // Enseignants
+    qDebug() << "MainWindow::init_layout() - Ajout des composants aux onglets Enseignants";
     enseignantTab->setLayout(this->layout_enseignants);
     this->layout_enseignants->addWidget(this->liste_enseignants);
-    this->layout_enseignants->addWidget(this->bouton_ajouter_enseignant);
-    this->layout_enseignants->addWidget(this->bouton_modifier_enseignant);
-    this->layout_enseignants->addWidget(this->bouton_supprimer_enseignant);
+    // Boutons en horizontal
+    this->bouton_layout_enseignants->addWidget(this->bouton_ajouter_enseignant);
+    this->bouton_layout_enseignants->addWidget(this->bouton_modifier_enseignant);
+    this->bouton_layout_enseignants->addWidget(this->bouton_supprimer_enseignant);
+    this->layout_enseignants->addLayout(this->bouton_layout_enseignants);
 
     // Classes
+    qDebug() << "MainWindow::init_layout() - Ajout des composants aux onglets Classes";
     classeTab->setLayout(this->layout_classes);
     this->layout_classes->addWidget(this->liste_classes);
-    this->layout_classes->addWidget(this->bouton_ajouter_classe);
-    this->layout_classes->addWidget(this->bouton_modifier_classe);
-    this->layout_classes->addWidget(this->bouton_supprimer_classe);
+    // Boutons en horizontal
+    this->bouton_layout_classes->addWidget(this->bouton_ajouter_classe);
+    this->bouton_layout_classes->addWidget(this->bouton_modifier_classe);
+    this->bouton_layout_classes->addWidget(this->bouton_supprimer_classe);
+    this->layout_classes->addLayout(this->bouton_layout_classes);
 
     // ECUE
+    qDebug() << "MainWindow::init_layout() - Ajout des composants aux onglets ECUE";
     ecueTab->setLayout(this->layout_ecue);
     this->layout_ecue->addWidget(this->liste_ecue);
-    this->layout_ecue->addWidget(this->bouton_ajouter_ecue);
-    this->layout_ecue->addWidget(this->bouton_modifier_ecue);
-    this->layout_ecue->addWidget(this->bouton_supprimer_ecue);
+    // Boutons en horizontal
+    this->bouton_layout_ecue->addWidget(this->bouton_ajouter_ecue);
+    this->bouton_layout_ecue->addWidget(this->bouton_modifier_ecue);
+    this->bouton_layout_ecue->addWidget(this->bouton_supprimer_ecue);
+    this->layout_ecue->addLayout(this->bouton_layout_ecue);
 
     // Salles
+    qDebug() << "MainWindow::init_layout() - Ajout des composants aux onglets Salles";
     salleTab->setLayout(this->layout_salles);
     this->layout_salles->addWidget(this->liste_salles);
-    this->layout_salles->addWidget(this->bouton_ajouter_salle);
-    this->layout_salles->addWidget(this->bouton_modifier_salle);
-    this->layout_salles->addWidget(this->bouton_supprimer_salle);
+    // Boutons en horizontal
+    this->bouton_layout_salles->addWidget(this->bouton_ajouter_salle);
+    this->bouton_layout_salles->addWidget(this->bouton_modifier_salle);
+    this->bouton_layout_salles->addWidget(this->bouton_supprimer_salle);
+    this->layout_salles->addLayout(this->bouton_layout_salles);
 
+    qDebug() << "MainWindow::init_layout() - Ajout de l'image à droite";
     // Ajouter l'image
     this->rightLayout->addWidget(this->imageLabel);
     this->imageLabel->setPixmap(QPixmap("image/eseo-logo.png"));
@@ -148,6 +178,7 @@ void MainWindow::init_layout(void)
     this->rightLayout->addWidget(this->bouton_modifier_creneau);
     this->rightLayout->addWidget(this->bouton_supprimer_creneau);
 
+    qDebug() << "MainWindow::init_layout() - Fin de la fonction";
 }
 
 void MainWindow::init_slots(void)

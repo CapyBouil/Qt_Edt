@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include <QApplication>
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QTabWidget>
@@ -11,6 +10,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QCalendarWidget>
+#include <QHBoxLayout>
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +28,10 @@ private:
     QVBoxLayout* layout_classes;
     QVBoxLayout* layout_ecue;
     QVBoxLayout* layout_salles;
+    QHBoxLayout* bouton_layout_enseignants;
+    QHBoxLayout* bouton_layout_classes;
+    QHBoxLayout* bouton_layout_ecue;
+    QHBoxLayout* bouton_layout_salles;
     QListWidget* liste_enseignants;
     QPushButton* bouton_ajouter_enseignant;
     QPushButton* bouton_modifier_enseignant;
@@ -52,7 +56,7 @@ private:
     QPushButton* bouton_supprimer_creneau;
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
 
 private:
     void init_composants(void);
