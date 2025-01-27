@@ -35,12 +35,14 @@ void MainWindow::init_composants(void)
     this->layout_classes = new QVBoxLayout();
     this->layout_ecue = new QVBoxLayout();
     this->layout_salles = new QVBoxLayout();
+    this->layout_etudiants = new QVBoxLayout();
 
     // Layout pour les boutons des onglets
     this->bouton_layout_enseignants = new QHBoxLayout();
     this->bouton_layout_classes = new QHBoxLayout();
     this->bouton_layout_ecue = new QHBoxLayout();
     this->bouton_layout_salles = new QHBoxLayout();
+    this->bouton_layout_etudiants = new QHBoxLayout();
 
     // Liste et boutons pour les enseignants
     this->liste_enseignants = new QListWidget();
@@ -65,6 +67,12 @@ void MainWindow::init_composants(void)
     this->bouton_ajouter_salle = new QPushButton("Ajouter une salle");
     this->bouton_modifier_salle = new QPushButton("Modifier la salle");
     this->bouton_supprimer_salle = new QPushButton("Supprimer la salle");
+
+    // Liste et boutons pour les salles
+    this->liste_etudiants = new QListWidget();
+    this->bouton_ajouter_etudiant = new QPushButton("Ajouter etudiant");
+    this->bouton_modifier_etudiant = new QPushButton("Modifier etudiant");
+    this->bouton_supprimer_etudiant = new QPushButton("Supprimer edudiant");
 
     // Emplacement pour une image dans le coin supérieur droit
     this->imageLabel = new QLabel();
@@ -114,6 +122,8 @@ void MainWindow::init_layout(void)
     qDebug() << "MainWindow::init_layout() - QWidget* ecueTab = new QWidget()";
     QWidget* salleTab = new QWidget();
     qDebug() << "MainWindow::init_layout() - QWidget* salleTab = new QWidget()";
+    QWidget* etudiantTab = new QWidget();
+    qDebug() << "MainWindow::init_layout() - QWidget* etudiantTab = new QWidget()";
 
     // Ajouter les onglets à gauche
     qDebug() << "MainWindow::init_layout() - Ajout des onglets à gauche";
@@ -122,6 +132,7 @@ void MainWindow::init_layout(void)
     this->tabWidget->addTab(classeTab, "Classes");
     this->tabWidget->addTab(ecueTab, "ECUE");
     this->tabWidget->addTab(salleTab, "Salles");
+    this->tabWidget->addTab(etudiantTab, "Etudiants");
 
     // Ajouter les composants aux onglets
     // Enseignants
@@ -163,6 +174,16 @@ void MainWindow::init_layout(void)
     this->bouton_layout_salles->addWidget(this->bouton_modifier_salle);
     this->bouton_layout_salles->addWidget(this->bouton_supprimer_salle);
     this->layout_salles->addLayout(this->bouton_layout_salles);
+
+    // Etudiants
+    qDebug() << "MainWindow::init_layout() - Ajout des composants aux onglets Salles";
+    etudiantTab->setLayout(this->layout_etudiants);
+    this->layout_etudiants->addWidget(this->liste_etudiants);
+    // Boutons en horizontal
+    this->bouton_layout_etudiants->addWidget(this->bouton_ajouter_etudiant);
+    this->bouton_layout_etudiants->addWidget(this->bouton_modifier_etudiant);
+    this->bouton_layout_etudiants->addWidget(this->bouton_supprimer_etudiant);
+    this->layout_etudiants->addLayout(this->bouton_layout_etudiants);
 
     qDebug() << "MainWindow::init_layout() - Ajout de l'image à droite";
     // Ajouter l'image

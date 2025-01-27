@@ -29,10 +29,12 @@ private:
     QVBoxLayout* layout_classes;
     QVBoxLayout* layout_ecue;
     QVBoxLayout* layout_salles;
+    QVBoxLayout* layout_etudiants;
     QHBoxLayout* bouton_layout_enseignants;
     QHBoxLayout* bouton_layout_classes;
     QHBoxLayout* bouton_layout_ecue;
     QHBoxLayout* bouton_layout_salles;
+    QHBoxLayout* bouton_layout_etudiants;
     QListWidget* liste_enseignants;
     QPushButton* bouton_ajouter_enseignant;
     QPushButton* bouton_modifier_enseignant;
@@ -49,6 +51,10 @@ private:
     QPushButton* bouton_ajouter_salle;
     QPushButton* bouton_modifier_salle;
     QPushButton* bouton_supprimer_salle;
+    QListWidget* liste_etudiants;
+    QPushButton* bouton_ajouter_etudiant;
+    QPushButton* bouton_modifier_etudiant;
+    QPushButton* bouton_supprimer_etudiant;
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
     QTableWidget* calendrier;
