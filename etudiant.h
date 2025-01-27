@@ -26,7 +26,6 @@ public:
     // Méthode affiche
     void affiche();
     static Etudiant etudiant[];
-    void saveEtudiant();
 };
 
 #endif

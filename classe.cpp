@@ -83,11 +83,4 @@ int Classe::getMaxId(){
     return maxIdClasse;
 }
 
-void Classe::saveClasse(){
-    QFile file("../../data/Classe.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<this->getId() <<";" <<QString::fromStdString(this->getNomClasse());
 
-    file.close();
-}

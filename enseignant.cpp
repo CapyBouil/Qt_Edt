@@ -33,11 +33,4 @@ void Enseignant::setEcue(std::string ECUE) {
 void Enseignant::affiche() const {
     std::cout << "ECUE: " << this->Ecue << std::endl;}
 
-void Enseignant::saveEnseignant(){
-    QFile file("../../data/Enseignant.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<this->getId() <<";" <<QString::fromStdString(this->getNom()) <<";" <<QString::fromStdString(this->getPrenom());
 
-    file.close();
-}

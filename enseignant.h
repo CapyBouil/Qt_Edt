@@ -29,7 +29,6 @@ public:
     void affiche() const;
 
     static Enseignant enseignant[];
-    void saveEnseignant();
 };
 
 

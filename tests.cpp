@@ -233,3 +233,37 @@ void Tests::testEdt() {
     std::cout << "\nTentative de suppression d'un créneau avec un ID non existant (ID: 999) : " << std::endl;
     edt.supprimerCreneau(999);
 }
+
+void Tests::testFactory() {
+    // Instanciation de Factory
+    Factory factory;
+
+    // Création de quelques objets
+    Salle salle(2, 202, 3);
+    Classe classe("Factory", 101);
+    ECUE ecue("Factory", "Cours Magistral", 45.0);
+    Enseignant enseignant("Factory", "Doe", "Mathematiques");
+    Etudiant etudiant("Factory", "Martin", 102);
+
+
+    // Sauvegarde des objets dans les fichiers correspondants
+    try {
+        factory.saveEtudiant(etudiant);
+        std::cout << "Etudiant enregistré avec succès." << std::endl;
+
+        factory.saveEnseignant(enseignant);
+        std::cout << "Enseignant enregistré avec succès." << std::endl;
+
+        factory.saveClasse(classe);
+        std::cout << "Classe enregistrée avec succès." << std::endl;
+
+        factory.saveECUE(ecue);
+        std::cout << "ECUE enregistré avec succès." << std::endl;
+
+        factory.saveSalle(salle);
+        std::cout << "Salle enregistrée avec succès." << std::endl;
+
+    } catch (std::exception& e) {
+        std::cerr << "Erreur lors de l'enregistrement : " << e.what() << std::endl;
+    }
+}

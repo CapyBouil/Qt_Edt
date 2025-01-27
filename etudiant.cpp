@@ -24,11 +24,4 @@ void Etudiant::affiche() {
     Personne::affiche();
 }
 
-void Etudiant::saveEtudiant(){
-    QFile file("../../data/Etudiant.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<this->getId() <<";" <<QString::fromStdString(this->getNom()) <<";" <<QString::fromStdString(this->getPrenom());
 
-    file.close();
-}

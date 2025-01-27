@@ -39,7 +39,6 @@ public:
     void setNomECUE(float nb);
 
     void affiche();
-    void saveECUE();
     int getMaxId();
 
 };

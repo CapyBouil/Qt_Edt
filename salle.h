@@ -26,7 +26,6 @@ public:
 
     void affiche();
 
-    void saveSalle();
     int getMaxId();
 };
 

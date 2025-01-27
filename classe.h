@@ -27,7 +27,6 @@ public :
     void supprimerEtudiant(std::string& nom, std::string& prenom);
     void affiche();
     int getMaxId();
-    void saveClasse();
 
 };
 #endif

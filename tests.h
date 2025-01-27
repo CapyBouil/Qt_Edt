@@ -8,7 +8,7 @@
 #include "salle.h"
 #include "creneau.h"
 #include "emploidutemps.h"
-
+#include "factory.h"
 
 class Tests
 {
@@ -23,6 +23,7 @@ public:
     QDate stringToQDate(const std::string& dateStr);
     QTime floatToQTime(float heure);
     void testEdt();
+    void testFactory();
 };
 
 #endif // TESTS_H

@@ -22,7 +22,8 @@ int main() {
     //testClasse();
     //testSalle();
     //testCreneau();
-    test.testEdt();
+    //test.testEdt();
+    test.testFactory();
     return 0;
 }
 

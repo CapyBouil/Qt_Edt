@@ -15,6 +15,7 @@ SOURCES += \
     emploidutemps.cpp \
     enseignant.cpp \
     etudiant.cpp \
+    factory.cpp \
     main.cpp \
     mainwindow.cpp \
     personne.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     emploidutemps.h \
     enseignant.h \
     etudiant.h \
+    factory.h \
     mainwindow.h \
     personne.h \
     salle.h \

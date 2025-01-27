@@ -68,14 +68,6 @@ void ECUE::affiche()
     std::cout << nomECUE << std::endl;
 }
 
-void ECUE::saveECUE(){
-    QFile file("../../data/ECUE.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
-
-    file.close();
-}
 
 int ECUE::getMaxId()
 {
