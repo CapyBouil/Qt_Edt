@@ -19,7 +19,12 @@ public:
     static void saveSalle(Salle salle);
     static void saveCreneau(Creneau creneau);
     static void saveClasse(Classe classe);
-    void zob();
+
+    static std::list<Etudiant> listeEtudiant;
+    static std::list<Enseignant> listeEnseignant;
+
+    static void loadEtudiant();
+    static void loadEnseignant();
 
 };
 

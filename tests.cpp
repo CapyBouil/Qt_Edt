@@ -245,7 +245,6 @@ void Tests::testFactory() {
     Enseignant enseignant("Factory", "Doe", "Mathematiques");
     Etudiant etudiant("Factory", "Martin", 102);
 
-    //factory.zob();
 
     // Sauvegarde des objets dans les fichiers correspondants
     try {
@@ -263,6 +262,9 @@ void Tests::testFactory() {
 
         Factory::saveSalle(salle);
         std::cout << "Salle enregistrée avec succès." << std::endl;
+
+        Factory::loadEtudiant();
+        Factory::loadEnseignant();
 
     } catch (std::exception& e) {
         std::cerr << "Erreur lors de l'enregistrement : " << e.what() << std::endl;
