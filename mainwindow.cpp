@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 
 // Constructeur
-MainWindow::MainWindow(QWidget parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     this->setWindowTitle("Emploi du temps");
-    this->setgeometry(0,0,800,600);
+    this->setGeometry(0,0,800,600);
     this->init_composants();
     this->init_layout();
     this->init_slots();
@@ -17,8 +17,8 @@ void MainWindow::init_composants(void)
     this->splitter = new QSplitter(this);
     this->splitter->setStretchFactor(0, 1);
     this->splitter->setStretchFactor(1, 2);
-    this->splitter->setCollapsible(0, false);
-    this->splitter->setCollapsible(1, false);
+    //this->splitter->setCollapsible(0, false);
+    //this->splitter->setCollapsible(1, false);
 
     // Créer les widgets gauche et droit
     this->leftWidget = new QWidget(this);
@@ -30,10 +30,6 @@ void MainWindow::init_composants(void)
 
     // Créer les onglets de gauche
     this->tabWidget = new QTabWidget();
-    this->layout_enseignants = new QVBoxLayout();
-    this->layout_classes = new QVBoxLayout();
-    this->layout_ecue = new QVBoxLayout();
-    this->layout_salles = new QVBoxLayout();
 
     // Liste et boutons pour les enseignants
     this->liste_enseignants = new QListWidget();
@@ -90,11 +86,11 @@ void MainWindow::init_layout(void)
     this->rightWidget->setLayout(this->rightLayout);
 
     // Ajouter les onglets à gauche
-    this->leftWidget->addTab(this->tabWidget);
-    this->tabWidget->addTab(this->layout_enseignants, "Enseignants");
-    this->tabWidget->addTab(this->layout_classes, "Classes");
-    this->tabWidget->addTab(this->layout_ecue, "ECUE");
-    this->tabWidget->addTab(this->layout_salles, "Salles");
+    this->leftLayout->addWidget(this->tabWidget);
+    this->tabWidget->addTab(this->liste_enseignants, "Enseignants");
+    this->tabWidget->addTab(this->liste_classes, "Classes");
+    this->tabWidget->addTab(this->liste_ecue, "ECUE");
+    this->tabWidget->addTab(this->liste_salles, "Salles");
 
     // Ajouter les composants aux onglets
     // Enseignants
@@ -136,7 +132,7 @@ void MainWindow::init_layout(void)
     this->rightLayout->addWidget(this->bouton_modifier_creneau);
     this->rightLayout->addWidget(this->bouton_supprimer_creneau);
 
-    """
+    /*
     // Configurer le calendrier pour afficher uniquement la semaine en cours
     this->calendrier->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
     this->calendrier->setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);
@@ -180,7 +176,7 @@ void MainWindow::init_layout(void)
     QListWidgetItem* eventItem = new QListWidgetItem("Réunion avec les enseignants");
     eventItem->setData(Qt::UserRole, QTime(10, 0)); // Exemple d'événement à 10:00
     this->horaires->addItem(eventItem);
-    """
+    */
 }
 
 void MainWindow::init_slots(void)

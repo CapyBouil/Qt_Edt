@@ -7,14 +7,14 @@
 #include "salle.h"
 #include "creneau.h"
 #include "emploidutemps.h"
-
+#include "mainwindow.h"
 #include <cassert>
 
 
 #include "tests.h"
 
-int main() {
-    Tests test;
+int main(int argc, char *argv[]) {
+    //Tests test;
 
     //testEnseignant();
     //testEtudiant();
@@ -22,8 +22,11 @@ int main() {
     //testClasse();
     //testSalle();
     //testCreneau();
-    test.testEdt();
-    return 0;
+    //test.testEdt();
+    QApplication a(argc,argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }
 
 
