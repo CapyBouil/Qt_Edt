@@ -26,6 +26,7 @@ public:
 
     void affiche();
 
+    int getId();
     int getMaxId();
 };
 

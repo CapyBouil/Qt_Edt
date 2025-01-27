@@ -45,8 +45,6 @@ public:
     void affiche();
 
     int getMaxId();
-    void saveECUE();
-
 };
 
 #endif // ECUE_H

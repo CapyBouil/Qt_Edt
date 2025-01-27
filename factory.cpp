@@ -52,11 +52,11 @@ void Factory::saveSalle(Salle salle){
     file.close();
 }
 
-void Creneau::saveCreneau(){
+void Factory::saveCreneau(Creneau creneau){
     QFile file("../../data/Creneau.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
-    out <<"\n" <<this->getId() <<";" <<this->getSalle().getId() <<";" <<this->getClasse().getId() <<";" <<this->getECUE().getId() <<";" <<this->getEnseignant().getId() <<";" <<this->getJour().toString() <<";" <<this->getHeureDebut().toString() <<";" <<this->getHeureFin().toString();
+    out <<"\n" <<creneau.getId() <<";" <<creneau.getSalle().getId() <<";" <<creneau.getClasse().getId() <<";" <<creneau.getECUE().getId() <<";" <<creneau.getEnseignant().getId() <<";" <<creneau.getJour().toString() <<";" <<creneau.getHeureDebut().toString() <<";" <<creneau.getHeureFin().toString();
 
     file.close();
 }

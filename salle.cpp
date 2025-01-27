@@ -3,13 +3,13 @@
 Salle::Salle() {
     this->etage = 0;
     this->numero = 0;
-    //this->id;
+    this->id=getMaxId()+1;
 }
 
 Salle::Salle(int etage, int numero) {
     this->etage = etage;
     this->numero = numero;
-    //this->id;
+    this->id=getMaxId()+1;
 }
 
 Salle::Salle(int etage, int numero, int id) {
@@ -24,6 +24,10 @@ int Salle::getEtage() {
 
 int Salle::getNumero() {
     return numero;
+}
+
+int Salle::getId() {
+    return id;
 }
 
 int Salle::getNumeroComplet() {
