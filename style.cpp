@@ -1,6 +1,7 @@
+
 #include "style.h"
 
-QString getGlobalStyle() {
+    QString getGlobalStyle() {
     return R"(
         QPushButton {
             background-color: #3498db;

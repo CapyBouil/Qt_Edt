@@ -12,25 +12,33 @@ SOURCES += \
     classe.cpp \
     creneau.cpp \
     ecue.cpp \
+    ecuewindow.cpp \
     emploidutemps.cpp \
     enseignant.cpp \
+    enseignantwindow.cpp \
     etudiant.cpp \
+    etudiantwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     personne.cpp \
     salle.cpp \
+    style.cpp \
     tests.cpp
 
 HEADERS += \
     classe.h \
     creneau.h \
     ecue.h \
+    ecuewindow.h \
     emploidutemps.h \
     enseignant.h \
+    enseignantwindow.h \
     etudiant.h \
+    etudiantwindow.h \
     mainwindow.h \
     personne.h \
     salle.h \
+    style.h \
     tests.h
 
 FORMS += \

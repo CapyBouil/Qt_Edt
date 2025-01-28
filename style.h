@@ -3,6 +3,6 @@
 
 #include <QString>
 
-QString getGlobalStyle();
+    QString getGlobalStyle();
 
 #endif // STYLE_H
