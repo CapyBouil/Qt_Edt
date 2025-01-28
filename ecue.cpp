@@ -55,14 +55,7 @@ void ECUE::setNomECUE(float nb)
     this->nbHeures = nb;
 }
 
-/*
-std::list<Enseignant> ECUE::getEnseignants(ECUE ecue){
-    std::list<Enseignant> listeEnseignants = {};
-    for (i=0; i<listeEnseignant.size(); i++){
-        Factory::listeEnseignant;
-    }
-}
-*/
+
 
 //Methodes pour affecter un enseigant a un ECUE
 void ECUE::ajouterEnseignant(Enseignant e)

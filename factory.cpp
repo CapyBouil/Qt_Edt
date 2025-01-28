@@ -103,3 +103,18 @@ void Factory::loadEnseignant(){
 
 }
 
+void Factory::loadClasse(){
+    QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Enseignant.csv");
+    file.open( QIODevice::ReadOnly | QIODevice::Text );
+    QTextStream ts(&file);
+    QString line = ts.readLine(); //En-tête
+    while(!ts.atEnd()){
+        line = ts.readLine();
+        QStringList liste = line.split(";");
+        Enseignant enseignant ( liste[1].toStdString(), liste[2].toStdString(), liste[0].toInt());
+        Factory::listeEnseignant.push_back(enseignant);
+    }
+    file.close();
+    std::cout << listeEnseignant.size() << std::endl;
+
+}

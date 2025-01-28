@@ -33,7 +33,6 @@ public:
     void ajouterEnseignant(Enseignant e);
     void supprimerEnseignant(Enseignant e);
 
-    std::list<Enseignant> getEnseignants(ECUE ecue);
 
     std::string getNomECUE();
     void setNomECUE(std::string nom);
