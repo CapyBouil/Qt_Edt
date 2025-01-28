@@ -282,9 +282,16 @@ void MainWindow::lierECUE() {
         // ... (Votre code pour lier l'ECUE et l'enseignant) ...
 
         QMessageBox::information(this, "Information", "ECUE " + ecueSelectionnee + " liée à " + enseignantSelectionne);
+    }
+}
 
-
-
+void MainWindow::ajouterCreneau() {
+    SalleWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString etage = dialog.getEtage();
+        QString numero = dialog.getNumero();
+        this->liste_salles->addItem("Salle " + numero + " (Étage " + etage + ")");
+        // ... autre code pour sauvegarder la salle, etc. ...
     }
 }
 

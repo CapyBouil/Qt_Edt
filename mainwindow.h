@@ -91,6 +91,7 @@ private:
     void ajouterClasse();
     void apply_global_style();
     void lierECUE();
+    void ajouterCreneau();
 
 };
 
