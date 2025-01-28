@@ -50,31 +50,28 @@ void MainWindow::init_composants(void)
     // Liste et boutons pour les enseignants
     this->liste_enseignants = new QListWidget();
     this->bouton_ajouter_enseignant = new QPushButton("Ajouter un enseignant");
-    this->bouton_modifier_enseignant = new QPushButton("Modifier l'enseignant");
+    this->bouton_lier_ecue = new QPushButton("Lier un ECUE");
     this->bouton_supprimer_enseignant = new QPushButton("Supprimer l'enseignant");
 
     // Liste et boutons pour les classes
     this->liste_classes = new QListWidget();
     this->bouton_ajouter_classe = new QPushButton("Ajouter une classe");
-    this->bouton_modifier_classe = new QPushButton("Modifier la classe");
     this->bouton_supprimer_classe = new QPushButton("Supprimer la classe");
 
     // Liste et boutons pour les ECUE
     this->liste_ecue = new QListWidget();
     this->bouton_ajouter_ecue = new QPushButton("Ajouter une ECUE");
-    this->bouton_modifier_ecue = new QPushButton("Modifier l'ECUE");
+    this->bouton_lier_enseignant = new QPushButton("Lier un enseignant");
     this->bouton_supprimer_ecue = new QPushButton("Supprimer l'ECUE");
 
     // Liste et boutons pour les salles
     this->liste_salles = new QListWidget();
     this->bouton_ajouter_salle = new QPushButton("Ajouter une salle");
-    this->bouton_modifier_salle = new QPushButton("Modifier la salle");
     this->bouton_supprimer_salle = new QPushButton("Supprimer la salle");
 
-    // Liste et boutons pour les salles
+    // Liste et boutons pour les etudiants
     this->liste_etudiants = new QListWidget();
     this->bouton_ajouter_etudiant = new QPushButton("Ajouter etudiant");
-    this->bouton_modifier_etudiant = new QPushButton("Modifier etudiant");
     this->bouton_supprimer_etudiant = new QPushButton("Supprimer edudiant");
 
     // Ajouter une image
@@ -98,7 +95,6 @@ void MainWindow::init_composants(void)
     // Boutons pour les creneaux
     this->bouton_layout_creneau = new QHBoxLayout();
     this->bouton_ajouter_creneau = new QPushButton("Ajouter un créneau");
-    this->bouton_modifier_creneau = new QPushButton("Modifier le créneau");
     this->bouton_supprimer_creneau = new QPushButton("Supprimer le créneau");
 }
 
@@ -151,7 +147,7 @@ void MainWindow::init_layout(void)
     this->layout_enseignants->addWidget(this->liste_enseignants);
     // Boutons en horizontal
     this->bouton_layout_enseignants->addWidget(this->bouton_ajouter_enseignant);
-    this->bouton_layout_enseignants->addWidget(this->bouton_modifier_enseignant);
+    this->bouton_layout_enseignants->addWidget(this->bouton_lier_ecue);
     this->bouton_layout_enseignants->addWidget(this->bouton_supprimer_enseignant);
     this->layout_enseignants->addLayout(this->bouton_layout_enseignants);
 
@@ -161,7 +157,6 @@ void MainWindow::init_layout(void)
     this->layout_classes->addWidget(this->liste_classes);
     // Boutons en horizontal
     this->bouton_layout_classes->addWidget(this->bouton_ajouter_classe);
-    this->bouton_layout_classes->addWidget(this->bouton_modifier_classe);
     this->bouton_layout_classes->addWidget(this->bouton_supprimer_classe);
     this->layout_classes->addLayout(this->bouton_layout_classes);
 
@@ -171,7 +166,7 @@ void MainWindow::init_layout(void)
     this->layout_ecue->addWidget(this->liste_ecue);
     // Boutons en horizontal
     this->bouton_layout_ecue->addWidget(this->bouton_ajouter_ecue);
-    this->bouton_layout_ecue->addWidget(this->bouton_modifier_ecue);
+    this->bouton_layout_ecue->addWidget(this->bouton_lier_enseignant);
     this->bouton_layout_ecue->addWidget(this->bouton_supprimer_ecue);
     this->layout_ecue->addLayout(this->bouton_layout_ecue);
 
@@ -181,7 +176,6 @@ void MainWindow::init_layout(void)
     this->layout_salles->addWidget(this->liste_salles);
     // Boutons en horizontal
     this->bouton_layout_salles->addWidget(this->bouton_ajouter_salle);
-    this->bouton_layout_salles->addWidget(this->bouton_modifier_salle);
     this->bouton_layout_salles->addWidget(this->bouton_supprimer_salle);
     this->layout_salles->addLayout(this->bouton_layout_salles);
 
@@ -191,7 +185,6 @@ void MainWindow::init_layout(void)
     this->layout_etudiants->addWidget(this->liste_etudiants);
     // Boutons en horizontal
     this->bouton_layout_etudiants->addWidget(this->bouton_ajouter_etudiant);
-    this->bouton_layout_etudiants->addWidget(this->bouton_modifier_etudiant);
     this->bouton_layout_etudiants->addWidget(this->bouton_supprimer_etudiant);
     this->layout_etudiants->addLayout(this->bouton_layout_etudiants);
 
@@ -213,7 +206,6 @@ void MainWindow::init_layout(void)
     // Ajouter les boutons pour les creneaux
     this->rightLayout->addLayout(this->bouton_layout_creneau);
     this->bouton_layout_creneau->addWidget(this->bouton_ajouter_creneau);
-    this->bouton_layout_creneau->addWidget(this->bouton_modifier_creneau);
     this->bouton_layout_creneau->addWidget(this->bouton_supprimer_creneau);
 
     qDebug() << "MainWindow::init_layout() - Fin de la fonction";
