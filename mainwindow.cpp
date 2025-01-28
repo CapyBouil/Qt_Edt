@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->init_composants();
     this->init_layout();
     this->init_slots();
+    this->showMaximized(); // Maximiser la fenêtre
 }
 
 // Initialisations
