@@ -218,6 +218,8 @@ void MainWindow::init_slots(void)
     connect(this->bouton_ajouter_ecue, &QPushButton::clicked, this, &MainWindow::ajouterECUE);
     connect(this->bouton_ajouter_classe, &QPushButton::clicked, this, &MainWindow::ajouterClasse);
     connect(this->bouton_ajouter_salle, &QPushButton::clicked, this, &MainWindow::ajouterSalle);
+    connect(this->bouton_lier_ecue, &QPushButton::clicked, this, &MainWindow::lierECUE);
+    connect(this->bouton_lier_enseignant, &QPushButton::clicked, this, &MainWindow::lierECUE);
 
 }
 
@@ -268,6 +270,24 @@ void MainWindow::ajouterSalle() {
         // ... autre code pour sauvegarder la salle, etc. ...
     }
 }
+
+
+void MainWindow::lierECUE() {
+    LierECUEWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString ecueSelectionnee = dialog.getECUESelectionnee();
+        QString enseignantSelectionne = dialog.getEnseignantSelectionne();
+
+        // ... (Votre code pour lier l'ECUE et l'enseignant) ...
+
+        QMessageBox::information(this, "Information", "ECUE " + ecueSelectionnee + " liée à " + enseignantSelectionne);
+
+
+
+    }
+}
+
+
 
 void MainWindow::apply_global_style() {
     this->setStyleSheet(getGlobalStyle());

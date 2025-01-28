@@ -25,6 +25,7 @@
 #include "style.h"
 #include"sallewindow.h"
 #include "classewindow.h"
+#include "lierecuewindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -87,6 +88,8 @@ private:
     void ajouterSalle();
     void ajouterClasse();
     void apply_global_style();
+    void lierECUE();
+
 };
 
 #endif // MAINWINDOW_H
