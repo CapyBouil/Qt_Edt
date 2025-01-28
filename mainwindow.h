@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QSplitter>
+#include <QList>
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QTableWidget>
@@ -12,6 +13,7 @@
 #include <QLabel>
 #include <QCalendarWidget>
 #include <QHBoxLayout>
+#include <QHeaderView>
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +22,7 @@ class MainWindow : public QMainWindow
 private:
     QBoxLayout *main_layout;
     QSplitter* splitter;
+    QList<int>* sizes;
     QWidget* leftWidget;
     QWidget* rightWidget;
     QVBoxLayout* leftLayout;
@@ -57,7 +60,9 @@ private:
     QPushButton* bouton_supprimer_etudiant;
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
+    QLabel* label_infos;
     QTableWidget* calendrier;
+    QHBoxLayout* bouton_layout_creneau;
     QPushButton* bouton_ajouter_creneau;
     QPushButton* bouton_modifier_creneau;
     QPushButton* bouton_supprimer_creneau;
