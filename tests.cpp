@@ -11,12 +11,12 @@ void Tests::testEnseignant(){
     enseignant1.affiche();
 
     // Test du constructeur avec prénom, nom et ECUE
-    Enseignant enseignant2("John", "Doe", "Mathematics");
+    Enseignant enseignant2("John", "Doe");
     std::cout << "\nEnseignant 2 (constructeur avec prénom, nom, ECUE):" << std::endl;
     enseignant2.affiche();
 
     // Test du constructeur avec prénom, nom, id, et ECUE
-    Enseignant enseignant3("Jane", "Smith", 101, "Physics");
+    Enseignant enseignant3("Jane", "Smith", 101);
     std::cout << "\nEnseignant 3 (constructeur avec prenom, nom, id, ECUE):" << std::endl;
     enseignant3.affiche();
 
@@ -24,10 +24,7 @@ void Tests::testEnseignant(){
     std::cout << "\nTest des getters pour enseignant3:" << std::endl;
     std::cout << "Nom: " << enseignant3.getNom() << std::endl;
     std::cout << "Prenom: " << enseignant3.getPrenom() << std::endl;
-    std::cout << "ECUE: " << enseignant3.getEcue() << std::endl;
 
-    // Test du setter pour ECUE
-    enseignant3.setEcue("Chemistry");
     std::cout << "\nAprès modification de l'ECUE pour enseignant3:" << std::endl;
     enseignant3.affiche();
 }
@@ -57,8 +54,8 @@ void Tests::testEtudiant(){
 
 void Tests::testECUE(){
     // Création des enseignants
-    Enseignant enseignant1("Alice", "Dupont", "Mathematiques");
-    Enseignant enseignant2("Bob", "Martin", "Physique");
+    Enseignant enseignant1("Alice", "Dupont");
+    Enseignant enseignant2("Bob", "Martin");
 
     // Création d'un ECUE
     ECUE ecue1("Algebre", "Cours Magistral", 45.0);
@@ -159,7 +156,7 @@ void Tests::testCreneau(){
     Salle salle(2, 202, 3);
     Classe classe("E4e A", 101);
     ECUE ecue("Algebre", "Cours Magistral", 45.0);
-    Enseignant enseignant("John", "Doe", "Mathematics");
+    Enseignant enseignant("John", "Doe");
 
     // Création d'une date (QDate) et des heures de début et de fin (QTime)
     QDate jour(2025, 1, 20); // 20 janvier 2025
@@ -201,7 +198,7 @@ void Tests::testEdt() {
     Salle salle(2, 202, 3);
     Classe classe("Mathematiques", 101);
     ECUE ecue("Mathematiques", "Cours Magistral", 45.0);
-    Enseignant enseignant("John", "Doe", "Mathematiques");
+    Enseignant enseignant("John", "Doe");
 
     // Création de quelques créneaux
     Creneau creneau1(salle, classe, ecue, enseignant, stringToQDate("2025-01-21"), floatToQTime(9.0f), floatToQTime(12.0f));
@@ -242,7 +239,7 @@ void Tests::testFactory() {
     Salle salle(2, 202, 3);
     Classe classe("Factory", 101);
     ECUE ecue("Factory", "Cours Magistral", 45.0);
-    Enseignant enseignant("Factory", "Doe", "Mathematiques");
+    Enseignant enseignant("Factory", "Doe", 5);
     Etudiant etudiant("Factory", "Martin", 102);
 
 

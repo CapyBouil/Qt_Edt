@@ -55,6 +55,14 @@ void ECUE::setNomECUE(float nb)
     this->nbHeures = nb;
 }
 
+/*
+std::list<Enseignant> ECUE::getEnseignants(ECUE ecue){
+    std::list<Enseignant> listeEnseignants = {};
+    for (i=0; i<listeEnseignant.size(); i++){
+        Factory::listeEnseignant;
+    }
+}
+*/
 
 //Methodes pour affecter un enseigant a un ECUE
 void ECUE::ajouterEnseignant(Enseignant e)
@@ -64,9 +72,9 @@ void ECUE::ajouterEnseignant(Enseignant e)
 
 void ECUE::supprimerEnseignant(Enseignant e)
 {
-    for (size_t i = 0; i < enseignants.size(); ++i) {
-        if (enseignants[i].getNom() == e.getNom() && enseignants[i].getPrenom() == e.getPrenom()) {
-            enseignants.erase(enseignants.begin() + i);
+    for (auto it = enseignants.begin(); it != enseignants.end(); ++it) {
+        if (it->getNom() == e.getNom() && it->getPrenom() == e.getPrenom()) {
+            enseignants.erase(it);
             std::cout << "Enseignant supprime(e) : " << e.getNom() << " " << e.getPrenom() << "\n";
             return;
         }

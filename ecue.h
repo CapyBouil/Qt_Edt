@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <list>
 #include "enseignant.h"
 
 #include <Qfile>
@@ -20,7 +20,7 @@ private:
     std::string nomECUE;
     std::string typeECUE;
     int nbHeures;
-    std::vector<Enseignant> enseignants;
+    std::list<Enseignant> enseignants;
 
 
 public:
@@ -32,6 +32,8 @@ public:
 
     void ajouterEnseignant(Enseignant e);
     void supprimerEnseignant(Enseignant e);
+
+    std::list<Enseignant> getEnseignants(ECUE ecue);
 
     std::string getNomECUE();
     void setNomECUE(std::string nom);

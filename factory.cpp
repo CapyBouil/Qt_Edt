@@ -95,11 +95,11 @@ void Factory::loadEnseignant(){
     while(!ts.atEnd()){
         line = ts.readLine();
         QStringList liste = line.split(";");
-        Enseignant enseignant ( liste[1].toStdString(), liste[2].toStdString(), liste[0].toInt(), liste[3].toStdString());
+        Enseignant enseignant ( liste[1].toStdString(), liste[2].toStdString(), liste[0].toInt());
         Factory::listeEnseignant.push_back(enseignant);
     }
     file.close();
-    std::cout << listeEtudiant.size() << std::endl;
+    std::cout << listeEnseignant.size() << std::endl;
 
 }
 
