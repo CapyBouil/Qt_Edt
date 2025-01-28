@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->init_layout();
     this->init_slots();
     this->showMaximized(); // Maximiser la fenêtre
+    this->apply_global_style();
 }
 
 // Initialisations
@@ -220,5 +221,41 @@ void MainWindow::init_layout(void)
 
 void MainWindow::init_slots(void)
 {
+    connect(this->bouton_ajouter_enseignant, &QPushButton::clicked, this, &MainWindow::ajouterEnseignant);
+    connect(this->bouton_ajouter_etudiant, &QPushButton::clicked, this, &MainWindow::ajouterEtudiant);
+    connect(this->bouton_ajouter_ecue, &QPushButton::clicked, this, &MainWindow::ajouterECUE);
 
+}
+
+
+void MainWindow::ajouterEtudiant() {
+    EtudiantWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString nom = dialog.getNom();
+        QString prenom = dialog.getPrenom();
+        this->liste_etudiants->addItem(nom + " " + prenom);
+    }
+}
+
+void MainWindow::ajouterEnseignant() {
+    EnseignantWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString nom = dialog.getNom();
+        QString prenom = dialog.getPrenom();
+        QString ecue = dialog.getECUE();
+        this->liste_enseignants->addItem(nom + " " + prenom + " (ECUE: " + ecue + ")");
+    }
+}
+void MainWindow::ajouterECUE() {
+    ECUEWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        ECUE ecue = dialog.getECUE();
+        this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + ", Heures: " + QString::number(ecue.getNbHeures()) + ")");
+
+        ecue.saveECUE();
+    }
+}
+
+void MainWindow::apply_global_style() {
+    this->setStyleSheet(getGlobalStyle());
 }

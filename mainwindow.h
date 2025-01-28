@@ -14,6 +14,15 @@
 #include <QCalendarWidget>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QDialog>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QMessageBox>
+
+#include "etudiantwindow.h"
+#include "enseignantwindow.h"
+#include"ecuewindow.h"
+#include "style.h"
 
 class MainWindow : public QMainWindow
 {
@@ -74,6 +83,12 @@ private:
     void init_composants(void);
     void init_layout(void);
     void init_slots(void);
+    void ajouterEnseignant();
+    void ajouterEtudiant();
+    void ajouterECUE();
+    void ajouterSalle();
+    void ajouterClasse();
+    void apply_global_style();
 };
 
 #endif // MAINWINDOW_H
