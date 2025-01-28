@@ -220,7 +220,7 @@ void MainWindow::init_slots(void)
     connect(this->bouton_ajouter_salle, &QPushButton::clicked, this, &MainWindow::ajouterSalle);
     connect(this->bouton_lier_ecue, &QPushButton::clicked, this, &MainWindow::lierECUE);
     connect(this->bouton_lier_enseignant, &QPushButton::clicked, this, &MainWindow::lierECUE);
-
+    connect(this->bouton_ajouter_creneau, &QPushButton::clicked, this, &MainWindow::ajouterCreneau)
 }
 
 
