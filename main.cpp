@@ -8,12 +8,14 @@
 #include "creneau.h"
 #include "emploidutemps.h"
 
+#include "mainwindow.h"
 #include <cassert>
+#include <QApplication>
 
 
 #include "tests.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     Tests test;
 
     //testEnseignant();
@@ -24,7 +26,11 @@ int main() {
     //testCreneau();
     //test.testEdt();
     test.testFactory();
-    return 0;
+
+    QApplication a(argc,argv);
+    MainWindow w(nullptr);
+    w.show();
+    return a.exec();
 }
 
 

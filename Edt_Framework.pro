@@ -10,29 +10,45 @@ CONFIG += c++17
 
 SOURCES += \
     classe.cpp \
+    classewindow.cpp \
+    controleur.cpp \
     creneau.cpp \
     ecue.cpp \
+    ecuewindow.cpp \
     emploidutemps.cpp \
     enseignant.cpp \
+    enseignantwindow.cpp \
     etudiant.cpp \
+    etudiantwindow.cpp \
     factory.cpp \
+    lierecuewindow.cpp \
     main.cpp \
     mainwindow.cpp \
     personne.cpp \
     salle.cpp \
+    sallewindow.cpp \
+    style.cpp \
     tests.cpp
 
 HEADERS += \
     classe.h \
+    classewindow.h \
+    controleur.h \
     creneau.h \
     ecue.h \
+    ecuewindow.h \
     emploidutemps.h \
     enseignant.h \
+    enseignantwindow.h \
     etudiant.h \
+    etudiantwindow.h \
     factory.h \
+    lierecuewindow.h \
     mainwindow.h \
     personne.h \
     salle.h \
+    sallewindow.h \
+    style.h \
     tests.h
 
 FORMS += \

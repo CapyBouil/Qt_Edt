@@ -9,7 +9,7 @@ Factory::Factory() {}
 
 QDate Factory::stringToQDate(const std::string& dateStr) {
     QString dateQString = QString::fromStdString(dateStr); // Convertir std::string en QString
-    QDate date = QDate::fromString(dateQString, "yyyy-MM-dd");
+    QDate date = QDate::fromString(dateQString, "ddd MMM dd yyyy");
     if (!date.isValid()) {
         std::cerr << "Format de date invalide : " << dateStr << std::endl;
         return QDate(); // Retourne une date invalide
@@ -216,7 +216,7 @@ void Factory::loadEtudiant(){
         Factory::listeEtudiant.push_back(etudiant);
     }
     file.close();
-    std::cout << listeEtudiant.size() << std::endl;
+    //std::cout << listeEtudiant.size() << std::endl;
     //auto it = listeEtudiant.begin();
     //std::advance(it,0);
     //it->affiche();
@@ -234,7 +234,7 @@ void Factory::loadEnseignant(){
         Factory::listeEnseignant.push_back(enseignant);
     }
     file.close();
-    std::cout << listeEnseignant.size() << std::endl;
+    //std::cout << listeEnseignant.size() << std::endl;
 }
 
 void Factory::loadEcue(){
@@ -249,7 +249,7 @@ void Factory::loadEcue(){
         Factory::listeEcue.push_back(ecue);
     }
     file.close();
-    std::cout << listeEcue.size() << std::endl;
+    //std::cout << listeEcue.size() << std::endl;
 }
 
 
@@ -265,7 +265,7 @@ void Factory::loadClasse(){
         Factory::listeClasse.push_back(classe);
     }
     file.close();
-    std::cout << listeClasse.size() << std::endl;
+    //std::cout << listeClasse.size() << std::endl;
 
 }
 
@@ -282,7 +282,7 @@ void Factory::loadSalle(){
         Factory::listeSalle.push_back(salle);
     }
     file.close();
-    std::cout << listeSalle.size() << std::endl;
+    //std::cout << listeSalle.size() << std::endl;
 
 }
 
@@ -301,9 +301,6 @@ void Factory::loadCreneau(){
         ECUE ecue = Factory::findEcueById(liste[3].toInt());
         Enseignant enseignant = Factory::findEnseignantById(liste[4].toInt());
 
-
-        std::cout << liste[5].toStdString() << std::endl;
-
         Creneau creneau (
             liste[0].toInt(),
             salle,
@@ -314,12 +311,11 @@ void Factory::loadCreneau(){
             Factory::floatToQTime(liste[6].toFloat()),
             Factory::floatToQTime(liste[7].toFloat())
             );
-        creneau.affiche();
         Factory::listeCreneau.push_back(creneau);
     }
 
     file.close();
-    std::cout << listeCreneau.size() << std::endl;
+    //std::cout << listeCreneau.size() << std::endl;
 
 }
 
