@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     classe.cpp \
     classewindow.cpp \
+    controleur.cpp \
     creneau.cpp \
     ecue.cpp \
     ecuewindow.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
 HEADERS += \
     classe.h \
     classewindow.h \
+    controleur.h \
     creneau.h \
     ecue.h \
     ecuewindow.h \

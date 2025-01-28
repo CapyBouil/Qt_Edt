@@ -18,18 +18,15 @@ public:
     explicit EnseignantWindow(QWidget *parent = nullptr);
     QString getNom() const;
     QString getPrenom() const;
-    QString getECUE() const;
 
 private slots:
     void valider();
 private:
-    QStringList chargerECUEs();
 
 
 private:
     QLineEdit *nomLineEdit;
     QLineEdit *prenomLineEdit;
-    QComboBox *ecueComboBox;
 };
 
 #endif // ENSEIGNANTWINDOW_H

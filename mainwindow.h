@@ -26,6 +26,7 @@
 #include"sallewindow.h"
 #include "classewindow.h"
 #include "lierecuewindow.h"
+#include "controleur.h"
 
 class MainWindow : public QMainWindow
 {

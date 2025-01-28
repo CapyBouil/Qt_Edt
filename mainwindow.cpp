@@ -229,6 +229,7 @@ void MainWindow::ajouterEtudiant() {
     if (dialog.exec() == QDialog::Accepted) {
         QString nom = dialog.getNom();
         QString prenom = dialog.getPrenom();
+
         this->liste_etudiants->addItem(nom + " " + prenom);
     }
 }
@@ -238,8 +239,8 @@ void MainWindow::ajouterEnseignant() {
     if (dialog.exec() == QDialog::Accepted) {
         QString nom = dialog.getNom();
         QString prenom = dialog.getPrenom();
-        QString ecue = dialog.getECUE();
-        this->liste_enseignants->addItem(nom + " " + prenom + " (ECUE: " + ecue + ")");
+
+        this->liste_enseignants->addItem(nom + " " + prenom );
     }
 }
 void MainWindow::ajouterECUE() {
