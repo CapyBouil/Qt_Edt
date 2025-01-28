@@ -18,6 +18,14 @@ class CreneauWindow : public QDialog
 public:
     CreneauWindow(QWidget *parent);
 
+    QString getSalle() const;
+    QString getClasse() const;
+    QString getECUE() const;
+    QString getEnseignant() const;
+    QString getJour() const;
+    QString getHeureDebut() const;
+    QString getHeureFin() const;
+
 private:
     QComboBox *salleComboBox;
     QComboBox *classeComboBox;
@@ -29,13 +37,6 @@ private:
 
 private:
     void valider();
-    QString getSalle() const;
-    QString getClasse() const;
-    QString getECUE() const;
-    QString getEnseignant() const;
-    QString getJour() const;
-    QString getHeureDebut() const;
-    QString getHeureFin() const;
 };
 
 #endif // CRENEAUWINDOW_H

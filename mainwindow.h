@@ -26,6 +26,7 @@
 #include"sallewindow.h"
 #include "classewindow.h"
 #include "lierecuewindow.h"
+#include "creneauwindow.h"
 #include "controleur.h"
 #include"factory.h"
 

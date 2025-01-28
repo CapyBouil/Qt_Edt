@@ -286,16 +286,19 @@ void MainWindow::lierECUE() {
 }
 
 void MainWindow::ajouterCreneau() {
-    SalleWindow dialog(this);
+    CreneauWindow dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
-        QString etage = dialog.getEtage();
-        QString numero = dialog.getNumero();
-        this->liste_salles->addItem("Salle " + numero + " (Étage " + etage + ")");
-        // ... autre code pour sauvegarder la salle, etc. ...
+        QString salle = dialog.getSalle();
+        QString classe = dialog.getClasse();
+        QString ecue = dialog.getECUE();
+        QString enseignant = dialog.getEnseignant();
+        QString jour = dialog.getJour();
+        QString heureDebut = dialog.getHeureDebut();
+        QString heureFin = dialog.getHeureFin();
+        this->liste_salles->addItem("Salle ! " + salle + "\nClasse : " + classe +
+                                    "\nECUE : " + ecue + "\nEnseignant : " + enseignant);
     }
 }
-
-
 
 void MainWindow::apply_global_style() {
     this->setStyleSheet(getGlobalStyle());
