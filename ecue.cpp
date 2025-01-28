@@ -82,7 +82,7 @@ void ECUE::affiche()
 int ECUE::getMaxId(){
     int maxIdECUE = 0;
 
-    QFile fileECUE("../../data/ECUE.csv");
+    QFile fileECUE("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/ECUE.csv");
     fileECUE.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsECUE(&fileECUE);

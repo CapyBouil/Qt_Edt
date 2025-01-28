@@ -43,7 +43,7 @@ void Salle::affiche() {
 int Salle::getMaxId(){
     int maxIdSalle= 0;
 
-    QFile fileSalle("../../data/Salle.csv");
+    QFile fileSalle("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Salle.csv");
     fileSalle.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsSalle(&fileSalle);

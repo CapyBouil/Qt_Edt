@@ -49,8 +49,10 @@ private:
 
 public:
     Creneau();
-    Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
-    Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
+    //Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
+    //Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin);
+    Creneau(const Salle& salle, const Classe& classe, const ECUE& ecue, const Enseignant& enseignant,  QDate jour, QTime heure_debut, QTime heure_fin);
+    Creneau(int id, const Salle& salle, const Classe& classe, const ECUE& ecue, const Enseignant& enseignant,  QDate jour, QTime heure_debut, QTime heure_fin);
 
 
     int getId();

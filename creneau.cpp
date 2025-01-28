@@ -6,6 +6,7 @@ Creneau::Creneau()
     this->id = getMaxId() + 1;
 }
 
+/*
 Creneau::Creneau(Salle salle, Classe classe, ECUE ecue, Enseignant enseignant, QDate jour, QTime heure_debut, QTime heure_fin)
 {
     this->id = getMaxId() + 1;
@@ -31,6 +32,37 @@ Creneau::Creneau(int id, Salle salle, Classe classe, ECUE ecue, Enseignant ensei
     this->heure_fin = heure_fin;
     setDuree();
 }
+*/
+
+// Constructeur acceptant des références constantes
+
+Creneau::Creneau(const Salle& salle, const Classe& classe, const ECUE& ecue, const Enseignant& enseignant,  QDate jour, QTime heure_debut, QTime heure_fin)
+{
+    this->id = getMaxId() + 1; // ID unique
+    this->salle = salle;        // Référence constante
+    this->classe = classe;      // Référence constante
+    this->ecue = ecue;          // Référence constante
+    this->enseignant = enseignant; // Référence constante
+    this->jour = jour;
+    this->heure_debut = heure_debut;
+    this->heure_fin = heure_fin;
+    setDuree(); // Calcul de la durée à partir des heures
+}
+
+
+Creneau::Creneau(int id, const Salle& salle, const Classe& classe, const ECUE& ecue, const Enseignant& enseignant,  QDate jour, QTime heure_debut, QTime heure_fin)
+{
+    this->id = id;              // ID spécifique
+    this->salle = salle;        // Référence constante
+    this->classe = classe;      // Référence constante
+    this->ecue = ecue;          // Référence constante
+    this->enseignant = enseignant; // Référence constante
+    this->jour = jour;
+    this->heure_debut = heure_debut;
+    this->heure_fin = heure_fin;
+    setDuree(); // Calcul de la durée à partir des heures
+}
+
 
 // Accesseurs
 int Creneau::getId()
@@ -181,7 +213,7 @@ int Creneau::getMaxId()
 {
     int maxIdCreneau = 0;
 
-    QFile fileCreneau("../../data/Creneau.csv");
+    QFile fileCreneau("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Creneau.csv");
     fileCreneau.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsCreneau(&fileCreneau);

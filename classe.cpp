@@ -64,7 +64,7 @@ void Classe::affiche()
 int Classe::getMaxId(){
     int maxIdClasse = 0;
 
-    QFile fileClasse("../../data/Classe.csv");
+    QFile fileClasse("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Classe.csv");
     fileClasse.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsClasse(&fileClasse);

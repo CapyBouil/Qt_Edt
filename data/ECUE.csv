@@ -1,33 +1,8 @@
-NomECUE;TypeECUE;NbHeure
-Geometrie;TD;30
-Geometrie;TD;30
-Factory;Cours Magistral;45/nFactory;Cours Magistral;45/nFactory;Cours Magistral;45/nFactory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
-Factory;Cours Magistral;45
+Id;NomECUE;TypeECUE;NbHeure
+1;Factory;Cours Magistral;45
+2;Factory;Cours Magistral;45
+3;Factory;Cours Magistral;45
+4;Factory;Cours Magistral;45
+5;Factory;Cours Magistral;45
+6;Factory;Cours Magistral;45
+7;Factory;Cours Magistral;45

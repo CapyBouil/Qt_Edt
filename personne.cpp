@@ -41,8 +41,8 @@ int Personne::getMaxId(){
     int maxIdEtudiant = 0;
     int maxIdEnseignant = 0;
 
-    QFile fileEtudiant("../../data/Etudiant.csv");
-    QFile fileEnseignant("../../data/Enseignant.csv");
+    QFile fileEtudiant("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Etudiant.csv");
+    QFile fileEnseignant("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Enseignant.csv");
     fileEtudiant.open(QIODevice::ReadOnly | QIODevice::Text );
     fileEnseignant.open(QIODevice::ReadOnly | QIODevice::Text );
 

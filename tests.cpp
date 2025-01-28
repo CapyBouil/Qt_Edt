@@ -10,7 +10,7 @@ void Tests::testEnseignant(){
     std::cout << "Enseignant 1 (constructeur vide):" << std::endl;
     enseignant1.affiche();
 
-    // Test du constructeur avec prénom, nom et ECUE
+    // Test du constructeur avec prenom, nom et ECUE
     Enseignant enseignant2("John", "Doe");
     std::cout << "\nEnseignant 2 (constructeur avec prénom, nom, ECUE):" << std::endl;
     enseignant2.affiche();
@@ -236,32 +236,42 @@ void Tests::testFactory() {
     //Factory factory;
 
     // Création de quelques objets
-    Salle salle(2, 202, 3);
-    Classe classe("Factory", 101);
+    Salle salle(2, 204);
+    Classe classe("E4");
     ECUE ecue("Factory", "Cours Magistral", 45.0);
-    Enseignant enseignant("Factory", "Doe", 5);
-    Etudiant etudiant("Factory", "Martin", 102);
+    Enseignant enseignant("Factory", "Doe");
+    Etudiant etudiant("Factory", "Martin");
+    Creneau creneau(salle, classe, ecue, enseignant, stringToQDate("2025-01-21"), floatToQTime(9.0f), floatToQTime(12.0f));
 
 
     // Sauvegarde des objets dans les fichiers correspondants
     try {
         Factory::saveEtudiant(etudiant);
-        std::cout << "Etudiant enregistré avec succès." << std::endl;
+        std::cout << "Etudiant enregistre avec succes." << std::endl;
 
         Factory::saveEnseignant(enseignant);
-        std::cout << "Enseignant enregistré avec succès." << std::endl;
+        std::cout << "Enseignant enregistre avec succes." << std::endl;
 
         Factory::saveClasse(classe);
-        std::cout << "Classe enregistrée avec succès." << std::endl;
+        std::cout << "Classe enregistree avec succes." << std::endl;
 
         Factory::saveECUE(ecue);
-        std::cout << "ECUE enregistré avec succès." << std::endl;
+        std::cout << "ECUE enregistre avec succes." << std::endl;
 
         Factory::saveSalle(salle);
-        std::cout << "Salle enregistrée avec succès." << std::endl;
+        std::cout << "Salle enregistree avec succes." << std::endl;
+
+        Factory::saveCreneau(creneau);
+        std::cout << "Creneau enregistre avec succes." << std::endl;
+
 
         Factory::loadEtudiant();
         Factory::loadEnseignant();
+        Factory::loadClasse();
+        Factory::loadSalle();
+        Factory::loadEcue();
+        Factory::loadCreneau();
+
 
     } catch (std::exception& e) {
         std::cerr << "Erreur lors de l'enregistrement : " << e.what() << std::endl;
