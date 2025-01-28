@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     classe.cpp \
+    classewindow.cpp \
     creneau.cpp \
     ecue.cpp \
     ecuewindow.cpp \
@@ -22,11 +23,13 @@ SOURCES += \
     mainwindow.cpp \
     personne.cpp \
     salle.cpp \
+    sallewindow.cpp \
     style.cpp \
     tests.cpp
 
 HEADERS += \
     classe.h \
+    classewindow.h \
     creneau.h \
     ecue.h \
     ecuewindow.h \
@@ -38,6 +41,7 @@ HEADERS += \
     mainwindow.h \
     personne.h \
     salle.h \
+    sallewindow.h \
     style.h \
     tests.h
 
