@@ -1,4 +1,6 @@
 #include "ecuewindow.h"
+#include <QIntValidator>
+
 
 ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
 {
@@ -10,17 +12,20 @@ ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
 
     nomECUELineEdit = new QLineEdit;
     typeECUELineEdit = new QLineEdit;
-    nbHeuresLineEdit = new QLineEdit; // Initialisation du QLineEdit pour le nombre d'heures
+    nbHeuresLineEdit = new QLineEdit;
+
+    // Valideur pour les nombres entiers positifs (0 à 999)
+    QIntValidator *validator = new QIntValidator(0, 999, this);
+    nbHeuresLineEdit->setValidator(validator);
 
     formLayout->addRow("Nom ECUE :", nomECUELineEdit);
     formLayout->addRow("Type ECUE :", typeECUELineEdit);
-    formLayout->addRow("Nombre d'heures :", nbHeuresLineEdit); // Ajout du champ pour le nombre d'heures
+    formLayout->addRow("Nombre d'heures :", nbHeuresLineEdit);
     layout->addLayout(formLayout);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     QPushButton *validerButton = new QPushButton("Valider");
     QPushButton *annulerButton = new QPushButton("Annuler");
-
     buttonLayout->addWidget(validerButton);
     buttonLayout->addWidget(annulerButton);
     layout->addLayout(buttonLayout);
@@ -30,15 +35,8 @@ ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
 }
 
 void ECUEWindow::valider() {
-    bool conversionOk = false; // Pour vérifier la conversion en float
-    nbHeuresLineEdit->text().toFloat(&conversionOk); // Essayer de convertir en float
-
-
-    if (nomECUELineEdit->text().isEmpty() || typeECUELineEdit->text().isEmpty() || nbHeuresLineEdit->text().isEmpty() || !conversionOk) {
-        if(!conversionOk)
-            QMessageBox::warning(this, "Erreur", "Le nombre d'heures doit être un nombre !");
-        else
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
+    if (nomECUELineEdit->text().isEmpty() || typeECUELineEdit->text().isEmpty() || nbHeuresLineEdit->text().isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
     } else {
         accept();
     }
@@ -46,6 +44,6 @@ void ECUEWindow::valider() {
 
 ECUE ECUEWindow::getECUE() const
 {
-    float nbHeures = nbHeuresLineEdit->text().toFloat();
+    int nbHeures = nbHeuresLineEdit->text().toInt();
     return ECUE(nomECUELineEdit->text().toStdString(), typeECUELineEdit->text().toStdString(), nbHeures);
 }

@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
+#include <QValidator>
 #include "ecue.h"
 
 class ECUEWindow : public QDialog

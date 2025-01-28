@@ -23,6 +23,8 @@
 #include "enseignantwindow.h"
 #include"ecuewindow.h"
 #include "style.h"
+#include"sallewindow.h"
+#include "classewindow.h"
 
 class MainWindow : public QMainWindow
 {

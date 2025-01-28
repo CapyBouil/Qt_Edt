@@ -216,6 +216,8 @@ void MainWindow::init_slots(void)
     connect(this->bouton_ajouter_enseignant, &QPushButton::clicked, this, &MainWindow::ajouterEnseignant);
     connect(this->bouton_ajouter_etudiant, &QPushButton::clicked, this, &MainWindow::ajouterEtudiant);
     connect(this->bouton_ajouter_ecue, &QPushButton::clicked, this, &MainWindow::ajouterECUE);
+    connect(this->bouton_ajouter_classe, &QPushButton::clicked, this, &MainWindow::ajouterClasse);
+    connect(this->bouton_ajouter_salle, &QPushButton::clicked, this, &MainWindow::ajouterSalle);
 
 }
 
@@ -245,6 +247,25 @@ void MainWindow::ajouterECUE() {
         this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + ", Heures: " + QString::number(ecue.getNbHeures()) + ")");
 
         ecue.saveECUE();
+    }
+}
+
+void MainWindow::ajouterClasse() {
+    ClasseWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString nomClasse = dialog.getNomClasse();
+        this->liste_classes->addItem(nomClasse);
+        // ... autre code pour sauvegarder la classe, etc. ...
+    }
+}
+
+void MainWindow::ajouterSalle() {
+    SalleWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString etage = dialog.getEtage();
+        QString numero = dialog.getNumero();
+        this->liste_salles->addItem("Salle " + numero + " (Étage " + etage + ")");
+        // ... autre code pour sauvegarder la salle, etc. ...
     }
 }
 
