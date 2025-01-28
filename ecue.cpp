@@ -6,16 +6,27 @@
 using namespace std;
 
 ECUE::ECUE(){
-
+    this->id=getMaxId()+1;
 }
 
 ECUE::ECUE(std::string nomECUE, std::string typeECUE, float nbHeures) {
+    this->id=getMaxId()+1;
     this->nomECUE = nomECUE;
     this->nbHeures = nbHeures;
     this->typeECUE = typeECUE;
 }
 
+ECUE::ECUE(std::string nomECUE, std::string typeECUE, float nbHeures, int id) {
+    this->nomECUE = nomECUE;
+    this->nbHeures = nbHeures;
+    this->typeECUE = typeECUE;
+    this->id=id;
+}
 //Acesseurs
+
+int ECUE::getId() {
+    return this->id;
+}
 
 std::string ECUE::getNomECUE()
 {
@@ -54,9 +65,9 @@ void ECUE::ajouterEnseignant(Enseignant e)
 
 void ECUE::supprimerEnseignant(Enseignant e)
 {
-    for (size_t i = 0; i < enseignants.size(); ++i) {
-        if (enseignants[i].getNom() == e.getNom() && enseignants[i].getPrenom() == e.getPrenom()) {
-            enseignants.erase(enseignants.begin() + i);
+    for (auto it = enseignants.begin(); it != enseignants.end(); ++it) {
+        if (it->getNom() == e.getNom() && it->getPrenom() == e.getPrenom()) {
+            enseignants.erase(it);
             std::cout << "Enseignant supprime(e) : " << e.getNom() << " " << e.getPrenom() << "\n";
             return;
         }
@@ -68,20 +79,10 @@ void ECUE::affiche()
     std::cout << nomECUE << std::endl;
 }
 
-void ECUE::saveECUE(){
-    QFile file("../../data/ECUE.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<QString::fromStdString(this->getNomECUE()) <<";" <<QString::fromStdString(this->getTypeECUE())<<";"<<this->getNbHeures();
-
-    file.close();
-}
-
-int ECUE::getMaxId()
-{
+int ECUE::getMaxId(){
     int maxIdECUE = 0;
 
-    QFile fileECUE("../../data/ECUE.csv");
+    QFile fileECUE("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/ECUE.csv");
     fileECUE.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsECUE(&fileECUE);

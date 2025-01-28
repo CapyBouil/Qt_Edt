@@ -249,7 +249,7 @@ void MainWindow::ajouterECUE() {
         ECUE ecue = dialog.getECUE();
         this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + ", Heures: " + QString::number(ecue.getNbHeures()) + ")");
 
-        ecue.saveECUE();
+        Factory::saveECUE(ecue);
     }
 }
 

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <list>
 #include "enseignant.h"
 
 #include <Qfile>
@@ -16,18 +16,23 @@ class ECUE
 {
 
 private:
+    int id;
     std::string nomECUE;
     std::string typeECUE;
     int nbHeures;
-    std::vector<Enseignant> enseignants;
-
+    std::list<Enseignant> enseignants;
 
 
 public:
     ECUE();
     ECUE(std::string nom, std::string typeECUE, float nbHeures);
+    ECUE(std::string nom, std::string typeECUE, float nbHeures, int id);
+
+    int getId();
+
     void ajouterEnseignant(Enseignant e);
     void supprimerEnseignant(Enseignant e);
+
 
     std::string getNomECUE();
     void setNomECUE(std::string nom);
@@ -39,9 +44,8 @@ public:
     void setNomECUE(float nb);
 
     void affiche();
-    void saveECUE();
-    int getMaxId();
 
+    int getMaxId();
 };
 
 #endif // ECUE_H

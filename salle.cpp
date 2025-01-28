@@ -3,13 +3,13 @@
 Salle::Salle() {
     this->etage = 0;
     this->numero = 0;
-    //this->id;
+    this->id=getMaxId()+1;
 }
 
 Salle::Salle(int etage, int numero) {
     this->etage = etage;
     this->numero = numero;
-    //this->id;
+    this->id=getMaxId()+1;
 }
 
 Salle::Salle(int etage, int numero, int id) {
@@ -26,6 +26,10 @@ int Salle::getNumero() {
     return numero;
 }
 
+int Salle::getId() {
+    return id;
+}
+
 int Salle::getNumeroComplet() {
     return 100 * etage + numero;
 }
@@ -34,19 +38,12 @@ void Salle::affiche() {
     std::cout << "Salle " << getNumeroComplet() << std::endl;
 }
 
-void Salle::saveSalle(){
-    QFile file("../../data/Salle.csv");
-    file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
-    QTextStream out(&file);
-    out <<"\n" <<this->getEtage() <<";" <<this->getNumero();
 
-    file.close();
-}
 
 int Salle::getMaxId(){
     int maxIdSalle= 0;
 
-    QFile fileSalle("../../data/Salle.csv");
+    QFile fileSalle("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Salle.csv");
     fileSalle.open(QIODevice::ReadOnly | QIODevice::Text );
 
     QTextStream tsSalle(&fileSalle);
