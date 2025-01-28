@@ -13,6 +13,7 @@ SOURCES += \
     classewindow.cpp \
     controleur.cpp \
     creneau.cpp \
+    creneauwindow.cpp \
     ecue.cpp \
     ecuewindow.cpp \
     emploidutemps.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     classewindow.h \
     controleur.h \
     creneau.h \
+    creneauwindow.h \
     ecue.h \
     ecuewindow.h \
     emploidutemps.h \
