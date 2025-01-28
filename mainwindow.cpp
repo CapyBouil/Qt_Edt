@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->init_layout();
     this->init_slots();
     this->showMaximized(); // Maximiser la fenêtre
+    this->apply_global_style();
 }
 
 // Initialisations
@@ -17,8 +18,9 @@ void MainWindow::init_composants(void)
 {
     // Séparer la fenetre en 2 parties (droite et gauche)
     this->splitter = new QSplitter(this);
-    this->splitter->setStretchFactor(0, 1);
-    this->splitter->setStretchFactor(1, 2);
+
+    // Empêcher l'utilisateur de redimensionner les parties
+    this->splitter->setHandleWidth(0);  // Masquer la poignée de redimensionnement
 
     // Créer les widgets gauche et droit
     this->leftWidget = new QWidget(this);
@@ -75,19 +77,26 @@ void MainWindow::init_composants(void)
     this->bouton_modifier_etudiant = new QPushButton("Modifier etudiant");
     this->bouton_supprimer_etudiant = new QPushButton("Supprimer edudiant");
 
-    // Emplacement pour une image dans le coin supérieur droit
+    // Ajouter une image
     this->imageLabel = new QLabel();
-    this->imageLabel->setAlignment(Qt::AlignTop | Qt::AlignRight);
+    this->imageLabel->setPixmap(QPixmap("image/eseo-logo.png"));
 
     // Layout pour les informations
     this->layout_infos = new QVBoxLayout();
+    this->label_infos = new QLabel("Informations :");
 
     // Calendrier pour les emplois du temps
     this->calendrier = new QTableWidget(11,5);
     this->calendrier->setHorizontalHeaderLabels({"Lundi","Mardi","Mercredi","Jeudi","Vendredi"});
     this->calendrier->setVerticalHeaderLabels({"8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h"});
+    // Configurer la politique de redimensionnement
+    this->calendrier->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    // Ajuster les colonnes pour qu'elles occupent toute la largeur
+    this->calendrier->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
 
     // Boutons pour les creneaux
+    this->bouton_layout_creneau = new QHBoxLayout();
     this->bouton_ajouter_creneau = new QPushButton("Ajouter un créneau");
     this->bouton_modifier_creneau = new QPushButton("Modifier le créneau");
     this->bouton_supprimer_creneau = new QPushButton("Supprimer le créneau");
@@ -187,25 +196,66 @@ void MainWindow::init_layout(void)
     this->layout_etudiants->addLayout(this->bouton_layout_etudiants);
 
     qDebug() << "MainWindow::init_layout() - Ajout de l'image à droite";
+
     // Ajouter l'image
     this->rightLayout->addWidget(this->imageLabel);
-    this->imageLabel->setPixmap(QPixmap("image/eseo-logo.png"));
 
     // Ajouter le layout pour les informations
     this->rightLayout->addLayout(this->layout_infos);
+    this->layout_infos->addWidget(this->label_infos);
+
+    // Separateur
+    this->rightLayout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     // Ajouter le calendrier
     this->rightLayout->addWidget(this->calendrier);
 
     // Ajouter les boutons pour les creneaux
-    this->rightLayout->addWidget(this->bouton_ajouter_creneau);
-    this->rightLayout->addWidget(this->bouton_modifier_creneau);
-    this->rightLayout->addWidget(this->bouton_supprimer_creneau);
+    this->rightLayout->addLayout(this->bouton_layout_creneau);
+    this->bouton_layout_creneau->addWidget(this->bouton_ajouter_creneau);
+    this->bouton_layout_creneau->addWidget(this->bouton_modifier_creneau);
+    this->bouton_layout_creneau->addWidget(this->bouton_supprimer_creneau);
 
     qDebug() << "MainWindow::init_layout() - Fin de la fonction";
 }
 
 void MainWindow::init_slots(void)
 {
+    connect(this->bouton_ajouter_enseignant, &QPushButton::clicked, this, &MainWindow::ajouterEnseignant);
+    connect(this->bouton_ajouter_etudiant, &QPushButton::clicked, this, &MainWindow::ajouterEtudiant);
+    connect(this->bouton_ajouter_ecue, &QPushButton::clicked, this, &MainWindow::ajouterECUE);
 
+}
+
+
+void MainWindow::ajouterEtudiant() {
+    EtudiantWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString nom = dialog.getNom();
+        QString prenom = dialog.getPrenom();
+        this->liste_etudiants->addItem(nom + " " + prenom);
+    }
+}
+
+void MainWindow::ajouterEnseignant() {
+    EnseignantWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString nom = dialog.getNom();
+        QString prenom = dialog.getPrenom();
+        QString ecue = dialog.getECUE();
+        this->liste_enseignants->addItem(nom + " " + prenom + " (ECUE: " + ecue + ")");
+    }
+}
+void MainWindow::ajouterECUE() {
+    ECUEWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        ECUE ecue = dialog.getECUE();
+        this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + ", Heures: " + QString::number(ecue.getNbHeures()) + ")");
+
+        ecue.saveECUE();
+    }
+}
+
+void MainWindow::apply_global_style() {
+    this->setStyleSheet(getGlobalStyle());
 }

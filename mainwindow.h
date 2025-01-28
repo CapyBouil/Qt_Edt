@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QSplitter>
+#include <QList>
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QTableWidget>
@@ -12,6 +13,16 @@
 #include <QLabel>
 #include <QCalendarWidget>
 #include <QHBoxLayout>
+#include <QHeaderView>
+#include <QDialog>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QMessageBox>
+
+#include "etudiantwindow.h"
+#include "enseignantwindow.h"
+#include"ecuewindow.h"
+#include "style.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +31,7 @@ class MainWindow : public QMainWindow
 private:
     QBoxLayout *main_layout;
     QSplitter* splitter;
+    QList<int>* sizes;
     QWidget* leftWidget;
     QWidget* rightWidget;
     QVBoxLayout* leftLayout;
@@ -57,7 +69,9 @@ private:
     QPushButton* bouton_supprimer_etudiant;
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
+    QLabel* label_infos;
     QTableWidget* calendrier;
+    QHBoxLayout* bouton_layout_creneau;
     QPushButton* bouton_ajouter_creneau;
     QPushButton* bouton_modifier_creneau;
     QPushButton* bouton_supprimer_creneau;
@@ -69,6 +83,12 @@ private:
     void init_composants(void);
     void init_layout(void);
     void init_slots(void);
+    void ajouterEnseignant();
+    void ajouterEtudiant();
+    void ajouterECUE();
+    void ajouterSalle();
+    void ajouterClasse();
+    void apply_global_style();
 };
 
 #endif // MAINWINDOW_H
