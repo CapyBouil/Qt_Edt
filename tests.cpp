@@ -279,11 +279,12 @@ void Tests::testFactory() {
 }
 
 
-void Tests::testFindEnseignantByNomPrenom() {
+void Tests::testFindByNomPrenom() {
     Controleur controleur;
     // Test d'un enseignant existant
-
     controleur.findEnseignantByNomPrenom("Aillet Matteo");
+    controleur.findEtudiantByNomPrenom("Martin Factory");
+
 }
 
 

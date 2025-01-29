@@ -28,7 +28,7 @@ int qMain(int argc, char *argv[]) {
     //testCreneau();
     //test.testEdt();
     //test.testFactory();
-    test.testFindEnseignantByNomPrenom();
+    test.testFindByNomPrenom();
 
     //QApplication a(argc,argv);
     //MainWindow w(nullptr);

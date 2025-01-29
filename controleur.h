@@ -11,6 +11,7 @@ public:
     Controleur();
     QString formaterMinuscule(QString texte);
     Enseignant findEnseignantByNomPrenom(const QString& nomPrenom) const;
+    Etudiant findEtudiantByNomPrenom(const QString& nomPrenom) const;
 
 };
 

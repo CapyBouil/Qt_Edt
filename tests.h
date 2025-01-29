@@ -25,7 +25,7 @@ public:
     QTime floatToQTime(float heure);
     void testEdt();
     void testFactory();
-    void testFindEnseignantByNomPrenom();
+    void testFindByNomPrenom();
 
 };
 
