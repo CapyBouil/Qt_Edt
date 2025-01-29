@@ -57,7 +57,7 @@ QStringList LierECUEWindow::chargerECUEs() {
         QString line = in.readLine();
         QStringList fields = line.split(";");
         if (!fields.isEmpty()) {
-            nomECUEs.append(fields[0].trimmed());
+            nomECUEs.append(fields[1].trimmed());
         }
     }
     file.close();
@@ -74,6 +74,7 @@ QStringList LierECUEWindow::chargerEnseignants() {
     }
 
     QTextStream in(&file);
+    in.readLine();
     while (!in.atEnd()) {                      //J'ai enlevé la ligne d'en tete pour lire la premiere ligne
         QString line = in.readLine();
         QStringList fields = line.split(";");

@@ -1,3 +1,4 @@
-NomECUE;TypeECUE;NbHeure
-Geometrie;TD;30
-Geometrie;TD;30
+ID;NomECUE;TypeECUE;NbHeure
+1;Geometrie;TD;30
+2;Info;TD;30
+3;ANGLAIS;CM;245

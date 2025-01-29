@@ -29,6 +29,7 @@
 #include "creneauwindow.h"
 #include "controleur.h"
 #include"factory.h"
+#include "lieretudiantwindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -63,6 +64,7 @@ private:
     QListWidget* liste_ecue;
     QPushButton* bouton_ajouter_ecue;
     QPushButton* bouton_lier_enseignant;
+    QPushButton* bouton_lier_etudiant;
     QPushButton* bouton_supprimer_ecue;
     QListWidget* liste_salles;
     QPushButton* bouton_ajouter_salle;
@@ -91,6 +93,7 @@ private:
     void ajouterClasse();
     void apply_global_style();
     void lierECUE();
+    void lierEtudiant();
     void ajouterCreneau();
     void infoEnseignant(QListWidgetItem *item);
     void infoSalle(QListWidgetItem *item);

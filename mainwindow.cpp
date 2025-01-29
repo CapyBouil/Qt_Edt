@@ -62,6 +62,7 @@ void MainWindow::init_composants(void)
     // Liste et boutons pour les classes
     this->liste_classes = new QListWidget();
     this->bouton_ajouter_classe = new QPushButton("Ajouter une classe");
+    this->bouton_lier_etudiant = new QPushButton("Lier un etudiant");
     this->bouton_supprimer_classe = new QPushButton("Supprimer la classe");
 
     // Liste et boutons pour les ECUE
@@ -163,6 +164,7 @@ void MainWindow::init_layout(void)
     this->layout_classes->addWidget(this->liste_classes);
     // Boutons en horizontal
     this->bouton_layout_classes->addWidget(this->bouton_ajouter_classe);
+    this->bouton_layout_classes->addWidget(this->bouton_lier_etudiant);
     this->bouton_layout_classes->addWidget(this->bouton_supprimer_classe);
     this->layout_classes->addLayout(this->bouton_layout_classes);
 
@@ -233,9 +235,8 @@ void MainWindow::init_slots(void)
     connect(liste_salles, &QListWidget::itemClicked, this, &MainWindow::infoSalle);
     connect(liste_classes, &QListWidget::itemClicked, this, &MainWindow::infoClasse);
     connect(liste_ecue, &QListWidget::itemClicked, this, &MainWindow::infoEcue);
+     connect(this->bouton_lier_etudiant, &QPushButton::clicked, this, &MainWindow::lierEtudiant);
 }
-
-
 
 
 void MainWindow::lierECUE() {
@@ -247,6 +248,18 @@ void MainWindow::lierECUE() {
         // ... (Votre code pour lier l'ECUE et l'enseignant) ...
 
         QMessageBox::information(this, "Information", "ECUE " + ecueSelectionnee + " liée à " + enseignantSelectionne);
+    }
+}
+
+void MainWindow::lierEtudiant() {
+    LierEtudiantWindow dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        QString classeSelectionnee = dialog.getClasseSelectionne();
+        QString etudiantSelectionne = dialog.getEtudiantSelectionnee();
+
+        // ... (Votre code pour lier l'ECUE et l'enseignant) ...
+
+        QMessageBox::information(this, "Information", "ECUE " + classeSelectionnee + " liée à " + etudiantSelectionne);
     }
 }
 

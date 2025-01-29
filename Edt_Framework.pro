@@ -23,6 +23,7 @@ SOURCES += \
     etudiantwindow.cpp \
     factory.cpp \
     lierecuewindow.cpp \
+    lieretudiantwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     personne.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     etudiantwindow.h \
     factory.h \
     lierecuewindow.h \
+    lieretudiantwindow.h \
     mainwindow.h \
     personne.h \
     salle.h \
