@@ -15,7 +15,9 @@
 
 #include "tests.h"
 
-int main(int argc, char *argv[]) {
+
+int qMain(int argc, char *argv[]) {
+
     Tests test;
 
     //testEnseignant();
@@ -26,11 +28,14 @@ int main(int argc, char *argv[]) {
     //testCreneau();
     //test.testEdt();
     //test.testFactory();
+    test.testFindEnseignantByNomPrenom();
 
-    QApplication a(argc,argv);
-    MainWindow w(nullptr);
-    w.show();
-    return a.exec();
+    //QApplication a(argc,argv);
+    //MainWindow w(nullptr);
+    //w.show();
+    //return a.exec();
+
+    return 0;
 }
 
 

@@ -9,6 +9,7 @@
 #include "creneau.h"
 #include "emploidutemps.h"
 #include "factory.h"
+#include "controleur.h"
 
 class Tests
 {
@@ -24,6 +25,8 @@ public:
     QTime floatToQTime(float heure);
     void testEdt();
     void testFactory();
+    void testFindEnseignantByNomPrenom();
+
 };
 
 #endif // TESTS_H

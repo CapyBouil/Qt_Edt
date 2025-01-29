@@ -277,3 +277,13 @@ void Tests::testFactory() {
         std::cerr << "Erreur lors de l'enregistrement : " << e.what() << std::endl;
     }
 }
+
+
+void Tests::testFindEnseignantByNomPrenom() {
+    Controleur controleur;
+    // Test d'un enseignant existant
+
+    controleur.findEnseignantByNomPrenom("Aillet Matteo");
+}
+
+

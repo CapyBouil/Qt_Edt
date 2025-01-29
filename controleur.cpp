@@ -2,21 +2,26 @@
 
 Controleur::Controleur() {}
 
-/*
-Enseignant Controleur::findEnseignantByNomPrenom(const std::string& nomPrenom) const {
-    // Parcourt la liste des enseignants
-    auto it = std::find_if(listeEnseignants.begin(), listeEnseignants.end(), [&nomPrenom](const Enseignant& enseignant) {
-        std::string fullName = enseignant.getNom() + " " + enseignant.getPrenom();
-        return fullName == nomPrenom;}
-        );
-
-    if (it != listeEnseignants.end()) {
-        return *it; // Si trouvé, retourner l'objet Enseignant
-    } else {
-        throw std::runtime_error("Enseignant introuvable pour : " + nomPrenom);
+Enseignant Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) const {
+    Factory::loadEnseignant();
+    if (Factory::listeEnseignant.empty()) {
+        qDebug() << "La liste des enseignants est vide.";
     }
+
+    // Parcours de la liste des enseignants
+    for (const Enseignant& enseignant : Factory::listeEnseignant) {
+        QString nomComplet = QString::fromStdString(enseignant.getPrenom()) + " " + QString::fromStdString(enseignant.getNom());
+        // Comparaison en ignorant la casse et les espaces
+        if (nomComplet.trimmed().toLower() == nomPrenom.trimmed().toLower()) {
+            qDebug() << "Enseignant trouvé : " << nomPrenom;
+            return enseignant;
+        }
+    }
+
+    qDebug() << "Enseignant introuvable pour : " << nomPrenom;
+    throw std::runtime_error("Enseignant non trouvé");
 }
-*/
+
 
 QString formaterMinuscule(QString texte) {
     QString resultat = texte.toLower();
