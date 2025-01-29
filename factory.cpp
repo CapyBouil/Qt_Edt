@@ -137,6 +137,7 @@ Enseignant Factory::findEnseignantById(int id) {
 */
 
 void Factory::saveEtudiant(Etudiant etudiant){
+    //QFile file("../../data/Etudiant.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Etudiant.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -146,6 +147,7 @@ void Factory::saveEtudiant(Etudiant etudiant){
 }
 
 void Factory::saveEnseignant(Enseignant enseignant){
+    //QFile file("../../data/Enseignant.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Enseignant.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -155,6 +157,7 @@ void Factory::saveEnseignant(Enseignant enseignant){
 }
 
 void Factory::saveClasse(Classe classe){
+    //QFile file("../../data/Classe.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Classe.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -164,6 +167,7 @@ void Factory::saveClasse(Classe classe){
 }
 
 void Factory::saveECUE(ECUE ecue){
+    //QFile file("../../data/ECUE.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/ECUE.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -174,6 +178,7 @@ void Factory::saveECUE(ECUE ecue){
 
 
 void Factory::saveSalle(Salle salle){
+    //QFile file("../../data/Salle.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Salle.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -183,6 +188,7 @@ void Factory::saveSalle(Salle salle){
 }
 
 void Factory::saveCreneau(Creneau creneau){
+    //QFile file("../../data/Creneau.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Creneau.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
@@ -205,6 +211,7 @@ std::list<Creneau> Factory::listeCreneau;
 
 
 void Factory::loadEtudiant(){
+    //QFile file("../../data/Etudiant.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Etudiant.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);
@@ -223,6 +230,7 @@ void Factory::loadEtudiant(){
 }
 
 void Factory::loadEnseignant(){
+    //QFile file("../../data/Enseignant.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Enseignant.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);
@@ -238,6 +246,7 @@ void Factory::loadEnseignant(){
 }
 
 void Factory::loadEcue(){
+    //QFile file("../../data/ECUE.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/ECUE.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);
@@ -254,6 +263,7 @@ void Factory::loadEcue(){
 
 
 void Factory::loadClasse(){
+    //QFile file("../../data/Classe.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Classe.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);
@@ -271,6 +281,7 @@ void Factory::loadClasse(){
 
 
 void Factory::loadSalle(){
+    //QFile file("../../data/Salle.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Salle.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);
@@ -288,6 +299,7 @@ void Factory::loadSalle(){
 
 
 void Factory::loadCreneau(){
+    //QFile file("../../data/Creneau.csv");
     QFile file("C:/Users/dinhantho/Documents/GitHub/Qt_Edt/data/Creneau.csv");
     file.open( QIODevice::ReadOnly | QIODevice::Text );
     QTextStream ts(&file);

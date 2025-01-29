@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QDebug>
+#include "style.h"
 
 // Constructeur
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -9,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->init_composants();
     this->init_layout();
     this->init_slots();
+
+    this->setStyleSheet(getGlobalStyle());
+
 }
 
 // Initialisations

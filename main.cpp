@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     //testSalle();
     //testCreneau();
     //test.testEdt();
-    test.testFactory();
+    //test.testFactory();
 
     QApplication a(argc,argv);
     MainWindow w(nullptr);
