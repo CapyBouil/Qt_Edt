@@ -12,9 +12,18 @@ CreneauWindow::CreneauWindow(QWidget *parent) : QDialog(parent)
     classeComboBox = new QComboBox;
     ecueComboBox = new QComboBox;
     enseignantComboBox = new QComboBox;
-    jourQDateEdit = new QDateEdit();
+    jourQDateEdit = new QDateEdit(QDate::currentDate());
     heureDebutQTimeEdit = new QTimeEdit();
     heureFinQTimeEdit = new QTimeEdit();
+
+    // Définir le pas pour les QTimeEdit
+    heureDebutQTimeEdit->setDisplayFormat("HH");
+    heureDebutQTimeEdit->setTimeRange(QTime(8, 0), QTime(18, 0));
+    //heureDebutQTimeEdit->setInterval(60); // Pas de 1 heure
+
+    heureFinQTimeEdit->setDisplayFormat("HH");
+    heureFinQTimeEdit->setTimeRange(QTime(8, 0), QTime(18, 0));
+    //heureFinQTimeEdit->setInterval(60); // Pas de 1 heure
 
     formLayout->addRow("Salle :", salleComboBox);
     formLayout->addRow("Classe :", classeComboBox);

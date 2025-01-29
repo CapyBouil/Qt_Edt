@@ -93,7 +93,7 @@ private:
     void apply_global_style();
     void lierECUE();
     void ajouterCreneau();
-
+    void resetCalendrier();
 };
 
 #endif // MAINWINDOW_H
