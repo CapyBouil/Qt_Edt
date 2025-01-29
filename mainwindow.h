@@ -93,6 +93,11 @@ private:
     void apply_global_style();
     void lierECUE();
     void ajouterCreneau();
+    void infoEnseignant(QListWidgetItem *item);
+    void infoSalle(QListWidgetItem *item);
+    void infoEtudiant(QListWidgetItem *item);
+    void infoClasse(QListWidgetItem *item);
+    void infoEcue(QListWidgetItem *item);
 
 };
 

@@ -5,10 +5,16 @@ Enseignant::Enseignant() {
     Personne();
 }
 
-Enseignant::Enseignant(std::string prenom, std::string nom)
-    : Personne(prenom, nom)
+// Enseignant::Enseignant(std::string prenom, std::string nom)
+//     : Personne(prenom, nom)
+// {
+// }
+
+Enseignant::Enseignant(std::string nom, std::string prenom)
+    : Personne(nom, prenom)
 {
 }
+
 
 Enseignant::Enseignant(std::string prenom, std::string nom,int id)
     : Personne(prenom, nom, id)

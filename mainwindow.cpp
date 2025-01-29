@@ -221,6 +221,12 @@ void MainWindow::init_slots(void)
     connect(this->bouton_lier_ecue, &QPushButton::clicked, this, &MainWindow::lierECUE);
     connect(this->bouton_lier_enseignant, &QPushButton::clicked, this, &MainWindow::lierECUE);
     connect(this->bouton_ajouter_creneau, &QPushButton::clicked, this, &MainWindow::ajouterCreneau);
+
+    connect(liste_enseignants, &QListWidget::itemClicked, this, &MainWindow::infoEnseignant);
+    connect(liste_etudiants, &QListWidget::itemClicked, this, &MainWindow::infoEtudiant);
+    connect(liste_salles, &QListWidget::itemClicked, this, &MainWindow::infoSalle);
+    connect(liste_classes, &QListWidget::itemClicked, this, &MainWindow::infoClasse);
+    connect(liste_ecue, &QListWidget::itemClicked, this, &MainWindow::infoEcue);
 }
 
 
@@ -247,7 +253,7 @@ void MainWindow::ajouterECUE() {
     ECUEWindow dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
         ECUE ecue = dialog.getECUE();
-        this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + ", Heures: " + QString::number(ecue.getNbHeures()) + ")");
+        this->liste_ecue->addItem(QString::fromStdString(ecue.getNomECUE()) + " (Type: " + QString::fromStdString(ecue.getTypeECUE()) + " , Heures: " + QString::number(ecue.getNbHeures()) + " )");
 
         Factory::saveECUE(ecue);
     }
@@ -267,7 +273,7 @@ void MainWindow::ajouterSalle() {
     if (dialog.exec() == QDialog::Accepted) {
         QString etage = dialog.getEtage();
         QString numero = dialog.getNumero();
-        this->liste_salles->addItem("Salle " + numero + " (Étage " + etage + ")");
+        this->liste_salles->addItem("Salle " + numero + " (Étage " + etage + " )");
         // ... autre code pour sauvegarder la salle, etc. ...
     }
 }
@@ -299,6 +305,92 @@ void MainWindow::ajouterCreneau() {
                                     "\nECUE : " + ecue + "\nEnseignant : " + enseignant);
     }
 }
+
+void MainWindow::infoEnseignant(QListWidgetItem *item) {
+    QString enseignantText = item->text();
+
+    // Extraire le nom et le prénom (et l'ECUE si présente)
+    QStringList parts = enseignantText.split(" ");
+    QString nom = parts[0];
+    QString prenom = parts[1];
+    QString ecue = "";
+    if (parts.size() > 3 && parts[2] == "(ECUE:") { // Vérifier si l'ECUE est présente
+        ecue = parts[3].left(parts[3].length() - 1); // Enlever la parenthèse fermante
+    }
+
+    // Afficher les informations de manière formattée
+    QString infoText = "Informations sur l'enseignant :\n";
+    infoText += "Nom : " + nom + "\n";
+    infoText += "Prénom : " + prenom + "\n";
+    if (!ecue.isEmpty()) {
+        infoText += "ECUE : " + ecue + "\n";
+    }
+
+    label_infos->setText(infoText);
+}
+
+void MainWindow::infoEtudiant(QListWidgetItem *item) {
+    QString etudiantText = item->text();
+
+    QStringList parts = etudiantText.split(" ");
+    QString nom = parts[0];
+    QString prenom = parts[1];
+
+
+    QString infoText = "Informations sur l'étudiant :\n";
+    infoText += "Nom : " + nom + "\n";
+    infoText += "Prénom : " + prenom + "\n";
+
+    label_infos->setText(infoText);
+}
+
+void MainWindow::infoSalle(QListWidgetItem *item) {
+    QString salleText = item->text();
+
+
+    QStringList parts = salleText.split(" ");
+    QString etage = parts[3];
+    QString numerosalle = parts[1];
+
+    // Afficher les informations de manière formattée
+    QString infoText = "Informations sur la salle :\n";
+    infoText += "etage : " + etage + "\n";
+    infoText += "numero salle : " + numerosalle + "\n";
+
+    label_infos->setText(infoText);
+}
+
+void MainWindow::infoClasse(QListWidgetItem *item) {
+    QString classeText = item->text();
+
+    QStringList parts = classeText.split(" ");
+    QString NomClasse = parts[0];
+
+    // Afficher les informations de manière formattée
+    QString infoText = "Informations sur la classe :\n";
+    infoText += "Nom de la classe : " + NomClasse + "\n";
+
+    label_infos->setText(infoText);
+}
+
+void MainWindow::infoEcue(QListWidgetItem *item) {
+    QString classeText = item->text();
+
+    QStringList parts = classeText.split(" ");
+    QString NomEcue = parts[0];
+    QString Type = parts[2];
+    QString NbHeures = parts[5];
+
+
+    // Afficher les informations de manière formattée
+    QString infoText = "Informations sur la classe :\n";
+    infoText += "Nom de l'ECUE : " + NomEcue+ "\n";
+    infoText += "type de l'ECUE : " + Type+ "\n";
+    infoText += "Nombre d'heures : " + NbHeures+ "\n";
+
+    label_infos->setText(infoText);
+}
+
 
 void MainWindow::apply_global_style() {
     this->setStyleSheet(getGlobalStyle());

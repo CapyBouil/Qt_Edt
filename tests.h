@@ -1,7 +1,7 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#include "Enseignant.h"
+#include "enseignant.h"
 #include "etudiant.h"
 #include "ecue.h"
 #include "classe.h"
