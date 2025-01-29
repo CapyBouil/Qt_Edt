@@ -8,13 +8,16 @@ CreneauWindow::CreneauWindow(QWidget *parent) : QDialog(parent)
     QVBoxLayout *layout = new QVBoxLayout(this);
     QFormLayout *formLayout = new QFormLayout;
 
-    salleComboBox = new QComboBox;
-    classeComboBox = new QComboBox;
-    ecueComboBox = new QComboBox;
-    enseignantComboBox = new QComboBox;
-    jourQDateEdit = new QDateEdit(QDate::currentDate());
-    heureDebutQTimeEdit = new QTimeEdit();
-    heureFinQTimeEdit = new QTimeEdit();
+    this->salleComboBox = new QComboBox;
+    this->classeComboBox = new QComboBox;
+    this->ecueComboBox = new QComboBox;
+    this->enseignantComboBox = new QComboBox;
+    this->jourQDateEdit = new QDateEdit(QDate::currentDate());
+    this->heureDebutQTimeEdit = new QTimeEdit();
+    this->heureFinQTimeEdit = new QTimeEdit();
+
+    // Définir la format de la date
+    this->jourQDateEdit->setDisplayFormat("MM/dd/yyyy");
 
     // Définir le pas pour les QTimeEdit
     heureDebutQTimeEdit->setDisplayFormat("HH");
@@ -26,9 +29,13 @@ CreneauWindow::CreneauWindow(QWidget *parent) : QDialog(parent)
     //heureFinQTimeEdit->setInterval(60); // Pas de 1 heure
 
     formLayout->addRow("Salle :", salleComboBox);
+    this->salleComboBox->addItem("312");
     formLayout->addRow("Classe :", classeComboBox);
+    this->classeComboBox->addItem("E4");
     formLayout->addRow("ECUE :", ecueComboBox);
+    this->ecueComboBox->addItem("Maths");
     formLayout->addRow("Enseignant :", enseignantComboBox);
+    this->enseignantComboBox->addItem("PINEAU Corentin");
     formLayout->addRow("Jour :", jourQDateEdit);
     formLayout->addRow("Heure de debut :", heureDebutQTimeEdit);
     formLayout->addRow("Heure de fin :", heureFinQTimeEdit);
@@ -82,5 +89,7 @@ QString CreneauWindow::getHeureDebut() const {
 QString CreneauWindow::getHeureFin() const {
     return heureFinQTimeEdit->text();
 }
+
+
 
 

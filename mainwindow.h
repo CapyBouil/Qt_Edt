@@ -18,6 +18,7 @@
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QDate>
 
 #include "etudiantwindow.h"
 #include "enseignantwindow.h"
@@ -73,7 +74,11 @@ private:
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
     QLabel* label_infos;
+    QPushButton* bouton_semaine_precedente;
+    QPushButton* bouton_semaine_suivante;
+    QHBoxLayout* bouton_layout_semaine;
     QTableWidget* calendrier;
+    QDate refDate;
     QHBoxLayout* bouton_layout_creneau;
     QPushButton* bouton_ajouter_creneau;
     QPushButton* bouton_supprimer_creneau;
@@ -93,7 +98,9 @@ private:
     void apply_global_style();
     void lierECUE();
     void ajouterCreneau();
-    void resetCalendrier();
+    void resetCalendrier(QDate referenceDate);
+    void semainePrecedente();
+    void semaineSuivante();
 };
 
 #endif // MAINWINDOW_H
