@@ -19,10 +19,10 @@ public:
     Salle(int etage, int numero);
     Salle(int etage, int numero, int id);
 
-    int getEtage();
-    int getNumero();
+    int getEtage()const;
+    int getNumero()const;
 
-    int getNumeroComplet();
+    int getNumeroComplet()const;
 
     void affiche();
 

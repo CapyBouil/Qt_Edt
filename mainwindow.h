@@ -88,7 +88,6 @@ private:
     void ajouterEnseignant();
     void ajouterEtudiant();
     void ajouterECUE();
-    void ajouterSalle();
     void ajouterClasse();
     void apply_global_style();
     void lierECUE();
@@ -98,6 +97,14 @@ private:
     void infoEtudiant(QListWidgetItem *item);
     void infoClasse(QListWidgetItem *item);
     void infoEcue(QListWidgetItem *item);
+    void afficherEnseignants();
+    void afficherEtudiants();
+    void afficherSalles();
+    void afficherClasses();
+    void afficherEcues();
+    QStringList chargerECUEs();
+    void ajouterSalle();
+
 
 };
 

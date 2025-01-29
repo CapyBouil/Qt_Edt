@@ -21,7 +21,7 @@ public :
     Classe();
     Classe(std::string nomClasse);
     Classe(std::string nomClasse, int id);
-    std::string getNomClasse();
+    std::string getNomClasse() const;
     int getId();
     void ajouterEtudiant(Etudiant& etudiant);
     void supprimerEtudiant(std::string& nom, std::string& prenom);

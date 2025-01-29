@@ -34,13 +34,13 @@ public:
     void supprimerEnseignant(Enseignant e);
 
 
-    std::string getNomECUE();
+    std::string getNomECUE() const;
     void setNomECUE(std::string nom);
 
-    std::string getTypeECUE();
+    std::string getTypeECUE() const;
     void setTypeECUE(std::string type);
 
-    float getNbHeures();
+    float getNbHeures() const;
     void setNomECUE(float nb);
 
     void affiche();

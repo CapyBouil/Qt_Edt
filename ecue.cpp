@@ -28,7 +28,7 @@ int ECUE::getId() {
     return this->id;
 }
 
-std::string ECUE::getNomECUE()
+std::string ECUE::getNomECUE() const
 {
     return this->nomECUE;
 }
@@ -37,7 +37,7 @@ void ECUE::setNomECUE(std::string nom)
     this->nomECUE = nom;
 }
 
-std::string ECUE::getTypeECUE()
+std::string ECUE::getTypeECUE() const
 {
     return this->typeECUE;
 }
@@ -46,8 +46,7 @@ void ECUE::setTypeECUE(std::string typeECUE)
     this->typeECUE = typeECUE;
 }
 
-float ECUE::getNbHeures()
-{
+float ECUE::getNbHeures() const{
     return this->nbHeures;
 }
 void ECUE::setNomECUE(float nb)

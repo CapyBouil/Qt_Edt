@@ -22,8 +22,7 @@ int Classe::getId()
     return this->id;
 }
 
-std::string Classe::getNomClasse()
-{
+std::string Classe::getNomClasse()const{
     return this->nomClasse;
 }
 
@@ -91,3 +90,5 @@ void Classe::saveClasse(){
 
     file.close();
 }
+
+
