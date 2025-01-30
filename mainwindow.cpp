@@ -89,15 +89,21 @@ void MainWindow::init_composants(void)
     this->layout_infos = new QVBoxLayout();
     this->label_infos = new QLabel("Informations :");
 
+    // Boutons pour changer de semaine
+    this->bouton_semaine_precedente = new QPushButton("Semaine précédente");
+    this->bouton_semaine_suivante = new QPushButton("Semaine suivante");
+    this->bouton_layout_semaine = new QHBoxLayout();
+
     // Calendrier pour les emplois du temps
     this->calendrier = new QTableWidget(11,5);
-    this->calendrier->setHorizontalHeaderLabels({"Lundi","Mardi","Mercredi","Jeudi","Vendredi"});
-    this->calendrier->setVerticalHeaderLabels({"8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h"});
     // Configurer la politique de redimensionnement
     this->calendrier->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     // Ajuster les colonnes pour qu'elles occupent toute la largeur
     this->calendrier->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    // Désactiver l'édition directe des cellules
+    this->calendrier->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    this->refDate = QDate::currentDate();
 
     // Boutons pour les creneaux
     this->bouton_layout_creneau = new QHBoxLayout();
@@ -206,10 +212,16 @@ void MainWindow::init_layout(void)
     this->layout_infos->addWidget(this->label_infos);
 
     // Separateur
-    this->rightLayout->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    this->rightLayout->addItem(new QSpacerItem(10, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+
+    // Boutons pour changer de semaine
+    this->rightLayout->addLayout(this->bouton_layout_semaine);
+    this->bouton_layout_semaine->addWidget(this->bouton_semaine_precedente);
+    this->bouton_layout_semaine->addWidget(this->bouton_semaine_suivante);
 
     // Ajouter le calendrier
     this->rightLayout->addWidget(this->calendrier);
+    MainWindow::resetCalendrier(this->refDate);
 
     // Ajouter les boutons pour les creneaux
     this->rightLayout->addLayout(this->bouton_layout_creneau);
@@ -235,7 +247,11 @@ void MainWindow::init_slots(void)
     connect(liste_salles, &QListWidget::itemClicked, this, &MainWindow::infoSalle);
     connect(liste_classes, &QListWidget::itemClicked, this, &MainWindow::infoClasse);
     connect(liste_ecue, &QListWidget::itemClicked, this, &MainWindow::infoEcue);
-     connect(this->bouton_lier_etudiant, &QPushButton::clicked, this, &MainWindow::lierEtudiant);
+    connect(this->bouton_lier_etudiant, &QPushButton::clicked, this, &MainWindow::lierEtudiant);
+
+    // Connexions pour les boutons de changement de semaine
+    connect(this->bouton_semaine_precedente, &QPushButton::clicked, this, &MainWindow::semainePrecedente);
+    connect(this->bouton_semaine_suivante, &QPushButton::clicked, this, &MainWindow::semaineSuivante);
 }
 
 
@@ -273,9 +289,111 @@ void MainWindow::ajouterCreneau() {
         QString jour = dialog.getJour();
         QString heureDebut = dialog.getHeureDebut();
         QString heureFin = dialog.getHeureFin();
-        this->liste_salles->addItem("Salle ! " + salle + "\nClasse : " + classe +
-                                    "\nECUE : " + ecue + "\nEnseignant : " + enseignant);
+
+        // Convertir le jour en indice de colonne
+        QDate date = QDate::fromString(jour, "MM/dd/yyyy");
+        if (!date.isValid()) {
+            QMessageBox::warning(this, "Erreur", "Date invalide.");
+            return;
+        }
+        int colonne = date.dayOfWeek() - 1; // 0 pour lundi, 1 pour mardi, etc.
+
+        // Convertir l'heure de début et l'heure de fin en indices de lignes
+        int ligneDebut = -1;
+        int ligneFin = -1;
+        QStringList heures = {"08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"};
+        for (int i = 0; i < heures.size(); ++i) {
+            if (heures[i] == heureDebut) ligneDebut = i;
+            if (heures[i] == heureFin) ligneFin = i;
+        }
+
+        if (ligneDebut == -1 || ligneFin == -1) {
+            QMessageBox::warning(this, "Erreur", "Heure invalide.");
+            return;
+        }
+
+        // Vérifier que l'heure de début est avant l'heure de fin
+        if (ligneDebut >= ligneFin) {
+            QMessageBox::warning(this, "Erreur", "L'heure de début doit être avant l'heure de fin.");
+            return;
+        }
+
+        // Vérification des conflits
+        bool conflit = false;
+        for (int ligne = ligneDebut; ligne <= ligneFin; ++ligne) {
+            if (this->calendrier->item(ligne, colonne) != nullptr) {
+                conflit = true;
+                break;
+            }
+        }
+
+        if (conflit) {
+            QMessageBox::warning(this, "Erreur", "Conflit détecté : un créneau existe déjà à cet horaire.");
+            return;
+        }
+
+        // Créer le texte du créneau
+        QString texteCreneau = QString("Salle: %1\nClasse: %2\nECUE: %3\nEnseignant: %4")
+                                   .arg(salle)
+                                   .arg(classe)
+                                   .arg(ecue)
+                                   .arg(enseignant);
+
+        // Ajouter le créneau dans le tableau
+        QTableWidgetItem* item = new QTableWidgetItem(texteCreneau);
+        item->setTextAlignment(Qt::AlignCenter); // Centrer le texte
+
+        this->calendrier->setItem(ligneDebut, colonne, item);
+
+        // Fusionner les cellules si le créneau dure plusieurs heures
+        if (ligneFin > ligneDebut + 1) {
+            this->calendrier->setSpan(ligneDebut, colonne, ligneFin - ligneDebut, 1);
+        }
+
+        // Ajuster les lignes pour qu'elles s'adaptent à la hauteur de leur contenu
+        this->calendrier->resizeRowsToContents();
     }
+}
+
+void MainWindow::resetCalendrier(QDate referenceDate)
+{
+    this->calendrier->clearContents();
+
+    // Dé-fusionner toutes les cellules
+    for (int row = 0; row < this->calendrier->rowCount(); ++row) {
+        for (int column = 0; column < this->calendrier->columnCount(); ++column) {
+            if (this->calendrier->columnSpan(row, column) > 1 || this->calendrier->rowSpan(row, column) > 1) {
+                this->calendrier->setSpan(row, column, 1, 1);
+            }
+        }
+    }
+
+    this->calendrier->resizeRowsToContents();
+
+    // Calculer le lundi de la semaine actuelle
+    QDate mondayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 1)); // Lundi est le jour 1 dans Qt
+    QDate tuesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 2));
+    QDate wednesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 3));
+    QDate thursdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 4));
+    QDate fridayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 5));
+
+    this->calendrier->setHorizontalHeaderLabels({mondayDate.toString(),tuesdayDate.toString(),wednesdayDate.toString(),
+                                                 thursdayDate.toString(),fridayDate.toString()});
+    this->calendrier->setVerticalHeaderLabels({"8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h"});
+}
+
+// Fonction pour passer à la semaine précédente
+void MainWindow::semainePrecedente()
+{
+    this->refDate = this->refDate.addDays(-7);
+    MainWindow::resetCalendrier(this->refDate);
+}
+
+// Fonction pour passer à la semaine suivante
+void MainWindow::semaineSuivante()
+{
+    this->refDate = this->refDate.addDays(7);
+    MainWindow::resetCalendrier(this->refDate);
 }
 
 void MainWindow::infoEnseignant(QListWidgetItem *item) {
@@ -815,6 +933,6 @@ void MainWindow::afficherEnseignants()
     QString enseignantStr = QString::fromStdString(enseignant.getNom()) + " " +
                             QString::fromStdString(enseignant.getPrenom());
     this->liste_enseignants->addItem(enseignantStr);
-}
+    }
 }
 

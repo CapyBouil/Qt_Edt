@@ -75,7 +75,11 @@ private:
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
     QLabel* label_infos;
+    QPushButton* bouton_semaine_precedente;
+    QPushButton* bouton_semaine_suivante;
+    QHBoxLayout* bouton_layout_semaine;
     QTableWidget* calendrier;
+    QDate refDate;
     QHBoxLayout* bouton_layout_creneau;
     QPushButton* bouton_ajouter_creneau;
     QPushButton* bouton_supprimer_creneau;
@@ -95,6 +99,9 @@ private:
     void lierECUE();
     void lierEtudiant();
     void ajouterCreneau();
+    void resetCalendrier(QDate referenceDate);
+    void semainePrecedente();
+    void semaineSuivante();
     void infoEnseignant(QListWidgetItem *item);
     void infoSalle(QListWidgetItem *item);
     void infoEtudiant(QListWidgetItem *item);
