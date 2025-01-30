@@ -24,7 +24,7 @@ int qMain(int argc, char *argv[]) {
     //testEtudiant();
     //testECUE();
     //testClasse();
-    //testSalle();
+    //test.testSalle();
     //testCreneau();
     //test.testEdt();
     //test.testFactory();

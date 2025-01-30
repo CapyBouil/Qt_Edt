@@ -12,6 +12,11 @@ public:
     QString formaterMinuscule(QString texte);
     Enseignant findEnseignantByNomPrenom(const QString& nomPrenom) const;
     Etudiant findEtudiantByNomPrenom(const QString& nomPrenom) const;
+    Salle findSalleByNumero(const QString& numeroComplet) const;
+    ECUE findECUEByNom(const QString& nomECUE) const;
+    Classe findClasseByNomClasse(const QString& nomClasse) const;
+
+
 
 };
 

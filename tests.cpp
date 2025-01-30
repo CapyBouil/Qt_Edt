@@ -236,7 +236,7 @@ void Tests::testFactory() {
     //Factory factory;
 
     // Création de quelques objets
-    Salle salle(2, 204);
+    Salle salle(2, 5);
     Classe classe("E4");
     ECUE ecue("Factory", "Cours Magistral", 45.0);
     Enseignant enseignant("Factory", "Doe");
@@ -283,7 +283,21 @@ void Tests::testFindByNomPrenom() {
     Controleur controleur;
     // Test d'un enseignant existant
     controleur.findEnseignantByNomPrenom("Aillet Matteo");
+    controleur.findEnseignantByNomPrenom("aillet matteo");
     controleur.findEtudiantByNomPrenom("Martin Factory");
+
+    controleur.findSalleByNumero("503");
+    controleur.findECUEByNom("factory");
+    controleur.findECUEByNom("Factory");
+    //controleur.findECUEByNom("Factoy");
+
+    controleur.findClasseByNomClasse("E4");
+    controleur.findClasseByNomClasse("E6");
+    controleur.findClasseByNomClasse("E7");
+
+
+
+
 
 }
 

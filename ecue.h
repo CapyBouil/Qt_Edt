@@ -34,7 +34,7 @@ public:
     void supprimerEnseignant(Enseignant e);
 
 
-    std::string getNomECUE();
+    std::string getNomECUE() const;
     void setNomECUE(std::string nom);
 
     std::string getTypeECUE();

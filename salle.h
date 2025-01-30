@@ -22,7 +22,7 @@ public:
     int getEtage();
     int getNumero();
 
-    int getNumeroComplet();
+    int getNumeroComplet() const;
 
     void affiche();
 

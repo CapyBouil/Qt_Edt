@@ -30,9 +30,11 @@ int Salle::getId() {
     return id;
 }
 
-int Salle::getNumeroComplet() {
+
+int Salle::getNumeroComplet() const {
     return 100 * etage + numero;
 }
+
 
 void Salle::affiche() {
     std::cout << "Salle " << getNumeroComplet() << std::endl;

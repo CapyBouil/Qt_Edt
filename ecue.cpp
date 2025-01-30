@@ -28,7 +28,7 @@ int ECUE::getId() {
     return this->id;
 }
 
-std::string ECUE::getNomECUE()
+std::string ECUE::getNomECUE() const
 {
     return this->nomECUE;
 }
