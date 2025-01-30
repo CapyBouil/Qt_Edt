@@ -19,6 +19,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QDebug>
+#include <ostream>
 
 #include "etudiantwindow.h"
 #include "enseignantwindow.h"
@@ -114,8 +115,15 @@ private:
     void afficherSalles();
     void afficherClasses();
     void afficherEcues();
+    void afficherCreneaux(QDate refDate);
     QStringList chargerECUEs();
     void ajouterSalle();
+
+    void suppEnseignant();
+    void suppSalle();
+    void suppEtudiant();
+    void suppClasse();
+    void suppEcue();
 
 
 };

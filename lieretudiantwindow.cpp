@@ -79,7 +79,7 @@ QStringList LierEtudiantWindow::chargerEtudiants() {
         QString line = in.readLine();
         QStringList fields = line.split(";");
         if (fields.size() >= 2) {
-            nomsEtudiants.append(fields[1].trimmed());
+            nomsEtudiants.append(fields[1] + " " + fields[2]);
         }
     }
 

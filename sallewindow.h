@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QFormLayout>
 #include <QValidator>
+#include <iostream>
 
 class SalleWindow : public QDialog
 {

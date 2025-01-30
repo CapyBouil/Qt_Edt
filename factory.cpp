@@ -178,7 +178,7 @@ void Factory::saveSalle(Salle salle){
     QFile file("../../data/Salle.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
-    out <<"\n" <<salle.getId()<< ";" <<salle.getEtage() <<";" <<salle.getNumero() ;
+    out <<"\n" <<salle.getId()<< ";" <<salle.getEtage() <<";" <<salle.getNumero() << ";" << 100*salle.getEtage()+salle.getNumero();
 
     file.close();
 }
@@ -187,8 +187,9 @@ void Factory::saveCreneau(Creneau creneau){
     QFile file("../../data/Creneau.csv");
     file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::ExistingOnly | QIODevice::Append );
     QTextStream out(&file);
+    std::cout << "Jour creneau save: " << creneau.getJour().toString().toStdString() << std::endl;
     out <<"\n" <<creneau.getId() <<";" <<creneau.getSalle().getId() <<";" <<creneau.getClasse().getId() <<";" <<creneau.getECUE().getId() <<";" <<creneau.getEnseignant().getId() <<";"
-        <<creneau.getJour().toString() <<";" <<creneau.getHeureDebut().toString() <<";" <<creneau.getHeureFin().toString() <<";" <<creneau.getDuree();
+        <<creneau.getJour().toString("MM-dd-yyyy") <<";" <<creneau.getHeureDebut().toString() <<";" <<creneau.getHeureFin().toString() <<";" <<creneau.getDuree();
 
     file.close();
 }
@@ -213,11 +214,10 @@ void Factory::loadEtudiant(){
     while(!ts.atEnd()){
         line = ts.readLine();
         QStringList liste = line.split(";");
-        Etudiant etudiant ( liste[1].toStdString(), liste[2].toStdString(), liste[0].toInt() );
+        Etudiant etudiant ( liste[2].toStdString(), liste[1].toStdString(), liste[0].toInt() );
         Factory::listeEtudiant.push_back(etudiant);
     }
     file.close();
-    std::cout << listeEtudiant.size() << std::endl;
     //auto it = listeEtudiant.begin();
     //std::advance(it,0);
     //it->affiche();
@@ -231,11 +231,10 @@ void Factory::loadEnseignant(){
     while(!ts.atEnd()){
         line = ts.readLine();
         QStringList liste = line.split(";");
-        Enseignant enseignant ( liste[1].toStdString(), liste[2].toStdString(), liste[0].toInt());
+        Enseignant enseignant ( liste[2].toStdString(), liste[1].toStdString(), liste[0].toInt());
         Factory::listeEnseignant.push_back(enseignant);
     }
     file.close();
-    std::cout << listeEnseignant.size() << std::endl;
 }
 
 void Factory::loadEcue(){
@@ -246,11 +245,10 @@ void Factory::loadEcue(){
     while(!ts.atEnd()){
         line = ts.readLine();
         QStringList liste = line.split(";");
-        ECUE ecue ( liste[1].toStdString(), liste[2].toStdString(), liste[2].toFloat(), liste[0].toInt());
+        ECUE ecue ( liste[1].toStdString(), liste[2].toStdString(), liste[3].toFloat(), liste[0].toInt());
         Factory::listeEcue.push_back(ecue);
     }
     file.close();
-    std::cout << listeEcue.size() << std::endl;
 }
 
 
@@ -266,7 +264,6 @@ void Factory::loadClasse(){
         Factory::listeClasse.push_back(classe);
     }
     file.close();
-    std::cout << listeClasse.size() << std::endl;
 }
 
 
@@ -282,8 +279,6 @@ void Factory::loadSalle(){
         Factory::listeSalle.push_back(salle);
     }
     file.close();
-    std::cout << listeSalle.size() << std::endl;
-
 }
 
 
@@ -300,9 +295,9 @@ void Factory::loadCreneau(){
         Classe classe = Factory::findClasseById(liste[2].toInt());
         ECUE ecue = Factory::findEcueById(liste[3].toInt());
         Enseignant enseignant = Factory::findEnseignantById(liste[4].toInt());
-
-
-        std::cout << liste[5].toStdString() << std::endl;
+        QDate jour = QDate::fromString(liste[5], "MM-dd-yyyy");
+        QTime heureDebut = QTime::fromString(liste[6], "HH:mm:ss");
+        QTime heureFin = QTime::fromString(liste[7], "HH:mm:ss");
 
         Creneau creneau (
             liste[0].toInt(),
@@ -310,17 +305,14 @@ void Factory::loadCreneau(){
             classe,
             ecue,
             enseignant,
-            Factory::stringToQDate(liste[5].toStdString()),
-            Factory::floatToQTime(liste[6].toFloat()),
-            Factory::floatToQTime(liste[7].toFloat())
+            jour,
+            heureDebut,
+            heureFin
             );
-        creneau.affiche();
         Factory::listeCreneau.push_back(creneau);
     }
 
     file.close();
-    std::cout << listeCreneau.size() << std::endl;
-
 }
 
 void Factory::suppCreaneau(Creneau creneau){
@@ -452,7 +444,7 @@ void Factory::suppEtudiant(Etudiant etudiant){
     QTextStream tsC(&fileC);
     QString lineC = tsC.readLine(); //En-tête
     QStringList linesC;
-    bool present = true;
+    bool present = false;
     int supp = 0;
     while(!tsC.atEnd()){
         lineC = tsC.readLine();
@@ -474,7 +466,7 @@ void Factory::suppEtudiant(Etudiant etudiant){
                 for(int i=supp+1;i<liste.size();i++){
                     classe += ";" + liste[i];
                 }
-            }else{
+            }else if(liste.size()>3){
                 for(int i=3;i<liste.size();i++){
                     classe += ";" + liste[i];
                 }
@@ -518,7 +510,7 @@ void Factory::suppEnseignant(Enseignant enseignant){
     QTextStream tsC(&fileC);
     QString lineC = tsC.readLine(); //En-tête
     QStringList linesC;
-    bool present = true;
+    bool present = false;
     int supp = 0;
     while(!tsC.atEnd()){
         lineC = tsC.readLine();
@@ -540,7 +532,7 @@ void Factory::suppEnseignant(Enseignant enseignant){
                 for(int i=supp+1;i<liste.size();i++){
                     classe += ";" + liste[i];
                 }
-            }else{
+            }else if(liste.size()>5){
                 for(int i=5;i<liste.size();i++){
                     classe += ";" + liste[i];
                 }

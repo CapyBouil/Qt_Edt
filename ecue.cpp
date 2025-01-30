@@ -75,7 +75,7 @@ void ECUE::supprimerEnseignant(Enseignant e)
 
 void ECUE::affiche()
 {
-    std::cout << nomECUE << std::endl;
+    std::cout << "ECUE: " << nomECUE << std::endl;
 }
 
 int ECUE::getMaxId(){

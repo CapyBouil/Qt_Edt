@@ -119,6 +119,7 @@ QString CreneauWindow::getHeureFin() const {
 }
 
 QStringList CreneauWindow::chargerSalles() {
+    std::cout << "Salle Debut" << std::endl;
     QStringList nomSalle;
     QFile file("../../data/salle.csv"); // Adaptez le chemin si nécessaire
 
@@ -133,14 +134,16 @@ QStringList CreneauWindow::chargerSalles() {
         QString line = in.readLine();
         QStringList fields = line.split(";");
         if (!fields.isEmpty()) {
-            nomSalle.append(fields[1].trimmed()+fields[2].trimmed());
+            nomSalle.append(fields[1] + fields[2]);
         }
     }
     file.close();
+    std::cout << "Salle Fin" << std::endl;
     return nomSalle;
 }
 
 QStringList CreneauWindow::chargerClasses() {
+    std::cout << "Classe Debut" << std::endl;
     QStringList nomClasse;
     QFile file("../../data/classe.csv"); // Adaptez le chemin si nécessaire
 
@@ -159,10 +162,12 @@ QStringList CreneauWindow::chargerClasses() {
         }
     }
     file.close();
+    std::cout << "Classe Fin" << std::endl;
     return nomClasse;
 }
 
 QStringList CreneauWindow::chargerECUEs() {
+    std::cout << "ECUE Debut" << std::endl;
     QStringList nomECUEs;
     QFile file("../../data/ECUE.csv"); // Adaptez le chemin si nécessaire
 
@@ -181,10 +186,12 @@ QStringList CreneauWindow::chargerECUEs() {
         }
     }
     file.close();
+    std::cout << "ECUE Fin" << std::endl;
     return nomECUEs;
 }
 
 QStringList CreneauWindow::chargerEnseignants() {
+    std::cout << "Enseignant Debut" << std::endl;
     QStringList nomsEnseignants;
     QFile file("../../data/Enseignant.csv"); // Adaptez le chemin et le format
 
@@ -204,7 +211,6 @@ QStringList CreneauWindow::chargerEnseignants() {
     }
 
     file.close();
+    std::cout << "Enseignant Fin" << std::endl;
     return nomsEnseignants;
 }
-
-

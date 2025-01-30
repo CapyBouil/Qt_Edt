@@ -2,7 +2,7 @@
 
 Controleur::Controleur() {}
 
-std::optional<Enseignant> Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) const {
+std::optional<Enseignant> Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) {
     Factory::loadEnseignant();
     if (Factory::listeEnseignant.empty()) {
         qDebug() << "La liste des enseignants est vide.";
@@ -10,7 +10,7 @@ std::optional<Enseignant> Controleur::findEnseignantByNomPrenom(const QString& n
 
     // Parcours de la liste des enseignants
     for (const Enseignant& enseignant : Factory::listeEnseignant) {
-        QString nomComplet = QString::fromStdString(enseignant.getPrenom()) + " " + QString::fromStdString(enseignant.getNom());
+        QString nomComplet = QString::fromStdString(enseignant.getNom()) + " " + QString::fromStdString(enseignant.getPrenom());
         // Comparaison en ignorant la casse et les espaces
         if (nomComplet.trimmed().toLower() == nomPrenom.trimmed().toLower()) {
             qDebug() << "Enseignant trouve : " << nomPrenom;
@@ -21,7 +21,7 @@ std::optional<Enseignant> Controleur::findEnseignantByNomPrenom(const QString& n
     return std::nullopt;
 }
 
-std::optional<Etudiant> Controleur::findEtudiantByNomPrenom(const QString& nomPrenom) const {
+std::optional<Etudiant> Controleur::findEtudiantByNomPrenom(const QString& nomPrenom) {
     Factory::loadEtudiant();
     if (Factory::listeEtudiant.empty()) {
         qDebug() << "La liste des Etudiants est vide.";
@@ -29,7 +29,7 @@ std::optional<Etudiant> Controleur::findEtudiantByNomPrenom(const QString& nomPr
 
     // Parcours de la liste des Etudiants
     for (const Etudiant& etudiant : Factory::listeEtudiant) {
-        QString nomComplet = QString::fromStdString(etudiant.getPrenom()) + " " + QString::fromStdString(etudiant.getNom());
+        QString nomComplet = QString::fromStdString(etudiant.getNom()) + " " + QString::fromStdString(etudiant.getPrenom());
         // Comparaison en ignorant la casse et les espaces
         if (nomComplet.trimmed().toLower() == nomPrenom.trimmed().toLower()) {
             qDebug() << "Etudiant trouve : " << nomPrenom;
@@ -41,7 +41,7 @@ std::optional<Etudiant> Controleur::findEtudiantByNomPrenom(const QString& nomPr
     return std::nullopt;
 }
 
-std::optional<Salle> Controleur::findSalleByNumero(const QString& numeroComplet) const {
+std::optional<Salle> Controleur::findSalleByNumero(const QString& numeroComplet) {
     Factory::loadSalle();
     if (Factory::listeSalle.empty()) {
         qDebug() << "La liste des Salles est vide.";
@@ -61,7 +61,7 @@ std::optional<Salle> Controleur::findSalleByNumero(const QString& numeroComplet)
     return std::nullopt;
 }
 
-std::optional<ECUE> Controleur::findECUEByNom(const QString& nomECUE) const {
+std::optional<ECUE> Controleur::findECUEByNom(const QString& nomECUE) {
     Factory::loadEcue();
     if (Factory::listeEcue.empty()) {
         qDebug() << "La liste des ECUEs est vide.";
@@ -81,7 +81,7 @@ std::optional<ECUE> Controleur::findECUEByNom(const QString& nomECUE) const {
     return std::nullopt;
 }
 
-std::optional<Classe> Controleur::findClasseByNomClasse(const QString& nomClasse) const {
+std::optional<Classe> Controleur::findClasseByNomClasse(const QString& nomClasse) {
 
     Factory::loadClasse();
 

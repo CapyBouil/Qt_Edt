@@ -13,6 +13,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QTextStream>
+#include <iostream>
 
 class CreneauWindow : public QDialog
 {

@@ -14,9 +14,15 @@ SalleWindow::SalleWindow(QWidget *parent) : QDialog(parent)
 
     // Valideur pour les nombres entiers positifs
     QIntValidator *validatorEtage = new QIntValidator(0, 9, this);
+    QIntValidator *validatorNumero = new QIntValidator(0, 99, this);
+
+    // Assigner les validateurs
     etageLineEdit->setValidator(validatorEtage);
-    QIntValidator *validatorNumero = new QIntValidator(0, 999, this);
     numeroLineEdit->setValidator(validatorNumero);
+
+    // Limiter la longueur des entrées
+    etageLineEdit->setInputMask("9");   // Un seul chiffre (0-9)
+    numeroLineEdit->setInputMask("99"); // Deux chiffres obligatoires (00-99)
 
 
     formLayout->addRow("Numéro de l'étage :", etageLineEdit);
@@ -35,11 +41,9 @@ SalleWindow::SalleWindow(QWidget *parent) : QDialog(parent)
 }
 
 void SalleWindow::valider() {
-    if (etageLineEdit->text().isEmpty() || numeroLineEdit->text().isEmpty()) {
+    if (etageLineEdit->text().isEmpty() || numeroLineEdit->text().isEmpty() ) {
         QMessageBox::warning(this, "Erreur", "Le numéro d'étage et le numéro de la salle ne peuvent pas être vides.");
-    } else {
-        accept();
-    }
+    }else{accept();}
 }
 
 QString SalleWindow::getEtage() const {

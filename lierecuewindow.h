@@ -12,6 +12,10 @@
 #include <QFile>
 #include <QTextStream>
 
+#include "enseignant.h"
+#include "ecue.h"
+#include "controleur.h"
+
 
 
 class LierECUEWindow : public QDialog

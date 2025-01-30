@@ -31,4 +31,5 @@ std::string Enseignant::getPrenom() const {
 
 //Méthode AFFICHE
 void Enseignant::affiche() const {
+    std::cout << "Enseigant: " << this->getNom() << " " << this->getPrenom() << std::endl;
 }
