@@ -3,47 +3,78 @@
 Controleur::Controleur() {}
 
 Enseignant Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) const {
-    Factory::loadEnseignant();
-    if (Factory::listeEnseignant.empty()) {
-        qDebug() << "La liste des enseignants est vide.";
-    }
-
-    // Parcours de la liste des enseignants
-    for (const Enseignant& enseignant : Factory::listeEnseignant) {
-        QString nomComplet = QString::fromStdString(enseignant.getPrenom()) + " " + QString::fromStdString(enseignant.getNom());
-        // Comparaison en ignorant la casse et les espaces
-        if (nomComplet.trimmed().toLower() == nomPrenom.trimmed().toLower()) {
-            qDebug() << "Enseignant trouvé : " << nomPrenom;
-            return enseignant;
+    std::optional<Enseignant> Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) const {
+        Factory::loadEnseignant();
+        if (Factory::listeEnseignant.empty()) {
+            qDebug() << "La liste des enseignants est vide.";
+            Enseignant Controleur::findEnseignantByNomPrenom(const QString& nomPrenom) const
+                return enseignant;
         }
     }
 
     qDebug() << "Enseignant introuvable pour : " << nomPrenom;
-    throw std::runtime_error("Enseignant non trouvé");
+    throw std::runtime_error("Enseignant non trouve");
+    return std::nullopt;
 }
 
 Etudiant Controleur::findEtudiantByNomPrenom(const QString& nomPrenom) const {
-    Factory::loadEtudiant();
-    if (Factory::listeEtudiant.empty()) {
-        qDebug() << "La liste des Etudiants est vide.";
-    }
+    std::optional<Etudiant> Controleur::findEtudiantByNomPrenom(const QString& nomPrenom) const {
+        Factory::loadEtudiant();
+        if (Factory::listeEtudiant.empty()) {
+            qDebug() << "La liste des Etudiants est vide.";
+            Etudiant Controleur::findEtudiantByNomPrenom(const QString& nomPrenom) const {
+            }
 
-    // Parcours de la liste des Etudiants
-    for (const Etudiant& etudiant : Factory::listeEtudiant) {
-        QString nomComplet = QString::fromStdString(etudiant.getPrenom()) + " " + QString::fromStdString(etudiant.getNom());
-        // Comparaison en ignorant la casse et les espaces
-        if (nomComplet.trimmed().toLower() == nomPrenom.trimmed().toLower()) {
-            qDebug() << "Etudiant trouvé : " << nomPrenom;
-            return etudiant;
+            qDebug() << "Etudiant introuvable pour : " << nomPrenom;
+            throw std::runtime_error("Etudiant non trouve");
+            return std::nullopt;
         }
     }
+}
 
-    qDebug() << "Etudiant introuvable pour : " << nomPrenom;
-    throw std::runtime_error("Etudiant non trouvé");
+Salle Controleur::findSalleByNumero(const QString& numeroComplet) const {
+    std::optional<Salle> Controleur::findSalleByNumero(const QString& numeroComplet) const {
+    Factory::loadSalle();
+        if (Factory::listeSalle.empty()) {
+            qDebug() << "La liste des Salles est vide.";
+            Salle Controleur::findSalleByNumero(const QString& numeroComplet) const {
+            }
+
+            qDebug() << "Salle introuvable pour : " << numeroComplet;
+            throw std::runtime_error("Salle non trouvee");
+            return std::nullopt;
+        }
+    }
 }
 
 
-QString formaterMinuscule(QString texte) {
-    QString resultat = texte.toLower();
-    return resultat;
+
+ECUE Controleur::findECUEByNom(const QString& nomECUE) const {
+    std::optional<ECUE> Controleur::findECUEByNom(const QString& nomECUE) const {
+    Factory::loadEcue();
+        if (Factory::listeEcue.empty()) {
+            qDebug() << "La liste des ECUEs est vide.";
+            @ -81,10 +80,10 @@ ECUE Controleur::findECUEByNom(const QString& nomECUE) const {
+            }
+
+            qDebug() << "ECUE introuvable pour : " << nomECUE;
+            throw std::runtime_error("ECUE non trouve");
+            return std::nullopt;
+        }
+    }
 }
+
+Classe Controleur::findClasseByNomClasse(const QString& nomClasse) const {
+    std::optional<Classe> Controleur::findClasseByNomClasse(const QString& nomClasse) const {
+    Factory::loadClasse();
+    Classe Controleur::findClasseByNomClasse(const QString& nomClasse) const {
+
+        }
+    }
+    qDebug() << "Classe introuvable pour : " << nomClasse;
+
+    throw std::runtime_error("Classe non trouvée");
+    return std::nullopt;
+
+}
+
