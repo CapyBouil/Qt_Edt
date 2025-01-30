@@ -11,11 +11,11 @@ class Controleur
 public:
     Controleur();
     QString formaterMinuscule(QString texte);
-    Enseignant findEnseignantByNomPrenom(const QString& nomPrenom) const;
-    Etudiant findEtudiantByNomPrenom(const QString& nomPrenom) const;
-    Salle findSalleByNumero(const QString& numeroComplet) const;
-    ECUE findECUEByNom(const QString& nomECUE) const;
-    Classe findClasseByNomClasse(const QString& nomClasse) const;
+    //Enseignant findEnseignantByNomPrenom(const QString& nomPrenom) const;
+    //Etudiant findEtudiantByNomPrenom(const QString& nomPrenom) const;
+    //Salle findSalleByNumero(const QString& numeroComplet) const;
+    //ECUE findECUEByNom(const QString& nomECUE) const;
+    //Classe findClasseByNomClasse(const QString& nomClasse) const;
     std::optional<Enseignant> findEnseignantByNomPrenom(const QString& nomPrenom) const;
     std::optional<Etudiant> findEtudiantByNomPrenom(const QString& nomPrenom) const;
     std::optional<Salle> findSalleByNumero(const QString& numeroComplet) const;
