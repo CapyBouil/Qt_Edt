@@ -288,6 +288,7 @@ void MainWindow::ajouterCreneau() {
         QString ecue = dialog.getECUE();
 
         QString enseignant = dialog.getEnseignant();
+        Enseignant enseignantObjet = Controleur::findEnseignantByNomPrenom(enseignant);
 
         QString jour = dialog.getJour();
         QDate jourDate = QDate::fromString(jour, "yyyy-MM-dd");

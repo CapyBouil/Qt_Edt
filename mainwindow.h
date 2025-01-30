@@ -31,6 +31,7 @@
 #include "controleur.h"
 #include"factory.h"
 #include "lieretudiantwindow.h"
+#include "controleur.h"
 
 class MainWindow : public QMainWindow
 {
