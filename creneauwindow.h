@@ -10,6 +10,9 @@
 #include <QDateEdit>
 #include <QTimeEdit>
 #include <QMessageBox>
+#include <QStringList>
+#include <QFile>
+#include <QTextStream>
 
 class CreneauWindow : public QDialog
 {
@@ -37,6 +40,10 @@ private:
 
 private:
     void valider();
+    QStringList chargerSalles();
+    QStringList chargerClasses();
+    QStringList chargerECUEs();
+    QStringList chargerEnseignants();
 };
 
 #endif // CRENEAUWINDOW_H
