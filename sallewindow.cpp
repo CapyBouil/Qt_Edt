@@ -13,9 +13,10 @@ SalleWindow::SalleWindow(QWidget *parent) : QDialog(parent)
     numeroLineEdit = new QLineEdit;
 
     // Valideur pour les nombres entiers positifs
-    QIntValidator *validator = new QIntValidator(0, 999, this);
-    etageLineEdit->setValidator(validator);
-    numeroLineEdit->setValidator(validator);
+    QIntValidator *validatorEtage = new QIntValidator(0, 9, this);
+    etageLineEdit->setValidator(validatorEtage);
+    QIntValidator *validatorNumero = new QIntValidator(0, 999, this);
+    numeroLineEdit->setValidator(validatorNumero);
 
 
     formLayout->addRow("Numéro de l'étage :", etageLineEdit);

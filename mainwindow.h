@@ -18,6 +18,7 @@
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QDebug>
 
 #include "etudiantwindow.h"
 #include "enseignantwindow.h"

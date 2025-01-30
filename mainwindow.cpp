@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <QDebug>
 
 // Constructeur
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -283,12 +282,21 @@ void MainWindow::ajouterCreneau() {
     CreneauWindow dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
         QString salle = dialog.getSalle();
+
         QString classe = dialog.getClasse();
+
         QString ecue = dialog.getECUE();
+
         QString enseignant = dialog.getEnseignant();
+
         QString jour = dialog.getJour();
+        QDate jourDate = QDate::fromString(jour, "yyyy-MM-dd");
         QString heureDebut = dialog.getHeureDebut();
+        QTime heureDebutTime = QTime::fromString(heureDebut, "HH");
         QString heureFin = dialog.getHeureFin();
+        QTime heureFinTime = QTime::fromString(heureFin, "HH");
+
+        //Creneau* creneau = new Creneau(salle, classe, ecue, enseignant, jourDate, heureDebutTime, heureFinTime);
 
         // Convertir le jour en indice de colonne
         QDate date = QDate::fromString(jour, "MM/dd/yyyy");

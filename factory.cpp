@@ -1,3 +1,4 @@
+
 #include "factory.h"
 
     Factory::Factory() {}
@@ -266,7 +267,6 @@ void Factory::loadClasse(){
     }
     file.close();
     std::cout << listeClasse.size() << std::endl;
-
 }
 
 

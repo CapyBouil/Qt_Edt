@@ -133,7 +133,7 @@ QStringList CreneauWindow::chargerSalles() {
         QString line = in.readLine();
         QStringList fields = line.split(";");
         if (!fields.isEmpty()) {
-            nomSalle.append(fields[1].trimmed());
+            nomSalle.append(fields[1].trimmed()+fields[2].trimmed());
         }
     }
     file.close();
@@ -199,7 +199,7 @@ QStringList CreneauWindow::chargerEnseignants() {
         QString line = in.readLine();
         QStringList fields = line.split(";");
         if (fields.size() >= 2) {
-            nomsEnseignants.append(fields[1].trimmed());
+            nomsEnseignants.append(fields[1].trimmed()+" "+fields[2].trimmed());
         }
     }
 
