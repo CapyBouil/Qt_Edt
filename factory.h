@@ -46,6 +46,13 @@ public:
     static void loadSalle();
     static void loadCreneau();
 
+    static void suppEtudiant(Etudiant etudiant);
+    static void suppEnseignant(Enseignant enseignant);
+    static void suppEcue(ECUE ecue);
+    static void suppClasse(Classe classe);
+    static void suppSalle(Salle salle);
+    static void suppCreaneau(Creneau creneau);
+
 
 };
 

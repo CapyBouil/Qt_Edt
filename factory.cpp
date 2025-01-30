@@ -322,3 +322,239 @@ void Factory::loadCreneau(){
     std::cout << listeCreneau.size() << std::endl;
 
 }
+
+void Factory::suppCreaneau(Creneau creneau){
+    QFile file("../../data/Creneau.csv");
+    file.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream ts(&file);
+    QString line = ts.readLine(); //En-tête
+    QStringList lines;
+    while(!ts.atEnd()){
+        line = ts.readLine();
+        QStringList liste = line.split(";");
+        if(liste[0].toInt()!=creneau.getId()){
+            lines.append(line);
+        }
+    }
+    file.resize(0);
+    ts.seek(0);
+    ts <<"Id;Salle;Classe;ECUE;Enseignant;Jour;HeureDebut;HeureFin;Duree";
+    for (const QString& line : lines) {
+        ts << "\n" << line;
+    }
+
+    file.close();
+}
+
+void Factory::suppSalle(Salle salle){
+    QFile file("../../data/Salle.csv");
+    file.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream ts(&file);
+    QString line = ts.readLine(); //En-tête
+    QStringList lines;
+    while(!ts.atEnd()){
+        line = ts.readLine();
+        QStringList liste = line.split(";");
+        if(liste[0].toInt()!=salle.getId()){
+            lines.append(line);
+        }
+    }
+    file.resize(0);
+    ts.seek(0);
+    ts <<"Id;Etage;Numero";
+    for (const QString& line : lines) {
+        ts << "\n" << line;
+    }
+    file.close();
+    for (auto it = listeCreneau.begin(); it != listeCreneau.end(); ++it) {
+        if (it->getSalle().getId() == salle.getId()){
+            Factory::suppCreaneau(*it);
+        }
+    }
+}
+
+void Factory::suppEcue(ECUE ecue){
+    QFile file("../../data/ECUE.csv");
+    file.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream ts(&file);
+    QString line = ts.readLine(); //En-tête
+    QStringList lines;
+    while(!ts.atEnd()){
+        line = ts.readLine();
+        QStringList liste = line.split(";");
+        if(liste[0].toInt()!=ecue.getId()){
+            lines.append(line);
+        }
+    }
+    file.resize(0);
+    ts.seek(0);
+    ts <<"Id;NomECUE;TypeECUE;NbHeure";
+    for (const QString& line : lines) {
+        ts << "\n" << line;
+    }
+    file.close();
+    for (auto it = listeCreneau.begin(); it != listeCreneau.end(); ++it) {
+        if (it->getECUE().getId() == ecue.getId()){
+            Factory::suppCreaneau(*it);
+        }
+    }
+}
+
+void Factory::suppClasse(Classe classe){
+    QFile file("../../data/Classe.csv");
+    file.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream ts(&file);
+    QString line = ts.readLine(); //En-tête
+    QStringList lines;
+    while(!ts.atEnd()){
+        line = ts.readLine();
+        QStringList liste = line.split(";");
+        if(liste[0].toInt()!=classe.getId()){
+            lines.append(line);
+        }
+    }
+    file.resize(0);
+    ts.seek(0);
+    ts <<"Id;NomClasse";
+    for (const QString& line : lines) {
+        ts << "\n" << line;
+    }
+    file.close();
+    for (auto it = listeCreneau.begin(); it != listeCreneau.end(); ++it) {
+        if (it->getClasse().getId() == classe.getId()){
+            Factory::suppCreaneau(*it);
+        }
+    }
+}
+
+void Factory::suppEtudiant(Etudiant etudiant){
+    QFile fileE("../../data/Etudiant.csv");
+    fileE.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream tsE(&fileE);
+    QString lineE = tsE.readLine(); //En-tête
+    QStringList linesE;
+    while(!tsE.atEnd()){
+        lineE = tsE.readLine();
+        QStringList liste = lineE.split(";");
+        if(liste[0].toInt()!=etudiant.getId()){
+            linesE.append(lineE);
+        }
+    }
+    fileE.resize(0);
+    tsE.seek(0);
+    tsE <<"Id;Nom;Prenom";
+    for (const QString& line : linesE) {
+        tsE << "\n" << line;
+    }
+    fileE.close();
+    QFile fileC("../../data/Classe.csv");
+    fileC.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream tsC(&fileC);
+    QString lineC = tsC.readLine(); //En-tête
+    QStringList linesC;
+    bool present = true;
+    int supp = 0;
+    while(!tsC.atEnd()){
+        lineC = tsC.readLine();
+        QStringList liste = lineC.split(";");
+        if(liste.size()>2){
+            for(int i=2; i<liste.size(); i++){
+                if(liste[i].toInt()==etudiant.getId()){
+                    present = true;
+                    supp = i;
+                }
+            }
+        }
+        if(present == true){
+            QString classe = liste[0] + ";" + liste[1];
+            if(supp!=2){
+                for(int i=2;i<supp;i++){
+                    classe += ";" + liste[i];
+                }
+                for(int i=supp+1;i<liste.size();i++){
+                    classe += ";" + liste[i];
+                }
+            }else{
+                for(int i=3;i<liste.size();i++){
+                    classe += ";" + liste[i];
+                }
+            }
+            linesC.append(classe);
+        }else{linesC.append(lineC);}
+        present = false;
+        supp = 0;
+    }
+    fileC.resize(0);
+    tsC.seek(0);
+    tsC <<"Id;NomClasse";
+    for (const QString& line : linesC) {
+        tsC << "\n" << line;
+    }
+    fileC.close();
+}
+
+void Factory::suppEnseignant(Enseignant enseignant){
+    QFile fileE("../../data/Enseignant.csv");
+    fileE.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream tsE(&fileE);
+    QString lineE = tsE.readLine(); //En-tête
+    QStringList linesE;
+    while(!tsE.atEnd()){
+        lineE = tsE.readLine();
+        QStringList liste = lineE.split(";");
+        if(liste[0].toInt()!=enseignant.getId()){
+            linesE.append(lineE);
+        }
+    }
+    fileE.resize(0);
+    tsE.seek(0);
+    tsE <<"Id;Nom;Prenom";
+    for (const QString& line : linesE) {
+        tsE << "\n" << line;
+    }
+    fileE.close();
+    QFile fileC("../../data/ECUE.csv");
+    fileC.open( QIODevice::ReadWrite | QIODevice::Text );
+    QTextStream tsC(&fileC);
+    QString lineC = tsC.readLine(); //En-tête
+    QStringList linesC;
+    bool present = true;
+    int supp = 0;
+    while(!tsC.atEnd()){
+        lineC = tsC.readLine();
+        QStringList liste = lineC.split(";");
+        if(liste.size()>4){
+            for(int i=4; i<liste.size(); i++){
+                if(liste[i].toInt()==enseignant.getId()){
+                    present = true;
+                    supp = i;
+                }
+            }
+        }
+        if(present == true){
+            QString classe = liste[0] + ";" + liste[1] + ";" + liste[2] + ";" + liste[3];
+            if(supp!=4){
+                for(int i=4;i<supp;i++){
+                    classe += ";" + liste[i];
+                }
+                for(int i=supp+1;i<liste.size();i++){
+                    classe += ";" + liste[i];
+                }
+            }else{
+                for(int i=5;i<liste.size();i++){
+                    classe += ";" + liste[i];
+                }
+            }
+            linesC.append(classe);
+        }else{linesC.append(lineC);}
+        present = false;
+        supp = 0;
+    }
+    fileC.resize(0);
+    tsC.seek(0);
+    tsC <<"Id;NomECUE;TypeECUE;NbHeure";
+    for (const QString& line : linesC) {
+        tsC << "\n" << line;
+    }
+    fileC.close();
+}
