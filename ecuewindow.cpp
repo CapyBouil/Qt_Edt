@@ -1,6 +1,4 @@
 #include "ecuewindow.h"
-#include <QIntValidator>
-
 
 ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
 {
@@ -11,15 +9,21 @@ ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
     QFormLayout *formLayout = new QFormLayout;
 
     nomECUELineEdit = new QLineEdit;
-    typeECUELineEdit = new QLineEdit;
+    typeECUEComboBox = new QComboBox;
     nbHeuresLineEdit = new QLineEdit;
+
+    // Ajouter les éléments au comboBox
+    typeECUEComboBox->addItem("CM");
+    typeECUEComboBox->addItem("TD");
+    typeECUEComboBox->addItem("TP");
+    typeECUEComboBox->addItem("NT");
 
     // Valideur pour les nombres entiers positifs (0 à 999)
     QIntValidator *validator = new QIntValidator(0, 999, this);
     nbHeuresLineEdit->setValidator(validator);
 
     formLayout->addRow("Nom ECUE :", nomECUELineEdit);
-    formLayout->addRow("Type ECUE :", typeECUELineEdit);
+    formLayout->addRow("Type ECUE :", typeECUEComboBox);
     formLayout->addRow("Nombre d'heures :", nbHeuresLineEdit);
     layout->addLayout(formLayout);
 
@@ -30,14 +34,33 @@ ECUEWindow::ECUEWindow(QWidget *parent) : QDialog(parent)
     buttonLayout->addWidget(annulerButton);
     layout->addLayout(buttonLayout);
 
+    // Connexion des boutons
     connect(validerButton, &QPushButton::clicked, this, &ECUEWindow::valider);
     connect(annulerButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
 void ECUEWindow::valider() {
-    if (nomECUELineEdit->text().isEmpty() || typeECUELineEdit->text().isEmpty() || nbHeuresLineEdit->text().isEmpty()) {
+    QString nomECUE = nomECUELineEdit->text();
+    QString typeECUE = typeECUEComboBox->currentText();
+    QString nbHeures = nbHeuresLineEdit->text();
+
+    if (nomECUE.isEmpty() || typeECUE.isEmpty() || nbHeures.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
     } else {
+        // Conversion du champ Nombre d'heures en float
+        float nbHeuresFloat = nbHeures.toFloat();
+
+        // Création de l'ECUE
+        ECUE ecue(nomECUE.toStdString(), typeECUE.toStdString(), nbHeuresFloat);
+
+        // Enregistrement dans le fichier CSV
+        Factory::saveECUE(ecue); // Assurez-vous que la méthode saveECUE() est implémentée dans la classe ECUE
+
+        Factory::listeEcue.clear();
+        Factory::loadEcue();
+
+        // Ajouter l'ECUE à la liste de l'interface utilisateur
+        //this->liste_ecue->addItem(nomECUE + " (" + typeECUE + ", " + QString::number(nbHeuresFloat) + " heures)");
         accept();
     }
 }
@@ -45,5 +68,5 @@ void ECUEWindow::valider() {
 ECUE ECUEWindow::getECUE() const
 {
     int nbHeures = nbHeuresLineEdit->text().toInt();
-    return ECUE(nomECUELineEdit->text().toStdString(), typeECUELineEdit->text().toStdString(), nbHeures);
+    return ECUE(nomECUELineEdit->text().toStdString(), typeECUEComboBox->currentText().toStdString(), nbHeures);
 }

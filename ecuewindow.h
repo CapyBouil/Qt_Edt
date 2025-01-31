@@ -4,12 +4,17 @@
 #include <QDialog>
 #include <QFormLayout>
 #include <QLineEdit>
+#include <QComboBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QValidator>
+#include <QIntValidator>
+
 #include "ecue.h"
+#include "factory.h"
+
 
 class ECUEWindow : public QDialog
 {
@@ -24,7 +29,7 @@ private slots:
 
 private:
     QLineEdit *nomECUELineEdit;
-    QLineEdit *typeECUELineEdit;
+    QComboBox *typeECUEComboBox;
     QLineEdit *nbHeuresLineEdit; // Pour la saisie du nombre d'heures
 
 

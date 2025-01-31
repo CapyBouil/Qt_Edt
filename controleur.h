@@ -21,6 +21,7 @@ public:
     static std::optional<Salle> findSalleByNumero(const QString& numeroComplet);
     static std::optional<ECUE> findECUEByNom(const QString& nomECUE);
     static std::optional<Classe> findClasseByNomClasse(const QString& nomClasse);
+    static std::optional<Creneau> findCreneau(Salle& salle, Classe& classe, ECUE& ecue, Enseignant& enseignant, QDate& jour, QTime& heureDebut);
 
 };
 

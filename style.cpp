@@ -60,7 +60,7 @@
         }
 
         QSplitter::handle {
-            background-color: #3498db;  /* Fond bleu clair */
+            background-color: #6666ff;  /* Fond bleu clair */
             border: 1px solid #ffffff;
         }
     )";

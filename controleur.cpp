@@ -110,6 +110,27 @@ std::optional<Classe> Controleur::findClasseByNomClasse(const QString& nomClasse
 
 }
 
+std::optional<Creneau> Controleur::findCreneau(Salle& salle, Classe& classe, ECUE& ecue, Enseignant& enseignant, QDate& jour, QTime& heureDebut) {
+    Factory::loadCreneau();
+    if (Factory::listeCreneau.empty()) {
+        qDebug() << "La liste des créneaux est vide.";
+    }
+
+    for (const Creneau& creneau : Factory::listeCreneau) {
+        if (creneau.getSalle().getId() == salle.getId() &&
+            creneau.getClasse().getId() == classe.getId() &&
+            creneau.getECUE().getId() == ecue.getId() &&
+            creneau.getEnseignant().getId() == enseignant.getId() &&
+            creneau.getJour() == jour &&
+            creneau.getHeureDebut() == heureDebut) {
+            return creneau;
+        }
+    }
+    qDebug() << "Créneau introuvable.";
+    return std::nullopt;
+}
+
+
 QString formaterMinuscule(QString texte) {
     QString resultat = texte.toLower();
     return resultat;

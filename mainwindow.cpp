@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->setGeometry(0,0,800,600);
     this->init_composants();
     this->init_layout();
-    this->init_slots();
     this->showMaximized(); // Maximiser la fenêtre
     this->apply_global_style();
 
@@ -17,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     afficherClasses();
     afficherEcues();
     afficherCreneaux(this->refDate);
+
+    this->init_slots();
 }
 
 // Initialisations
@@ -88,6 +89,11 @@ void MainWindow::init_composants(void)
     // Layout pour les informations
     this->layout_infos = new QVBoxLayout();
     this->label_infos = new QLabel("Informations :");
+
+    // Ajouter le texte "Affichage de l'emploi du temps des :" et la liste déroulante
+    this->layoutSelectionClasse = new QHBoxLayout();
+    this->labelAffichage = new QLabel("Affichage de l'emploi du temps des :");
+    this->comboBoxClasses = new QComboBox();
 
     // Boutons pour changer de semaine
     this->bouton_semaine_precedente = new QPushButton("Semaine précédente");
@@ -211,8 +217,13 @@ void MainWindow::init_layout(void)
     this->rightLayout->addLayout(this->layout_infos);
     this->layout_infos->addWidget(this->label_infos);
 
-    // Separateur
-    this->rightLayout->addItem(new QSpacerItem(10, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    //Separateur
+    this->rightLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding));
+
+    // Ajouter le layout et les widgets pour la selection d'affichage
+    this->rightLayout->addLayout(this->layoutSelectionClasse);
+    this->layoutSelectionClasse->addWidget(this->labelAffichage);
+    this->layoutSelectionClasse->addWidget(this->comboBoxClasses);
 
     // Boutons pour changer de semaine
     this->rightLayout->addLayout(this->bouton_layout_semaine);
@@ -253,6 +264,10 @@ void MainWindow::init_slots(void)
     connect(this->bouton_supprimer_etudiant, &QPushButton::clicked, this, &MainWindow::suppEtudiant);
     connect(this->bouton_supprimer_enseignant, &QPushButton::clicked, this, &MainWindow::suppEnseignant);
     connect(this->bouton_supprimer_ecue, &QPushButton::clicked, this, &MainWindow::suppEcue);
+    connect(this->bouton_supprimer_creneau, &QPushButton::clicked, this, &MainWindow::suppCreneau);
+
+    // Connecter le signal currentIndexChanged au slot onClasseSelectionChanged
+    connect(comboBoxClasses, &QComboBox::currentIndexChanged, this, &MainWindow::onClasseSelectionChanged);
 
     // Connexions pour les boutons de changement de semaine
     connect(this->bouton_semaine_precedente, &QPushButton::clicked, this, &MainWindow::semainePrecedente);
@@ -309,6 +324,10 @@ void MainWindow::ajouterCreneau() {
         Creneau *creneau = new Creneau(salleObj, classeObj, ecueObj, enseignantObj, jourDate, heureDebutTime, heureFinTime);
         factory.saveCreneau(*creneau);
         MainWindow::afficherCreneaux(this->refDate);
+
+        // Afficher un message de confirmation
+        QMessageBox::information(this, "Confirmation", "Le créneau a bien été ajouté dans l'emploi du temps de la classe " +
+                                QString::fromStdString(classeObj.getNomClasse()));
     }
 }
 
@@ -343,7 +362,7 @@ void MainWindow::afficherCreneaux(QDate refDate)
         int creneauWeekNumber = jour.weekNumber();
 
         // Vérifier si le créneau est dans la même semaine que la date de référence
-        if (creneauWeekNumber != refWeekNumber) {
+        if (creneauWeekNumber != refWeekNumber || classe.getNomClasse() != this->comboBoxClasses->currentText()) {
             continue; // Passer au créneau suivant
         }
 
@@ -426,11 +445,11 @@ void MainWindow::resetCalendrier(QDate referenceDate)
     this->calendrier->resizeRowsToContents();
 
     // Calculer le lundi de la semaine actuelle
-    QDate mondayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 1)); // Lundi est le jour 1 dans Qt
-    QDate tuesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 2));
-    QDate wednesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 3));
-    QDate thursdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 4));
-    QDate fridayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 5));
+    this->mondayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 1)); // Lundi est le jour 1 dans Qt
+    this->tuesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 2));
+    this->wednesdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 3));
+    this->thursdayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 4));
+    this->fridayDate = referenceDate.addDays(-(referenceDate.dayOfWeek() - 5));
 
     this->calendrier->setHorizontalHeaderLabels({mondayDate.toString(),tuesdayDate.toString(),wednesdayDate.toString(),
                                                  thursdayDate.toString(),fridayDate.toString()});
@@ -715,86 +734,26 @@ void MainWindow::afficherClasses()
 
     // Vider la liste graphique avant de la recharger
     this->liste_classes->clear();
+    this->comboBoxClasses->clear();
 
     // Ajouter les classe à la liste graphique
-       for (const Classe& classe : Factory::listeClasse) {
-    QString classeStr = "Classe : " + QString::fromStdString(classe.getNomClasse());
-    this->liste_classes->addItem(classeStr);
-}
+    for (const Classe& classe : Factory::listeClasse) {
+        QString classeStr = "Classe : " + QString::fromStdString(classe.getNomClasse());
+        this->liste_classes->addItem(classeStr);
+        QString nomClasse = classeStr.split(" ")[2];
+        this->comboBoxClasses->addItem(nomClasse);
+    }
 }
 
 //ECUE : Ajouter et afficher
 
 void MainWindow::ajouterECUE() {
-    // CrÃ©er une boite de dialogue
-    QDialog dialog(this);
-    dialog.setWindowTitle("Ajouter une ECUE");
-    dialog.setModal(true);
+    ECUEWindow* dialog = new ECUEWindow();
+    dialog->show();
 
-    // Layout principal
-    QVBoxLayout layout(&dialog);
-
-    // Formulaire pour les champs de saisie
-    QFormLayout formLayout;
-
-    QLineEdit nomECUELineEdit;
-    QLineEdit typeECUELineEdit;
-
-    // Champ avec validateur pour le nombre d'heures (float)
-    QLineEdit nbHeureLineEdit;
-    QDoubleValidator* doubleValidator = new QDoubleValidator(0, 1000, 2, &nbHeureLineEdit); // Limite Ã  1000 heures avec 2 dÃ©cimales
-       nbHeureLineEdit.setValidator(doubleValidator);
-
-    formLayout.addRow("Nom ECUE :", &nomECUELineEdit);
-    formLayout.addRow("Type ECUE :", &typeECUELineEdit);
-    formLayout.addRow("Nombre d'heures :", &nbHeureLineEdit);
-
-    layout.addLayout(&formLayout);
-
-    // Boutons Valider et Annuler
-    QHBoxLayout buttonLayout;
-    QPushButton validerButton("Valider", &dialog);
-    QPushButton annulerButton("Annuler", &dialog);
-
-    buttonLayout.addWidget(&validerButton);
-    buttonLayout.addWidget(&annulerButton);
-
-    layout.addLayout(&buttonLayout);
-
-    // Connexion des boutons
-    connect(&validerButton, &QPushButton::clicked, [&]() {
-        QString nomECUE = nomECUELineEdit.text();
-        QString typeECUE = typeECUELineEdit.text();
-        QString nbHeures = nbHeureLineEdit.text();
-
-        if (nomECUE.isEmpty() || typeECUE.isEmpty() || nbHeures.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
-        } else {
-            // Conversion du champ Nombre d'heures en float
-            float nbHeuresFloat = nbHeures.toFloat();
-
-            // Création de l'ECUE
-            ECUE ecue(nomECUE.toStdString(), typeECUE.toStdString(), nbHeuresFloat);
-
-            // Enregistrement dans le fichier CSV
-            Factory::saveECUE(ecue); // Assurez-vous que la méthode saveECUE() est implémentée dans la classe ECUE
-
-            Factory::listeEcue.clear();
-            Factory::loadEcue();
-
-            afficherEcues();
-
-
-            // Ajouter l'ECUE à la liste de l'interface utilisateur
-                       //this->liste_ecue->addItem(nomECUE + " (" + typeECUE + ", " + QString::number(nbHeuresFloat) + " heures)");
-            dialog.accept();
-        }
-    });
-
-    connect(&annulerButton, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    // Afficher la boite de dialogue
-    dialog.exec();
+    if(dialog->exec() == QDialog::Accepted) {
+        afficherEcues();
+    }
 }
 
 void MainWindow::afficherEcues()
@@ -948,7 +907,7 @@ void MainWindow::ajouterEnseignant() {
         if (nom.isEmpty() || prenom.isEmpty()) {
             QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
         } else {
-            // CrÃ©ation de l'enseignant
+            // Création de l'enseignant
             Enseignant enseignant(prenom.toStdString(), nom.toStdString());
 
             // Enregistrement dans le fichier CSV
@@ -1056,5 +1015,79 @@ void MainWindow::suppEcue(){
         liste_ecue->clear();
         MainWindow::afficherEcues();
     }
+}
+
+void MainWindow::suppCreneau() {
+    QList<QTableWidgetItem*> creneauSelectionne = this->calendrier->selectedItems();
+    if (creneauSelectionne.size() > 1) {
+        QMessageBox::warning(this, "Erreur", "Plusieurs créneaux sélectionnés !");
+    } else if (creneauSelectionne.size() == 1) {
+        QTableWidgetItem* item = creneauSelectionne.first();
+        int row = item->row();
+        int column = item->column();
+
+        // Récupérer le jour et l'heure de début à partir de la structure du tableau
+        QDate jour;
+        QTime heureDebut;
+
+        switch (column) {
+        case 0: jour = this->mondayDate; break;
+        case 1: jour = this->tuesdayDate; break;
+        case 2: jour = this->wednesdayDate; break;
+        case 3: jour = this->thursdayDate; break;
+        case 4: jour = this->fridayDate; break;
+        default: jour = QDate(); break;
+        }
+
+        switch (row) {
+        case 0: heureDebut = QTime(8, 0); break;
+        case 1: heureDebut = QTime(9, 0); break;
+        case 2: heureDebut = QTime(10, 0); break;
+        case 3: heureDebut = QTime(11, 0); break;
+        case 4: heureDebut = QTime(12, 0); break;
+        case 5: heureDebut = QTime(13, 0); break;
+        case 6: heureDebut = QTime(14, 0); break;
+        case 7: heureDebut = QTime(15, 0); break;
+        case 8: heureDebut = QTime(16, 0); break;
+        case 9: heureDebut = QTime(17, 0); break;
+        case 10: heureDebut = QTime(18, 0); break;
+        default: heureDebut = QTime(); break;
+        }
+
+        // Extraction des informations du créneau à partir du texte
+        QString textCreneau = item->text();
+        qDebug() << "Texte de l'élément sélectionné :" << creneauSelectionne.first()->text();
+
+        // Extraction des informations du créneau à partir du texte
+        QStringList infos = textCreneau.split("\n");
+        QString salleNum = infos[0].split(": ")[1];
+        QString classeNom = infos[1].split(": ")[1];
+        QString ecueNom = infos[2].split(": ")[1];
+        QString enseignantNomPrenom = infos[3].split(": ")[1];
+        QStringList nomPrenomList = enseignantNomPrenom.split(" ");
+        QString enseignantNom = nomPrenomList[0];
+        QString enseignantPrenom = nomPrenomList[1];
+
+        // Recherche des objets associés à ces informations
+        Salle salle = Controleur::findSalleByNumero(salleNum).value_or(Salle());
+        Classe classe = Controleur::findClasseByNomClasse(classeNom).value_or(Classe());
+        ECUE ecue = Controleur::findECUEByNom(ecueNom).value_or(ECUE());
+        Enseignant enseignant = Controleur::findEnseignantByNomPrenom(enseignantNom + " " + enseignantPrenom).value_or(Enseignant());
+
+        // Rechercher le créneau
+        std::optional<Creneau> creneau = Controleur::findCreneau(salle, classe, ecue, enseignant, jour, heureDebut);
+
+        if (creneau) {
+            Factory::suppCreaneau(creneau.value());
+            MainWindow::afficherCreneaux(this->refDate);
+        }
+    } else {
+        qDebug() << "Aucun créneau sélectionné.";
+    }
+}
+
+void MainWindow::onClasseSelectionChanged(int indice) {
+    Q_UNUSED(indice); // Utiliser Q_UNUSED si l'argument n'est pas utilisé dans le slot
+    this->afficherCreneaux(this->refDate);
 }
 

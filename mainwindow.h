@@ -19,6 +19,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QDebug>
+#include <QMessageBox>
 #include <ostream>
 
 #include "etudiantwindow.h"
@@ -78,10 +79,18 @@ private:
     QLabel* imageLabel;
     QVBoxLayout* layout_infos;
     QLabel* label_infos;
+    QHBoxLayout* layoutSelectionClasse;
+    QLabel* labelAffichage;
+    QComboBox* comboBoxClasses;
     QPushButton* bouton_semaine_precedente;
     QPushButton* bouton_semaine_suivante;
     QHBoxLayout* bouton_layout_semaine;
     QTableWidget* calendrier;
+    QDate mondayDate;
+    QDate tuesdayDate;
+    QDate wednesdayDate;
+    QDate thursdayDate;
+    QDate fridayDate;
     QDate refDate;
     QHBoxLayout* bouton_layout_creneau;
     QPushButton* bouton_ajouter_creneau;
@@ -124,6 +133,9 @@ private:
     void suppEtudiant();
     void suppClasse();
     void suppEcue();
+    void suppCreneau();
+
+    void onClasseSelectionChanged(int indice);
 
 
 };
