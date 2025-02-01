@@ -82,10 +82,6 @@ void MainWindow::init_composants(void)
     this->bouton_ajouter_etudiant = new QPushButton("Ajouter etudiant");
     this->bouton_supprimer_etudiant = new QPushButton("Supprimer edudiant");
 
-    // Ajouter une image
-    this->imageLabel = new QLabel();
-    this->imageLabel->setPixmap(QPixmap("image/eseo-logo.png"));
-
     // Layout pour les informations
     this->layout_infos = new QVBoxLayout();
     this->label_infos = new QLabel("Informations :");
@@ -210,15 +206,10 @@ void MainWindow::init_layout(void)
 
     qDebug() << "MainWindow::init_layout() - Ajout de l'image à droite";
 
-    // Ajouter l'image
-    this->rightLayout->addWidget(this->imageLabel);
-
     // Ajouter le layout pour les informations
     this->rightLayout->addLayout(this->layout_infos);
     this->layout_infos->addWidget(this->label_infos);
 
-    //Separateur
-    //this->rightLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     // Ajouter le layout et les widgets pour la selection d'affichage
     this->rightLayout->addLayout(this->layoutSelectionClasse);
@@ -326,10 +317,8 @@ void MainWindow::ajouterCreneau() {
         int ligneFin = -1;
         QStringList heures = {"08", "09", "10", "11", "12", "13", "14", "15",
                               "16", "17", "18"};
-        for (int i = 0; i < heures.size(); ++i) {
-            if (heures[i] == heureDebut) ligneDebut = i;
-            if (heures[i] == heureFin) ligneFin = i;
-        }
+        ligneDebut = heures.indexOf(heureDebut);
+        ligneFin = heures.indexOf(heureFin);
 
         // Vérifier que l'heure de début est avant l'heure de fin
         if (ligneDebut >= ligneFin) {
@@ -337,18 +326,34 @@ void MainWindow::ajouterCreneau() {
             return;
         }
 
-        // Vérification des conflits
-        bool conflit = false;
-        for (int ligne = ligneDebut; ligne <= ligneFin; ++ligne) {
-            if (this->calendrier->item(ligne, colonne) != nullptr) {
-                conflit = true;
-                break;
-            }
-        }
+        factory.listeCreneau.clear();
+        factory.loadCreneau();
+        for (const Creneau& creneau : Factory::listeCreneau) {
+            QDate creneauDate = creneau.getJour();
+            if (creneauDate == jourDate) {
+                int creneauColonne = creneauDate.dayOfWeek() - 1;
+                int creneauLigneDebut = heures.indexOf(creneau.getHeureDebut().toString("HH"));
+                int creneauLigneFin = heures.indexOf(creneau.getHeureFin().toString("HH"));
 
-        if (conflit) {
-            QMessageBox::warning(this, "Erreur", "Conflit détecté : un créneau existe déjà à cet horaire.");
-            return;
+                // Vérification des conflits de créneaux horaires
+                if ((ligneDebut < creneauLigneFin && ligneFin > creneauLigneDebut) && creneauColonne == colonne) {
+                    // Vérification de la disponibilité de l'enseignant
+                    if (creneau.getEnseignant().getId() == enseignantObj.getId()) {
+                        QMessageBox::warning(this, "Erreur", "L'enseignant " + enseignant + " a déjà un cours à cet horaire.");
+                        return;
+                    }
+                    // Vérification de la disponibilité de la classe
+                    if (creneau.getClasse().getId() == classeObj.getId()) {
+                        QMessageBox::warning(this, "Erreur", "La classe " + classe + " a déjà un cours à cet horaire.");
+                        return;
+                    }
+                    // Vérification de la disponibilité de la salle
+                    if (creneau.getSalle().getId() == salleObj.getId()) {
+                        QMessageBox::warning(this, "Erreur", "La salle " + salle + " est déjà occupée à cet horaire.");
+                        return;
+                    }
+                }
+            }
         }
 
         Creneau *creneau = new Creneau(salleObj, classeObj, ecueObj, enseignantObj, jourDate, heureDebutTime, heureFinTime);
