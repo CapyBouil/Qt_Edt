@@ -10,6 +10,9 @@
 #include <QMessageBox>
 #include <qiodevice.h>
 
+#include "factory.h"
+#include "etudiant.h"
+
 class EtudiantWindow : public QDialog
 {
     Q_OBJECT

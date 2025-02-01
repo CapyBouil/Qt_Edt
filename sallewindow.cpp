@@ -21,8 +21,8 @@ SalleWindow::SalleWindow(QWidget *parent) : QDialog(parent)
     numeroLineEdit->setValidator(validatorNumero);
 
     // Limiter la longueur des entrées
-    etageLineEdit->setInputMask("9");   // Un seul chiffre (0-9)
-    numeroLineEdit->setInputMask("99"); // Deux chiffres obligatoires (00-99)
+    //etageLineEdit->setInputMask("9");   // Un seul chiffre (0-9)
+    //numeroLineEdit->setInputMask("99"); // Deux chiffres obligatoires (00-99)
 
 
     formLayout->addRow("Numéro de l'étage :", etageLineEdit);
@@ -41,9 +41,29 @@ SalleWindow::SalleWindow(QWidget *parent) : QDialog(parent)
 }
 
 void SalleWindow::valider() {
-    if (etageLineEdit->text().isEmpty() || numeroLineEdit->text().isEmpty() ) {
-        QMessageBox::warning(this, "Erreur", "Le numéro d'étage et le numéro de la salle ne peuvent pas être vides.");
-    }else{accept();}
+    QString etageSalleStr = etageLineEdit->text();
+    QString numeroSalleStr = numeroLineEdit->text();
+
+    if (etageSalleStr.isEmpty() || numeroSalleStr.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
+    }else if(etageSalleStr.toInt()>9 || numeroSalleStr.toInt()>99){
+        QMessageBox::warning(this, "Erreur", "Étage ou Numéro supérieur à la valeur maximale !");
+    } else {
+        // Conversion des champs en entier
+        int etageSalle = etageSalleStr.toInt();
+        int numeroSalle = numeroSalleStr.toInt();
+
+        // CrÃ©ation de l'objet Salle
+        Salle salle(etageSalle, numeroSalle);
+
+        // Enregistrement dans le fichier CSV
+        Factory::saveSalle(salle); // Assurez-vous que cette mÃ©thode est bien dÃ©finie
+
+        Factory::listeSalle.clear();
+        Factory::loadSalle();
+
+        accept();
+    }
 }
 
 QString SalleWindow::getEtage() const {

@@ -24,9 +24,20 @@ ClasseWindow::ClasseWindow(QWidget *parent) : QDialog(parent)
 }
 
 void ClasseWindow::valider() {
-    if (nomClasseLineEdit->text().isEmpty()) {
-        QMessageBox::warning(this, "Erreur", "Le nom de la classe ne peut pas être vide.");
+    QString nomClasse = nomClasseLineEdit->text();
+
+    if (nomClasse.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
     } else {
+        // Creation de la classe
+        Classe classe(nomClasse.toStdString());
+
+        // Enregistrement dans le fichier CSV
+        Factory::saveClasse(classe);
+
+        Factory::listeClasse.clear();
+        Factory::loadClasse();
+
         accept();
     }
 }

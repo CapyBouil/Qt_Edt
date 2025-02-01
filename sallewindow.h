@@ -11,6 +11,9 @@
 #include <QValidator>
 #include <iostream>
 
+#include "factory.h"
+#include "salle.h"
+
 class SalleWindow : public QDialog
 {
     Q_OBJECT

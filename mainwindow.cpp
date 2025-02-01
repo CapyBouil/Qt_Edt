@@ -218,7 +218,7 @@ void MainWindow::init_layout(void)
     this->layout_infos->addWidget(this->label_infos);
 
     //Separateur
-    this->rightLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    //this->rightLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     // Ajouter le layout et les widgets pour la selection d'affichage
     this->rightLayout->addLayout(this->layoutSelectionClasse);
@@ -321,6 +321,36 @@ void MainWindow::ajouterCreneau() {
         QString heureFin = dialog.getHeureFin();
         QTime heureFinTime = QTime::fromString(heureFin, "HH");
 
+        int colonne = jourDate.dayOfWeek() - 1;
+        int ligneDebut = -1;
+        int ligneFin = -1;
+        QStringList heures = {"08", "09", "10", "11", "12", "13", "14", "15",
+                              "16", "17", "18"};
+        for (int i = 0; i < heures.size(); ++i) {
+            if (heures[i] == heureDebut) ligneDebut = i;
+            if (heures[i] == heureFin) ligneFin = i;
+        }
+
+        // Vérifier que l'heure de début est avant l'heure de fin
+        if (ligneDebut >= ligneFin) {
+            QMessageBox::warning(this, "Erreur", "L'heure de début doit être avant l'heure de fin.");
+            return;
+        }
+
+        // Vérification des conflits
+        bool conflit = false;
+        for (int ligne = ligneDebut; ligne <= ligneFin; ++ligne) {
+            if (this->calendrier->item(ligne, colonne) != nullptr) {
+                conflit = true;
+                break;
+            }
+        }
+
+        if (conflit) {
+            QMessageBox::warning(this, "Erreur", "Conflit détecté : un créneau existe déjà à cet horaire.");
+            return;
+        }
+
         Creneau *creneau = new Creneau(salleObj, classeObj, ecueObj, enseignantObj, jourDate, heureDebutTime, heureFinTime);
         factory.saveCreneau(*creneau);
         MainWindow::afficherCreneaux(this->refDate);
@@ -376,31 +406,6 @@ void MainWindow::afficherCreneaux(QDate refDate)
         for (int i = 0; i < heures.size(); ++i) {
             if (heures[i] == heureDebut.toString()) ligneDebut = i;
             if (heures[i] == heureFin.toString()) ligneFin = i;
-        }
-
-        if (ligneDebut == -1 || ligneFin == -1) {
-            QMessageBox::warning(this, "Erreur", "Heure invalide.");
-            return;
-        }
-
-        // Vérifier que l'heure de début est avant l'heure de fin
-        if (ligneDebut >= ligneFin) {
-            QMessageBox::warning(this, "Erreur", "L'heure de début doit être avant l'heure de fin.");
-            return;
-        }
-
-        // Vérification des conflits
-        bool conflit = false;
-        for (int ligne = ligneDebut; ligne <= ligneFin; ++ligne) {
-            if (this->calendrier->item(ligne, colonne) != nullptr) {
-                conflit = true;
-                break;
-            }
-        }
-
-        if (conflit) {
-            QMessageBox::warning(this, "Erreur", "Conflit détecté : un créneau existe déjà à cet horaire.");
-            return;
         }
 
         // Créer le texte du créneau
@@ -565,73 +570,12 @@ void MainWindow::apply_global_style() {
 
 void MainWindow::ajouterSalle() {
     // Créer une boite de dialogue
-    QDialog dialog(this);
-    dialog.setWindowTitle("Ajouter une salle");
-    dialog.setModal(true);
+    SalleWindow* dialog = new SalleWindow();
+    dialog->show();
 
-    // Layout principal
-    QVBoxLayout layout(&dialog);
-
-    // Formulaire pour les champs de saisie
-    QFormLayout formLayout;
-    QLineEdit etageLineEdit;
-    QLineEdit numeroLineEdit;
-
-    // Ajouter des validateurs pour les champs "Ã©tage" et "numÃ©ro"
-    QIntValidator* intValidator = new QIntValidator(0, 10000000, this); // Limite entre 0 et 1000 pour les entiers
-    etageLineEdit.setValidator(intValidator);
-    numeroLineEdit.setValidator(intValidator);
-
-    formLayout.addRow("Étage :", &etageLineEdit);
-    formLayout.addRow("Numero :", &numeroLineEdit);
-
-    layout.addLayout(&formLayout);
-
-    // Boutons Valider et Annuler
-    QHBoxLayout buttonLayout;
-    QPushButton validerButton("Valider", &dialog);
-    QPushButton annulerButton("Annuler", &dialog);
-
-    buttonLayout.addWidget(&validerButton);
-    buttonLayout.addWidget(&annulerButton);
-
-    layout.addLayout(&buttonLayout);
-
-    // Connexion des boutons
-    connect(&validerButton, &QPushButton::clicked, [&]() {
-        QString etageSalleStr = etageLineEdit.text();
-        QString numeroSalleStr = numeroLineEdit.text();
-
-        if (etageSalleStr.isEmpty() || numeroSalleStr.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
-        }else if(etageSalleStr.toInt()>9 || numeroSalleStr.toInt()>99){
-            QMessageBox::warning(this, "Erreur", "Étage ou Numéro supérieur à la valeur maximale !");
-        } else {
-            // Conversion des champs en entier
-            int etageSalle = etageSalleStr.toInt();
-            int numeroSalle = numeroSalleStr.toInt();
-
-            // CrÃ©ation de l'objet Salle
-            Salle salle(etageSalle, numeroSalle);
-
-            // Enregistrement dans le fichier CSV
-            Factory::saveSalle(salle); // Assurez-vous que cette mÃ©thode est bien dÃ©finie
-
-            Factory::listeSalle.clear();
-            Factory::loadSalle();
-
-            afficherSalles();
-
-            // Ajouter la salle Ã  la liste de l'interface utilisateur
-            //this->liste_salles->addItem("Salle : " + QString::number(etageSalle) + QString::number(numeroSalle) + " (Etage : " + QString::number(etageSalle) + ", Numero : " + QString::number(numeroSalle) + " )");
-            dialog.accept();
-        }
-    });
-
-    connect(&annulerButton, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    // Afficher la boÃ®te de dialogue
-    dialog.exec();
+    if(dialog->exec() == QDialog::Accepted) {
+        afficherSalles();
+    }
 }
 
 void MainWindow::afficherSalles()
@@ -661,63 +605,15 @@ void MainWindow::afficherSalles()
 
 // CLASSE : ajouter et afficher
 
-
 void MainWindow::ajouterClasse() {
     // Créer une boite de dialogue
-    QDialog dialog(this);
-    dialog.setWindowTitle("Ajouter une classe");
-    dialog.setModal(true);
+    ClasseWindow* dialog = new ClasseWindow();
+    dialog->show();
 
-    // Layout principal
-    QVBoxLayout layout(&dialog);
-
-    // Formulaire pour les champs de saisie
-    QFormLayout formLayout;
-    QLineEdit nomClasseLineEdit;
-
-    formLayout.addRow("Nom Classe :", &nomClasseLineEdit);
-
-    layout.addLayout(&formLayout);
-
-    // Boutons Valider et Annuler
-    QHBoxLayout buttonLayout;
-    QPushButton validerButton("Valider", &dialog);
-    QPushButton annulerButton("Annuler", &dialog);
-
-    buttonLayout.addWidget(&validerButton);
-    buttonLayout.addWidget(&annulerButton);
-
-    layout.addLayout(&buttonLayout);
-
-    // Connexion des boutons
-    connect(&validerButton, &QPushButton::clicked, [&]() {
-        QString nomClasse = nomClasseLineEdit.text();
-
-        if (nomClasse.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
-        } else {
-            // CrÃ©ation de la classe
-            Classe classe(nomClasse.toStdString());
-
-            // Enregistrement dans le fichier CSV
-            Factory::saveClasse(classe);
-
-            Factory::listeClasse.clear();
-            Factory::loadClasse();
-
-            afficherClasses();
-
-            // Ajouter la classe à la liste de l'interface utilisateur
-                       //this->liste_classes->addItem(nomClasse);
-            dialog.accept();
-        }
-    });
-    connect(&annulerButton, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    // Afficher la boÃ®te de dialogue
-    dialog.exec();
+    if(dialog->exec() == QDialog::Accepted) {
+        afficherClasses();
+    }
 }
-
 
 void MainWindow::afficherClasses()
 {
@@ -726,7 +622,7 @@ void MainWindow::afficherClasses()
     Factory factory;
     factory.loadClasse();
 
-    // VÃ©rifier que la liste statique n'est pas vide
+    // Verifier que la liste statique n'est pas vide
     if (Factory::listeClasse.empty()) {
         QMessageBox::warning(this, "Erreur", "Aucune classe trouvée dans le fichier !");
         return;
@@ -763,7 +659,7 @@ void MainWindow::afficherEcues()
     Factory factory;
     factory.loadEcue();
 
-    // VÃ©rifier que la liste statique n'est pas vide
+    // Verifier que la liste statique n'est pas vide
     if (Factory::listeEcue.empty()) {
         QMessageBox::warning(this, "Erreur", "Aucune ECUE trouvée dans le fichier !");
         return;
@@ -786,62 +682,12 @@ void MainWindow::afficherEcues()
 
 void MainWindow::ajouterEtudiant() {
     // Créer une boite de dialogue
-    QDialog dialog(this);
-    dialog.setWindowTitle("Ajouter un etudiant");
-    dialog.setModal(true);
+    EtudiantWindow* dialog = new EtudiantWindow();
+    dialog->show();
 
-    // Layout principal
-    QVBoxLayout layout(&dialog);
-
-    // Formulaire pour les champs de saisie
-    QFormLayout formLayout;
-    QLineEdit nomLineEdit;
-    QLineEdit prenomLineEdit;
-
-    formLayout.addRow("Prénom :", &prenomLineEdit);
-    formLayout.addRow("Nom :", &nomLineEdit);
-
-    layout.addLayout(&formLayout);
-
-    // Boutons Valider et Annuler
-    QHBoxLayout buttonLayout;
-    QPushButton validerButton("Valider", &dialog);
-    QPushButton annulerButton("Annuler", &dialog);
-
-    buttonLayout.addWidget(&validerButton);
-    buttonLayout.addWidget(&annulerButton);
-
-    layout.addLayout(&buttonLayout);
-
-    // Connexion des boutons
-    connect(&validerButton, &QPushButton::clicked, [&]() {
-        QString prenom = prenomLineEdit.text();
-        QString nom = nomLineEdit.text();
-
-        if (nom.isEmpty() || prenom.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
-        } else {
-            // Création de l'etudiant
-            Etudiant etudiant(prenom.toStdString(), nom.toStdString());
-
-            // Enregistrement dans le fichier CSV
-            //Factory f = Factory();
-            Factory::saveEtudiant(etudiant);
-
-            Factory::listeEtudiant.clear();
-            Factory::loadEtudiant();
-
-            afficherEtudiants();
-
-            // Ajouter l'etudiant à la liste de l'interface utilisateur
-                       //this->liste_etudiants->addItem(nom + " " + prenom);
-            dialog.accept();
-        }
-    });
-    connect(&annulerButton, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    // Afficher la boite de dialogue
-    dialog.exec();
+    if(dialog->exec() == QDialog::Accepted) {
+        afficherEtudiants();
+    }
 }
 
 void MainWindow::afficherEtudiants()
@@ -872,61 +718,12 @@ void MainWindow::afficherEtudiants()
 
 void MainWindow::ajouterEnseignant() {
     // Créer une boite de dialogue
-    QDialog dialog(this);
-    dialog.setWindowTitle("Ajouter un enseignant");
-    dialog.setModal(true);
+    EnseignantWindow* dialog = new EnseignantWindow();
+    dialog->show();
 
-    // Layout principal
-    QVBoxLayout layout(&dialog);
-
-    // Formulaire pour les champs de saisie
-    QFormLayout formLayout;
-    QLineEdit nomLineEdit;
-    QLineEdit prenomLineEdit;
-
-    formLayout.addRow("Prénom :", &prenomLineEdit);
-    formLayout.addRow("Nom :", &nomLineEdit);
-
-    layout.addLayout(&formLayout);
-
-    // Boutons Valider et Annuler
-    QHBoxLayout buttonLayout;
-    QPushButton validerButton("Valider", &dialog);
-    QPushButton annulerButton("Annuler", &dialog);
-
-    buttonLayout.addWidget(&validerButton);
-    buttonLayout.addWidget(&annulerButton);
-
-    layout.addLayout(&buttonLayout);
-
-    // Connexion des boutons
-    connect(&validerButton, &QPushButton::clicked, [&]() {
-        QString prenom = prenomLineEdit.text();
-        QString nom = nomLineEdit.text();
-
-        if (nom.isEmpty() || prenom.isEmpty()) {
-            QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
-        } else {
-            // Création de l'enseignant
-            Enseignant enseignant(prenom.toStdString(), nom.toStdString());
-
-            // Enregistrement dans le fichier CSV
-            Factory::saveEnseignant(enseignant);
-
-            Factory::listeEnseignant.clear();
-            Factory::loadEnseignant();
-
-            afficherEnseignants();
-
-            // Ajouter l'enseignant à la liste de l'interface utilisateur
-                       //this->liste_enseignants->addItem(nom + " " + prenom);
-            dialog.accept();
-        }
-    });
-    connect(&annulerButton, &QPushButton::clicked, &dialog, &QDialog::reject);
-
-    // Afficher la boite de dialogue
-    dialog.exec();
+    if(dialog->exec() == QDialog::Accepted) {
+        afficherEnseignants();
+    }
 }
 
 void MainWindow::afficherEnseignants()
@@ -977,6 +774,7 @@ void MainWindow::suppClasse(){
         Factory::loadClasse();
         liste_classes->clear();
         MainWindow::afficherClasses();
+        MainWindow::afficherCreneaux(this->refDate);
     }
 }
 void MainWindow::suppEtudiant(){
@@ -1001,6 +799,7 @@ void MainWindow::suppEnseignant(){
         Factory::loadEnseignant();
         liste_enseignants->clear();
         MainWindow::afficherEnseignants();
+        MainWindow::afficherCreneaux(this->refDate);
     }
 }
 void MainWindow::suppEcue(){
@@ -1014,6 +813,7 @@ void MainWindow::suppEcue(){
         Factory::loadEcue();
         liste_ecue->clear();
         MainWindow::afficherEcues();
+        MainWindow::afficherCreneaux(this->refDate);
     }
 }
 

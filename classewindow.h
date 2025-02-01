@@ -7,8 +7,10 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
-#include <QFormLayout> // Ajouté pour le layout du formulaire
+#include <QFormLayout>
 
+#include "factory.h"
+#include "classe.h"
 
 class ClasseWindow : public QDialog
 {

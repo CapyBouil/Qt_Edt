@@ -30,9 +30,22 @@ EtudiantWindow::EtudiantWindow(QWidget *parent) : QDialog(parent)
 
 
 void EtudiantWindow::valider() {
-    if (nomLineEdit->text().isEmpty() || prenomLineEdit->text().isEmpty()) {
+    QString prenom = prenomLineEdit->text();
+    QString nom = nomLineEdit->text();
+
+    if (nom.isEmpty() || prenom.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
     } else {
+        // Création de l'etudiant
+        Etudiant etudiant(prenom.toStdString(), nom.toStdString());
+
+        // Enregistrement dans le fichier CSV
+        //Factory f = Factory();
+        Factory::saveEtudiant(etudiant);
+
+        Factory::listeEtudiant.clear();
+        Factory::loadEtudiant();
+
         accept();
     }
 }

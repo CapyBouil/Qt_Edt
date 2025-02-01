@@ -28,14 +28,25 @@ EnseignantWindow::EnseignantWindow(QWidget *parent) : QDialog(parent)
     connect(validerButton, &QPushButton::clicked, this, &EnseignantWindow::valider);
     connect(annulerButton, &QPushButton::clicked, this, &QDialog::reject);
 
-
 }
 
 
 void EnseignantWindow::valider() {
-    if (nomLineEdit->text().isEmpty() || prenomLineEdit->text().isEmpty()){
+    QString prenom = prenomLineEdit->text();
+    QString nom = nomLineEdit->text();
+
+    if (nom.isEmpty() || prenom.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
     } else {
+        // Création de l'enseignant
+        Enseignant enseignant(prenom.toStdString(), nom.toStdString());
+
+        // Enregistrement dans le fichier CSV
+        Factory::saveEnseignant(enseignant);
+
+        Factory::listeEnseignant.clear();
+        Factory::loadEnseignant();
+
         accept();
     }
 }

@@ -13,6 +13,7 @@ CreneauWindow::CreneauWindow(QWidget *parent) : QDialog(parent)
     this->ecueComboBox = new QComboBox;
     this->enseignantComboBox = new QComboBox;
     this->jourQDateEdit = new QDateEdit(QDate::currentDate());
+    this->jourQDateEdit->setCalendarPopup(true);
     this->heureDebutQTimeEdit = new QTimeEdit();
     this->heureFinQTimeEdit = new QTimeEdit();
 

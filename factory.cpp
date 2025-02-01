@@ -334,7 +334,6 @@ void Factory::suppCreaneau(Creneau creneau){
     for (const QString& line : lines) {
         ts << "\n" << line;
     }
-
     file.close();
 }
 
@@ -549,4 +548,9 @@ void Factory::suppEnseignant(Enseignant enseignant){
         tsC << "\n" << line;
     }
     fileC.close();
+    for (auto it = listeCreneau.begin(); it != listeCreneau.end(); ++it) {
+        if (it->getEnseignant().getId() == enseignant.getId()){
+            Factory::suppCreaneau(*it);
+        }
+    }
 }
